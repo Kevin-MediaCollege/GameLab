@@ -13,10 +13,66 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{7054dad8-7bd9-4c06-bd14-d400b0c91e5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Core">
+      <UniqueIdentifier>{77f2638a-cf83-4672-8a2d-8e7c37494358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{d9dc15f3-f414-4e69-b424-584afd641e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Core">
+      <UniqueIdentifier>{6dd19c6f-d3b2-4ca0-b982-7a92a6eb850c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\External Dependencies">
+      <UniqueIdentifier>{5ba6b9c2-4354-4100-8282-13bf0ff29562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\External Dependencies">
+      <UniqueIdentifier>{7b6f4a37-d4ef-4404-a1a7-28164c20ba8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core_engine.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="math3d.cpp">
+      <Filter>Source Files\Engine\External Dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="time.cpp">
+      <Filter>Source Files\Engine\External Dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Source Files\Engine\External Dependencies</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core_engine.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="math3d.h">
+      <Filter>Header Files\Engine\External Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="time.h">
+      <Filter>Header Files\Engine\External Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Header Files\Engine\External Dependencies</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
