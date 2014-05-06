@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Engine\External Dependencies">
       <UniqueIdentifier>{7b6f4a37-d4ef-4404-a1a7-28164c20ba8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Renderer">
+      <UniqueIdentifier>{54641a28-1da0-445f-a365-87de08cd458e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Renderer">
+      <UniqueIdentifier>{88bd02af-0ae9-4a52-9361-264f665a8c95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -54,6 +60,18 @@
     <ClCompile Include="utils.cpp">
       <Filter>Source Files\Engine\External Dependencies</Filter>
     </ClCompile>
+    <ClCompile Include="window.cpp">
+      <Filter>Source Files\Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="rendering_engine.cpp">
+      <Filter>Source Files\Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="game_object.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="sdl_backend.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core_engine.h">
@@ -73,6 +91,21 @@
     </ClInclude>
     <ClInclude Include="utils.h">
       <Filter>Header Files\Engine\External Dependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="window.h">
+      <Filter>Header Files\Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="component.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="game_object.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering_engine.h">
+      <Filter>Header Files\Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="sdl_backend.h">
+      <Filter>Header Files\Engine\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

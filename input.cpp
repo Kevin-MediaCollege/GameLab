@@ -1,5 +1,5 @@
 #include "input.h"
-//#include "sdl_backend.h"
+#include "sdl_backend.h"
 
 #include <SDL2/SDL.h>
 
@@ -32,7 +32,7 @@ void Input::Update() {
 
 	while(SDL_PollEvent(&e)) {
 		if(e.type == SDL_QUIT)
-			//TODO: SDLSetIsCloseRequested(true);
+			SDLBackend::Window_RequestClose();
 
 		if(e.type == SDL_MOUSEMOTION) {
 			mouseX = e.motion.x;
