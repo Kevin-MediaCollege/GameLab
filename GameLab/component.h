@@ -1,5 +1,6 @@
 #pragma once
 
+#include "transform.h"
 #include "game_object.h"
 
 class RenderingEngine;
@@ -17,8 +18,9 @@ public:
 	inline void SetParent(GameObject* parent) { m_parent = parent; }
 
 	inline GameObject* GetParent() { return m_parent; }
-	// TODO: Get parent's transform
-	// TODO: Get parent's transform (const)
+
+	inline Transform& GetTransform() { return m_parent -> GetTransform(); }
+	inline const Transform& GetTransform() const { return m_parent -> GetTransform(); }
 protected:
 private:
 	GameObject* m_parent;

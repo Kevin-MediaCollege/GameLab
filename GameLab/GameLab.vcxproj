@@ -23,6 +23,7 @@
     <ClInclude Include="test_component.h" />
     <ClInclude Include="test_game.h" />
     <ClInclude Include="time.h" />
+    <ClInclude Include="transform.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
@@ -39,6 +40,7 @@
     <ClCompile Include="test_game.cpp" />
     <ClCompile Include="test_component.cpp" />
     <ClCompile Include="time.cpp" />
+    <ClCompile Include="transform.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>

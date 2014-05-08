@@ -14,7 +14,7 @@ GameObject::~GameObject() {
 GameObject* GameObject::AddChild(GameObject* child) {
 	m_children.push_back(child); 
 	
-	// TODO: Set the transform of the child
+	child -> GetTransform().SetParent(&m_transform);
 	child -> SetCoreEngine(m_coreEngine);
 
 	return this;
@@ -50,7 +50,7 @@ void GameObject::RenderAll(RenderingEngine* renderingEngine) {
 }
 
 void GameObject::Input(float delta) {
-	// TODO: Update transform
+	m_transform.Update();
 
 	for(unsigned int i = 0; i < m_components.size(); i++)
 		m_components[i] -> Input(delta);
@@ -66,15 +66,15 @@ void GameObject::Render(RenderingEngine* renderingEngine) {
 		m_components[i] -> Render(renderingEngine);
 }
 
-void GameObject::SetCoreEngine(CoreEngine* engine) {
-	if(m_coreEngine != engine) {
-		m_coreEngine = engine;
+void GameObject::SetCoreEngine(CoreEngine* coreEngine) {
+	if(m_coreEngine != coreEngine) {
+		m_coreEngine = coreEngine;
 		
 		for(unsigned int i = 0; i < m_components.size(); i++)
-			m_components[i] -> AddToCoreEngine(engine);
+			m_components[i] -> AddToCoreEngine(coreEngine);
 
 		for(unsigned int i = 0; i < m_children.size(); i++)
-			m_children[i] -> SetCoreEngine(engine);
+			m_children[i] -> SetCoreEngine(coreEngine);
 	}
 }
 

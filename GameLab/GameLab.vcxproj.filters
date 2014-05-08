@@ -105,6 +105,9 @@
     <ClInclude Include="test_component.h">
       <Filter>Header Files\Game\Engine Test</Filter>
     </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>Header Files\Engine\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_engine.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="test_game.cpp">
       <Filter>Source Files\Game\Engine Test</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>Source Files\Engine\Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
