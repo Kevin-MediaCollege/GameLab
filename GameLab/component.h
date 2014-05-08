@@ -17,6 +17,8 @@ public:
 	inline void SetParent(GameObject* parent) { m_parent = parent; }
 
 	inline GameObject* GetParent() { return m_parent; }
+	// TODO: Get parent's transform
+	// TODO: Get parent's transform (const)
 protected:
 private:
 	GameObject* m_parent;

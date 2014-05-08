@@ -1,8 +1,6 @@
 #include "game_object.h"
 #include "component.h"
 
-#include <iostream>
-
 GameObject::~GameObject() {
 	for(unsigned int i = 0; i < m_components.size(); i++)
 		if(m_components[i])
@@ -15,7 +13,8 @@ GameObject::~GameObject() {
 
 GameObject* GameObject::AddChild(GameObject* child) {
 	m_children.push_back(child); 
-
+	
+	// TODO: Set the transform of the child
 	child -> SetCoreEngine(m_coreEngine);
 
 	return this;
@@ -24,10 +23,8 @@ GameObject* GameObject::AddChild(GameObject* child) {
 GameObject* GameObject::AddComponent(Component* component) {
 	m_components.push_back(component);
 
-	std::cout << m_components.size() << std::endl;
-
 	component -> SetParent(this);
-
+	
 	return this;
 }
 
@@ -53,14 +50,15 @@ void GameObject::RenderAll(RenderingEngine* renderingEngine) {
 }
 
 void GameObject::Input(float delta) {
+	// TODO: Update transform
+
 	for(unsigned int i = 0; i < m_components.size(); i++)
 		m_components[i] -> Input(delta);
 }
 
 void GameObject::Update(float delta) {
 	for(unsigned int i = 0; i < m_components.size(); i++)
-		if(m_components[i])
-			m_components[i] -> Update(delta);
+		m_components[i] -> Update(delta);
 }
 
 void GameObject::Render(RenderingEngine* renderingEngine) {

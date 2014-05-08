@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{ce41d831-64b3-4a6b-9158-0d3d59d89495}</UniqueIdentifier>
     </Filter>
@@ -52,6 +48,19 @@
     <Filter Include="Header Files\Engine\Utils">
       <UniqueIdentifier>{de0039df-b008-41b0-8906-d8c144a53e76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{f579bc2c-5ab5-443f-991d-195722cc5973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Engine Test">
+      <UniqueIdentifier>{f3d3d7cc-138b-4a2e-878f-d7d78a6a4a78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Engine Test">
+      <UniqueIdentifier>{6ece8d5a-1876-43b9-96d9-8d48bbd23e02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils.h">
@@ -87,6 +96,15 @@
     <ClInclude Include="component.h">
       <Filter>Header Files\Engine\Object</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files\Engine\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="test_game.h">
+      <Filter>Header Files\Game\Engine Test</Filter>
+    </ClInclude>
+    <ClInclude Include="test_component.h">
+      <Filter>Header Files\Game\Engine Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_engine.cpp">
@@ -119,8 +137,17 @@
     <ClCompile Include="sdl_backend.cpp">
       <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
+    <ClCompile Include="stb_image.c">
+      <Filter>Source Files\Engine\Utils</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files\Game</Filter>
+      <Filter>Source Files\Game\Engine Test</Filter>
+    </ClCompile>
+    <ClCompile Include="test_component.cpp">
+      <Filter>Source Files\Game\Engine Test</Filter>
+    </ClCompile>
+    <ClCompile Include="test_game.cpp">
+      <Filter>Source Files\Game\Engine Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

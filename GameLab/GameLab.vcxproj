@@ -19,6 +19,9 @@
     <ClInclude Include="math3d.h" />
     <ClInclude Include="rendering_engine.h" />
     <ClInclude Include="sdl_backend.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="test_component.h" />
+    <ClInclude Include="test_game.h" />
     <ClInclude Include="time.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="window.h" />
@@ -32,6 +35,9 @@
     <ClCompile Include="math3d.cpp" />
     <ClCompile Include="rendering_engine.cpp" />
     <ClCompile Include="sdl_backend.cpp" />
+    <ClCompile Include="stb_image.c" />
+    <ClCompile Include="test_game.cpp" />
+    <ClCompile Include="test_component.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="window.cpp" />

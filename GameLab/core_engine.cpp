@@ -7,10 +7,10 @@
 
 #include <iostream>
 
-CoreEngine::CoreEngine(Game* game) {
-	m_game = game;
+bool CoreEngine::s_isDebug = false;
 
-	m_isRunning = false;
+CoreEngine::CoreEngine(Game* game, bool debug) : m_game(game), m_isRunning(false) {
+	s_isDebug = debug;
 
 	m_game -> SetCoreEngine(this);
 }
@@ -65,7 +65,9 @@ void CoreEngine::Loop() {
 		frameCounter += passedTime;
 
 		if(frameCounter >= 1.0) {
-			std::cout << "FPS: " << frames << std::endl;
+			if(s_isDebug)
+				std::cout << "FPS: " << frames << std::endl;
+
 			frames = 0;
 			frameCounter = 0;
 		}

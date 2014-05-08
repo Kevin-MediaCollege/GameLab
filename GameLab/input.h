@@ -273,43 +273,20 @@ public:
 		KEY_APP2 = 284,
 	};
 
-	/** Update the input manager */
 	static void Update();
 
-	/** @return Whether or not the specified key is being pressed
-	 * @param keyCode The key code of the key */
-	static bool GetKey(int keyCode);
-
-	/** @return True when the key was first pressed
-	 * @param keyCode The key code of the key */
-	static bool GetKeyDown(int keyCode);
-
-	/** @return True when the key was first released
-	 * @param keyCode The key code of the key */
-	static bool GetKeyUp(int keyCode);
-
-	/** @return Whether or not the specified mouse button is being held down
-	 * @param button The mouse button */
-	static bool GetMouse(int button);
-
-	/** @return True when the mouse button was first pressed
-	 * @param button The mouse button */
-	static bool GetMouseDown(int button);
-
-	/** @return True when the mouse button was first released
-	 * @param button The mouse button */
-	static bool GetMouseUp(int button);
-
-	/** @return The position of the mouse cursor */
-	static Vector2f GetMousePosition();
-
-	/** Set whether or not the cursor should be grabbed
-	 * @param grabbed Whether or not the cursror should be grabbed */
+	static void SetMousePosition(Vector2f position);
 	static void SetCursor(bool grabbed);
 
-	/** Set the position of the mouse cursor
-	 * @param position The new position of the mouse cursor */
-	static void SetMousePosition(Vector2f position);
+	static bool GetKey(int keyCode);
+	static bool GetKeyDown(int keyCode);
+	static bool GetKeyUp(int keyCode);
+
+	static bool GetMouse(int button);
+	static bool GetMouseDown(int button);
+	static bool GetMouseUp(int button);
+
+	static Vector2f GetMousePosition();
 protected:
 private:
 };
