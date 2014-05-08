@@ -10,8 +10,42 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="component.h" />
+    <ClInclude Include="core_engine.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="game_object.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="math3d.h" />
+    <ClInclude Include="rendering_engine.h" />
+    <ClInclude Include="sdl_backend.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="test_component.h" />
+    <ClInclude Include="test_game.h" />
+    <ClInclude Include="time.h" />
+    <ClInclude Include="transform.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="core_engine.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="game_object.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="math3d.cpp" />
+    <ClCompile Include="rendering_engine.cpp" />
+    <ClCompile Include="sdl_backend.cpp" />
+    <ClCompile Include="stb_image.c" />
+    <ClCompile Include="test_game.cpp" />
+    <ClCompile Include="test_component.cpp" />
+    <ClCompile Include="time.cpp" />
+    <ClCompile Include="transform.cpp" />
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="window.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B20A72AF-A6CC-4D54-8D9C-1D6116CB8992}</ProjectGuid>
+    <ProjectGuid>{64877B42-71F2-48EE-9E88-2D9E6A60640E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GameLab</RootNamespace>
   </PropertyGroup>
@@ -41,8 +75,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Visual Studio\Projecten\GameLab\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Visual Studio\Projecten\GameLab\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -54,12 +86,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Visual Studio\Projecten\GameLab\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;glew32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;glew32s.lib;Leap.lib;Leapd.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -82,32 +115,6 @@
       <AdditionalDependencies>glew32.lib;glew32s.lib;Leap.lib;Leapd.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="core_engine.cpp" />
-    <ClCompile Include="game.cpp" />
-    <ClCompile Include="game_object.cpp" />
-    <ClCompile Include="input.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="math3d.cpp" />
-    <ClCompile Include="rendering_engine.cpp" />
-    <ClCompile Include="sdl_backend.cpp" />
-    <ClCompile Include="time.cpp" />
-    <ClCompile Include="utils.cpp" />
-    <ClCompile Include="window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="component.h" />
-    <ClInclude Include="core_engine.h" />
-    <ClInclude Include="game.h" />
-    <ClInclude Include="game_object.h" />
-    <ClInclude Include="input.h" />
-    <ClInclude Include="math3d.h" />
-    <ClInclude Include="rendering_engine.h" />
-    <ClInclude Include="sdl_backend.h" />
-    <ClInclude Include="time.h" />
-    <ClInclude Include="utils.h" />
-    <ClInclude Include="window.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

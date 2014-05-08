@@ -11,11 +11,11 @@ static SDL_Event e;
 static int mouseX = 0;
 static int mouseY = 0;
 
-static bool inputs[NUM_KEYS];
+static bool lastKeys[NUM_KEYS];
 static bool downKeys[NUM_KEYS];
 static bool upKeys[NUM_KEYS];
 
-static bool mouseInput[NUM_MOUSEBUTTONS];
+static bool lastMouse[NUM_MOUSEBUTTONS];
 static bool downMouse[NUM_MOUSEBUTTONS];
 static bool upMouse[NUM_MOUSEBUTTONS];
 
@@ -41,40 +41,52 @@ void Input::Update() {
 
 		if(e.type == SDL_KEYDOWN) {
 			int value = e.key.keysym.scancode;
-
-			inputs[value] = true;
-			downKeys[value] = true;
+			
+			if(!lastKeys[value]) {
+				lastKeys[value] = true;
+				downKeys[value] = true;
+			}
 		}
 
 		if(e.type == SDL_KEYUP)	{
 			int value = e.key.keysym.scancode;
 
-			inputs[value] = false;
+			lastKeys[value] = false;
 			upKeys[value] = true;
 		}
 
 		if(e.type == SDL_MOUSEBUTTONDOWN) {
 			int value = e.button.button;
 
-			mouseInput[value] = true;
-			downMouse[value] = true;
+			if(!lastMouse[value]) {
+				lastMouse[value] = true;
+				downMouse[value] = true;
+			}
 		}
 
-		if(e.type == SDL_MOUSEBUTTONUP) {
+		if(e.type == SDL_MOUSEBUTTONUP)	{
 			int value = e.button.button;
 
-			mouseInput[value] = false;
+			lastMouse[value] = false;
 			upMouse[value] = true;
 		}
 	}
 }
 
+void Input::SetMousePosition(Vector2f pos) {
+	SDLBackend::Window_SetMousePosition((int)pos.GetX(), (int)pos.GetY());
+}
+
+void Input::SetCursor(bool visible) {
+	SDL_ShowCursor(visible ? 1 : 0);
+}
+
 bool Input::GetKey(int keyCode) {
-	return inputs[keyCode];
+	return lastKeys[keyCode];
 }
 
 bool Input::GetKeyDown(int keyCode) {
-	return downKeys[keyCode];
+	return GetKey(keyCode) && downKeys[keyCode];
 }
 
 bool Input::GetKeyUp(int keyCode) {
@@ -82,25 +94,19 @@ bool Input::GetKeyUp(int keyCode) {
 }
 
 bool Input::GetMouse(int button) {
-	return mouseInput[button];
+	return lastMouse[button];
 }
 
 bool Input::GetMouseDown(int button) {
-	return downMouse[button];
+	return GetMouse(button) && downMouse[button];
 }
 
 bool Input::GetMouseUp(int button) {
 	return upMouse[button];
 }
 
-/*Vector2f Input::GetMousePosition() {
-	return Vector2f((float)mouseX, (float)mouseY);
-}*/
+Vector2f Input::GetMousePosition() {
+	Vector2f res((float)mouseX, (float)mouseY);
 
-void Input::SetCursor(bool grabbed) {
-	SDL_ShowCursor(grabbed ? 1 : 0);
+	return res;
 }
-
-/*void Input::SetMousePosition(Vector2f position) {
-	SDLSetMousePosition((int)position.GetX(), (int)position.GetY());
-}*/
