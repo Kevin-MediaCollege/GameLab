@@ -6,7 +6,7 @@ class RenderingEngine;
 
 class Component {
 public:
-	virtual ~Component();
+	virtual ~Component() {}
 
 	virtual void Input(float delta) {}
 	virtual void Update(float delta) {}
@@ -14,11 +14,10 @@ public:
 
 	virtual void AddToCoreEngine(CoreEngine* coreEngine) {}
 
-	inline void SetParent(GameObject* parent) {
-		m_parent = parent;
-	}
+	inline void SetParent(GameObject* parent) { m_parent = parent; }
+
+	inline GameObject* GetParent() { return m_parent; }
 protected:
 private:
 	GameObject* m_parent;
 };
-

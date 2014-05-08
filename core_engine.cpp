@@ -5,6 +5,7 @@
 #include "utils.h"
 #include "game.h"
 
+#include <iostream>
 
 CoreEngine::CoreEngine(Game* game) {
 	m_game = game;
@@ -64,7 +65,7 @@ void CoreEngine::Loop() {
 		frameCounter += passedTime;
 
 		if(frameCounter >= 1.0) {
-			printf("%i\n", frames);
+			std::cout << "FPS: " << frames << std::endl;
 			frames = 0;
 			frameCounter = 0;
 		}

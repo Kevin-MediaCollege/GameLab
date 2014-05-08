@@ -13,11 +13,6 @@
 #define ARRAY_SIZE_IN_ELEMENTS(a) (sizeof(a) / sizeof(a[0]))
 #define INVALID_VALUE 0xFFFFFFFF
 
-#include <vector>
-#include <string>
-
 namespace Utils {
-	/** Pause the main thread for the specified milliseconds
-	 * @param milliseconds The milliseconds to sleep */
 	void Sleep(int milliseconds);
 };

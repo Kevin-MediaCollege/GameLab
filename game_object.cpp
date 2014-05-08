@@ -1,6 +1,7 @@
 #include "game_object.h"
 #include "component.h"
-#include "core_engine.h"
+
+#include <iostream>
 
 GameObject::~GameObject() {
 	for(unsigned int i = 0; i < m_components.size(); i++)
@@ -23,6 +24,8 @@ GameObject* GameObject::AddChild(GameObject* child) {
 GameObject* GameObject::AddComponent(Component* component) {
 	m_components.push_back(component);
 
+	std::cout << m_components.size() << std::endl;
+
 	component -> SetParent(this);
 
 	return this;
@@ -32,14 +35,14 @@ void GameObject::InputAll(float delta) {
 	Input(delta);
 
 	for(unsigned int i = 0; i < m_children.size(); i++)
-		m_children[i]->InputAll(delta);
+		m_children[i] -> InputAll(delta);
 }
 
 void GameObject::UpdateAll(float delta) {
 	Update(delta);
 
 	for(unsigned int i = 0; i < m_children.size(); i++)
-		m_children[i]->UpdateAll(delta);
+		m_children[i] -> UpdateAll(delta);
 }
 
 void GameObject::RenderAll(RenderingEngine* renderingEngine) {
@@ -51,12 +54,13 @@ void GameObject::RenderAll(RenderingEngine* renderingEngine) {
 
 void GameObject::Input(float delta) {
 	for(unsigned int i = 0; i < m_components.size(); i++)
-		m_components[i]->Input(delta);
+		m_components[i] -> Input(delta);
 }
 
 void GameObject::Update(float delta) {
 	for(unsigned int i = 0; i < m_components.size(); i++)
-		m_components[i]->Update(delta);
+		if(m_components[i])
+			m_components[i] -> Update(delta);
 }
 
 void GameObject::Render(RenderingEngine* renderingEngine) {
@@ -72,7 +76,7 @@ void GameObject::SetCoreEngine(CoreEngine* engine) {
 			m_components[i] -> AddToCoreEngine(engine);
 
 		for(unsigned int i = 0; i < m_children.size(); i++)
-			m_children[i]->SetCoreEngine(engine);
+			m_children[i] -> SetCoreEngine(engine);
 	}
 }
 

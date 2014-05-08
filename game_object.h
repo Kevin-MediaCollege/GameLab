@@ -18,9 +18,9 @@ public:
 	void UpdateAll(float delta);
 	void RenderAll(RenderingEngine* renderingEngine);
 	
-	std::vector<GameObject*> GetAllAttached();
-
 	void SetCoreEngine(CoreEngine* coreEngine);
+
+	std::vector<GameObject*> GetAllAttached();
 protected:
 private:
 	void Input(float delta);
