@@ -9,6 +9,7 @@ class Component {
 public:
 	virtual ~Component() {}
 
+	virtual void Init() {}
 	virtual void Input(float delta) {}
 	virtual void Update(float delta) {}
 	virtual void Render(RenderingEngine* renderingEngine) {}

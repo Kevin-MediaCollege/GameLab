@@ -108,6 +108,18 @@
     <ClInclude Include="transform.h">
       <Filter>Header Files\Engine\Object</Filter>
     </ClInclude>
+    <ClInclude Include="vertex.h">
+      <Filter>Header Files\Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh_renderer.h">
+      <Filter>Header Files\Engine\Object\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files\Engine\Object\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files\Engine\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_engine.cpp">
@@ -154,6 +166,12 @@
     </ClCompile>
     <ClCompile Include="transform.cpp">
       <Filter>Source Files\Engine\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files\Engine\Object\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Source Files\Engine\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
