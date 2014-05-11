@@ -16,8 +16,8 @@ public:
 	inline Camera& GetMainCamera() { return *m_mainCamera; }
 protected:
 private:
+	Camera* m_mainCamera;
+
 	RenderingEngine(const RenderingEngine& other) {}
 	void operator=(const RenderingEngine& other) {}
-
-	Camera* m_mainCamera;
 };

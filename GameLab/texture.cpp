@@ -13,12 +13,16 @@ Texture::Texture(const std::string& fileName, GLenum textureType, GLfloat filter
 		std::cerr << "Unable to load texture: " << fileName << std::endl;
 
 	glGenTextures(1, &m_textureId);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(textureType, m_textureId);
+
+	glTexParameteri(textureType, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(textureType, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	glTexParameterf(textureType, GL_TEXTURE_MIN_FILTER, filter);
 	glTexParameterf(textureType, GL_TEXTURE_MAG_FILTER, filter);
 
-	glTexImage2D(textureType, 0, GL_RGBA, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(textureType, 0, GL_RGBA8, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 	stbi_image_free(data);
 

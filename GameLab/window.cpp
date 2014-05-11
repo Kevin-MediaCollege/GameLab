@@ -13,6 +13,12 @@ bool Window::s_fullscreen = false;
 bool Window::s_created = false;
 
 void Window::Create(int width, int height, const std::string& title, bool fullscreen, int x, int y) {
+	s_width = width;
+	s_height = height;
+	s_title = title;
+	s_fullscreen = fullscreen;
+	s_created = true;
+	
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);

@@ -1,27 +1,26 @@
 #include "test_game.h"
 #include "test_component.h"
-#include "mesh_renderer.h"
+#include "immediate_renderer.h"
 #include "texture.h"
+#include "math3d.h"
+#include "window.h"
+
+#include <iostream>
+#include <time.h>
 
 void TestGame::Init() {
-	Vertex vertices[] = {
-		Vertex(Vector3f(-1, -1, 0), Vector2f(0, 0)),
-		Vertex(Vector3f(-1,  1, 0), Vector2f(0, 1)),
-		Vertex(Vector3f( 1,  1, 0), Vector2f(1, 1)),
-		Vertex(Vector3f( 1, -1, 0), Vector2f(1, 0)),
-	};
+	Texture* textures[4] = { new Texture("beach.png"), new Texture("dirt.png"), new Texture("grass.png"), new Texture("water.png") };
 
-	int indices[] = {
-		0, 1, 3,
-		3, 1, 2
-	};
+	for(int z = 0; z < 56; z++) {
+		for(int x = -27; x < 29; x++) {
+			GameObject* go = new GameObject();
 
-	Texture texture("swag.png");
+			Texture* texture = textures[rand() % 4];
 
-	GameObject* testGameObject = new GameObject();
+			go -> AddComponent(new ImmediateRenderer(new Texture("beach.png"), new Vector2f(32, 32), new Vector3f(1, 1, 1)));
+			go -> GetTransform().SetPosition(Vector3f(x * 32, 0, z * 32));
 
-	testGameObject -> AddComponent(new TestComponent());
-	testGameObject -> AddComponent(new MeshRenderer()); 
-
-	AddChild(testGameObject);
+			AddChild(go);
+		}
+	}
 }

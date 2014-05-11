@@ -16,6 +16,7 @@
     <ClInclude Include="core_engine.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="game_object.h" />
+    <ClInclude Include="immediate_renderer.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="math3d.h" />
     <ClInclude Include="mesh_renderer.h" />
