@@ -108,6 +108,9 @@
     <ClInclude Include="transform.h">
       <Filter>Header Files\Engine\Object</Filter>
     </ClInclude>
+    <ClInclude Include="leap_input.h">
+      <Filter>Header Files\Engine\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_engine.cpp">
@@ -154,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="transform.cpp">
       <Filter>Source Files\Engine\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="leap_input.cpp">
+      <Filter>Source Files\Engine\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
