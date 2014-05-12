@@ -57,10 +57,6 @@
     <Filter Include="Source Files\Game\Engine Test">
       <UniqueIdentifier>{6ece8d5a-1876-43b9-96d9-8d48bbd23e02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils.h">
@@ -108,10 +104,6 @@
     <ClInclude Include="transform.h">
       <Filter>Header Files\Engine\Object</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="leap_input.h">
-      <Filter>Header Files\Engine\Core</Filter>
-=======
     <ClInclude Include="vertex.h">
       <Filter>Header Files\Engine\Renderer</Filter>
     </ClInclude>
@@ -123,7 +115,9 @@
     </ClInclude>
     <ClInclude Include="texture.h">
       <Filter>Header Files\Engine\Renderer</Filter>
->>>>>>> cee928eac242cb36fbbc4514ad4518a980bce7f4
+    </ClInclude>
+    <ClInclude Include="immediate_renderer.h">
+      <Filter>Header Files\Engine\Object\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -172,16 +166,11 @@
     <ClCompile Include="transform.cpp">
       <Filter>Source Files\Engine\Object</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="leap_input.cpp">
-      <Filter>Source Files\Engine\Core</Filter>
-=======
-    <ClCompile Include="camera.cpp">
-      <Filter>Source Files\Engine\Object\Components</Filter>
-    </ClCompile>
     <ClCompile Include="texture.cpp">
       <Filter>Source Files\Engine\Renderer</Filter>
->>>>>>> cee928eac242cb36fbbc4514ad4518a980bce7f4
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files\Engine\Object\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
