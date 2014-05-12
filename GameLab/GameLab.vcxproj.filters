@@ -108,8 +108,22 @@
     <ClInclude Include="transform.h">
       <Filter>Header Files\Engine\Object</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="leap_input.h">
       <Filter>Header Files\Engine\Core</Filter>
+=======
+    <ClInclude Include="vertex.h">
+      <Filter>Header Files\Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh_renderer.h">
+      <Filter>Header Files\Engine\Object\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files\Engine\Object\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files\Engine\Renderer</Filter>
+>>>>>>> cee928eac242cb36fbbc4514ad4518a980bce7f4
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,8 +172,16 @@
     <ClCompile Include="transform.cpp">
       <Filter>Source Files\Engine\Object</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="leap_input.cpp">
       <Filter>Source Files\Engine\Core</Filter>
+=======
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files\Engine\Object\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Source Files\Engine\Renderer</Filter>
+>>>>>>> cee928eac242cb36fbbc4514ad4518a980bce7f4
     </ClCompile>
   </ItemGroup>
 </Project>

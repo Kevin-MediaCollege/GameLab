@@ -1,5 +1,7 @@
 #pragma once
 
+#include "camera.h"
+
 class GameObject;
 
 class RenderingEngine {
@@ -9,10 +11,13 @@ public:
 
 	void Render(GameObject* gameObject);
 
-	// TODO: Set main camera
-	// TODO: Get main camera
+	inline void SetMainCamera(Camera* camera) { m_mainCamera = camera; }
+
+	inline Camera& GetMainCamera() { return *m_mainCamera; }
 protected:
 private:
 	RenderingEngine(const RenderingEngine& other) {}
 	void operator=(const RenderingEngine& other) {}
+
+	Camera* m_mainCamera;
 };

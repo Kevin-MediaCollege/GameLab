@@ -24,6 +24,7 @@ GameObject* GameObject::AddComponent(Component* component) {
 	m_components.push_back(component);
 
 	component -> SetParent(this);
+	component -> Init();
 	
 	return this;
 }
