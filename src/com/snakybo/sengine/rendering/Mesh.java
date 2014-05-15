@@ -16,8 +16,6 @@ import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.lwjgl.opengl.GL15;
-
 import com.snakybo.sengine.core.utils.Buffer;
 import com.snakybo.sengine.core.utils.Utils;
 import com.snakybo.sengine.core.utils.Vector3f;
@@ -112,7 +110,7 @@ public class Mesh {
 		resource = new MeshResource(indices.length);
 		
 		glBindBuffer(GL_ARRAY_BUFFER, resource.getVbo());
-		GL15.glBufferData(GL_ARRAY_BUFFER, Buffer.createFlippedBuffer(vertices), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, Buffer.createFlippedBuffer(vertices), GL_STATIC_DRAW);
 		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, resource.getIbo());
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, Buffer.createFlippedBuffer(indices), GL_STATIC_DRAW);
