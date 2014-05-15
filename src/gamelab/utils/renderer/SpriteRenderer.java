@@ -19,11 +19,11 @@ public class SpriteRenderer extends Component {
 	private int activeSprite;
 	
 	public SpriteRenderer(SpriteSheet spriteSheet, int activeSprite) {
-		this.activeSprite = activeSprite;
+		final int spriteSheetSize = (int)(spriteSheet.getSize().getX() * spriteSheet.getSize().getY());
 		
-		meshes = new Mesh[(int)Math.floor(spriteSheet.getSize().getX() * spriteSheet.getSize().getY())];
+		meshes = new Mesh[spriteSheetSize];
+		
 		material = new Material();
-		
 		material.addTexture("diffuse", spriteSheet.getTexture());		
 		
 		final int indices[] = {
@@ -31,7 +31,7 @@ public class SpriteRenderer extends Component {
 			2, 1, 3
 		};
 		
-		for(int i = 0; i < meshes.length; i++) {
+		for(int i = 0; i < spriteSheetSize; i++) {
 			int x = i;
 			int y = 0;
 			
@@ -45,17 +45,17 @@ public class SpriteRenderer extends Component {
 			float width = 1.0f / spriteSheet.getSize().getX();
 			float height = 1.0f / spriteSheet.getSize().getY();
 			
-			System.out.println(posY + " " + height);
-			
 			Vertex[] vertices = new Vertex[] {
 				new Vertex(new Vector3f(-0.5f, 0, -0.5f), new Vector2f(posX,			posY)),
-				new Vertex(new Vector3f(-0.5f, 0,  0.5f), new Vector2f(posX, 			posY - height)),
+				new Vertex(new Vector3f(-0.5f, 0,  0.5f), new Vector2f(posX, 			posY + height)),
 				new Vertex(new Vector3f( 0.5f, 0, -0.5f), new Vector2f(posX + width, 	posY)),
-				new Vertex(new Vector3f( 0.5f, 0,  0.5f), new Vector2f(posX + width, 	posY - height))
+				new Vertex(new Vector3f( 0.5f, 0,  0.5f), new Vector2f(posX + width, 	posY + height))
 			};
 			
 			meshes[i] = new Mesh(vertices, indices, true);
 		}
+		
+		this.activeSprite = activeSprite;
 	}
 	
 	@Override
@@ -63,7 +63,7 @@ public class SpriteRenderer extends Component {
 		shader.bind();
 		shader.updateUniforms(getTransform(), material, renderingEngine);
 		
-		meshes[0].draw();
+		meshes[activeSprite].draw();
 	}
 	
 	public void setActiveSprite(int activeSprite) {

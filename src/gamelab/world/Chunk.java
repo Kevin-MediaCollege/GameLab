@@ -45,7 +45,7 @@ public class Chunk {
 				
 				GameObject tile = new GameObject();
 				
-				tile.addComponent(new SpriteRenderer(Tiles.grassSprites, textureId));
+				tile.addComponent(new SpriteRenderer(Tiles.Grass.spriteSheet, textureId));
 				
 				tile.getTransform().getLocalPosition().set(tilePosX, tilePosY, 0);
 				
