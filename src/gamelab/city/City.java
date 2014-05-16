@@ -11,20 +11,45 @@ import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glVertex3d;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.snakybo.sengine.components.MeshRenderer;
 import com.snakybo.sengine.core.Component;
+import com.snakybo.sengine.core.GameObject;
+import com.snakybo.sengine.core.utils.Quaternion;
+import com.snakybo.sengine.core.utils.Vector3f;
+import com.snakybo.sengine.rendering.Material;
+import com.snakybo.sengine.rendering.Mesh;
 import com.snakybo.sengine.rendering.RenderingEngine;
 import com.snakybo.sengine.rendering.Shader;
+import com.snakybo.sengine.rendering.Texture;
 
 /** @author Kevin Krol
  * @since May 13, 2014 */
-public class City extends Component {
+public class City {
+	private List<Building> buildings;
+	
 	private int size;
 	
-	public City() {
-		size = 1;
+	private boolean isplayerCity;
+	
+	public City(boolean isPlayerCity) {
+		buildings = new ArrayList<Building>();
+		
+		this.size = 0;
+		this.isplayerCity = isPlayerCity;
+		
+		grow();
 	}
 	
-	@Override
+	public void grow() {
+		size++;
+		
+		buildings.add(new Building(this));
+	}
+	
+	/*@Override
 	protected void render(Shader shader, RenderingEngine renderingEngine) {
 		glPushMatrix();
 		glLoadIdentity();
@@ -46,5 +71,5 @@ public class City extends Component {
 		glEnd();
 		
 		glPopMatrix();
-	}
+	}*/
 }

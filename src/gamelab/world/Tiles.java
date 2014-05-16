@@ -83,4 +83,19 @@ public class Tiles {
 			}
 		);
 	}
+	
+	public static final class Cities {
+		// Sprite name constants
+		public static final String SMALL_HUT_1 = "small-hut-1";		// 0
+		
+		// Sprite Sheet
+		public static final SpriteSheet spriteSheet = new SpriteSheet(
+			new Texture("props/spriteSheet_cities.png"),
+			new Vector2f(1, 1),
+			
+			new Sprite[] {
+				new Sprite(SMALL_HUT_1, new Vector2f(0, 0))
+			}
+		);		
+	}
 }

@@ -12,16 +12,22 @@ import com.snakybo.sengine.core.Input.KeyCode;
 import com.snakybo.sengine.core.utils.Vector3f;
 
 public class TestGame extends Game {
+	public static TestGame instance;
+	
 	private WorldManager worldManager;
+	private CityManager cityManager;
 	
 	@Override
 	protected void init(CoreEngine coreEngine) {
+		TestGame.instance = this;
+		
 		coreEngine.getRenderingEngine().setAmbientLight(new Vector3f(1f, 1f, 1f));
 		
-		worldManager = new WorldManager(this);
+		worldManager = new WorldManager();
 		worldManager.generate();
 		
-		new CityManager(this);
+		cityManager = new CityManager();
+		cityManager.createPlayerCity();
 		
 		GameObject camera = 
 				//new GameObject(new FreeLook(0.5f), new FreeMove(25.0f, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S), Camera.initPerspectiveCamera((float)Math.toRadians(70.0f), (float)Window.getWidth() / (float)Window.getHeight(), 0.01f, 1000.0f));

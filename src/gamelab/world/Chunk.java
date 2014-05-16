@@ -1,11 +1,11 @@
 package gamelab.world;
 
+import gamelab.TestGame;
 import gamelab.utils.rendering.SpriteSheet;
 import gamelab.utils.rendering.SpriteSheetRenderer;
 
 import java.util.Random;
 
-import com.snakybo.sengine.core.Game;
 import com.snakybo.sengine.core.GameObject;
 import com.snakybo.sengine.core.utils.Quaternion;
 import com.snakybo.sengine.core.utils.Vector2f;
@@ -33,7 +33,7 @@ public class Chunk {
 		this.y = y;
 	}
 	
-	public void generateBase(Game game) {
+	public void generateBase() {
 		Random random = new Random();
 		
 		for(int tileZ = 0; tileZ < CHUNK_SIZE; tileZ++) {
@@ -45,12 +45,12 @@ public class Chunk {
 				
 				String texture = "base-" + Integer.toString(random.nextInt(6 - 1) + 1);
 				
-				tiles[tileX][tileZ] = createTile(game, Tiles.Dirt.spriteSheet, texture, position);
+				tiles[tileX][tileZ] = createTile(Tiles.Dirt.spriteSheet, texture, position);
 			}
 		}
 	}
 	
-	private GameObject createTile(Game game, SpriteSheet spriteSheet, String texture, Vector2f position) {
+	private GameObject createTile(SpriteSheet spriteSheet, String texture, Vector2f position) {
 		GameObject tile = new GameObject();
 		
 		tile.addComponent(new SpriteSheetRenderer(spriteSheet, texture));
@@ -59,7 +59,7 @@ public class Chunk {
 		tile.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		tile.getTransform().getLocalScale().set(Tiles.TILE_WIDTH, 0, Tiles.TILE_HEIGHT);
 		
-		game.addChild(tile);
+		TestGame.instance.addChild(tile);
 		
 		return tile;
 	}

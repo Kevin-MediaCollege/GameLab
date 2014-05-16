@@ -10,12 +10,8 @@ import com.snakybo.sengine.core.Game;
 public class WorldManager {
 	private List<Chunk> chunks;
 	
-	private Game game;
-	
-	public WorldManager(Game game) {
+	public WorldManager() {
 		chunks = new ArrayList<Chunk>();
-		
-		this.game = game;
 	}
 	
 	public void generate() {
@@ -23,7 +19,7 @@ public class WorldManager {
 			for(int x = -5; x < 5; x++) {
 				Chunk chunk = new Chunk(x, y);
 				
-				chunk.generateBase(game);
+				chunk.generateBase();
 				
 				chunks.add(chunk);
 			}
