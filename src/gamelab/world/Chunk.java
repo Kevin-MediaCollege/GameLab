@@ -1,7 +1,7 @@
 package gamelab.world;
 
-import gamelab.utils.rendering.SpriteSheetRenderer;
 import gamelab.utils.rendering.SpriteSheet;
+import gamelab.utils.rendering.SpriteSheetRenderer;
 
 import java.util.Random;
 
@@ -55,7 +55,8 @@ public class Chunk {
 		
 		tile.addComponent(new SpriteSheetRenderer(spriteSheet, texture));
 		
-		tile.getTransform().getLocalPosition().set(position.getX(), 0, position.getY());
+		tile.getTransform().getLocalPosition().set(position.getX(), position.getY(), -31);
+		tile.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		tile.getTransform().getLocalScale().set(Tiles.TILE_WIDTH, 0, Tiles.TILE_HEIGHT);
 		
 		game.addChild(tile);

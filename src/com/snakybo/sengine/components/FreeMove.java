@@ -19,11 +19,13 @@ public class FreeMove extends Component {
 	private int keyLeft;
 	private int keyBack;
 	private int keyRight;
+	private int keyUp;
+	private int keyDown;
 	
 	/** Constructor for the free move component
 	 * @param speed The speed of the component */
 	public FreeMove(float speed) {
-		this(speed, KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D);
+		this(speed, KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.NONE, KeyCode.NONE);
 	}
 	
 	/** Constructor for the free move component
@@ -32,12 +34,17 @@ public class FreeMove extends Component {
 	 * @param keyLeft The key to move to the left
 	 * @param keyBack The key to move backwards
 	 * @param keyRight The key to move to the right */
-	public FreeMove(float speed, int keyForward, int keyLeft, int keyBack, int keyRight) {
+	public FreeMove(float speed, int keyForward, int keyBack, int keyLeft, int keyRight, int keyUp, int keyDown) {
 		this.speed = speed;
+		
 		this.keyForward = keyForward;
-		this.keyLeft = keyLeft;
 		this.keyBack = keyBack;
+		
+		this.keyLeft = keyLeft;
 		this.keyRight = keyRight;
+		
+		this.keyUp = keyUp;
+		this.keyDown = keyDown;
 	}
 	
 	@Override
@@ -45,15 +52,21 @@ public class FreeMove extends Component {
 		float moveAmt = speed * delta;
 		
 		if(Input.getKey(keyForward))
-			getTransform().translate(getTransform().getLocalRotation().getUp().mul(moveAmt));
+			getTransform().translate(getTransform().getLocalRotation().getForward().mul(moveAmt));
 		
 		if(Input.getKey(keyBack))
-			getTransform().translate(getTransform().getLocalRotation().getDown().mul(moveAmt));
+			getTransform().translate(getTransform().getLocalRotation().getBack().mul(moveAmt));
 		
 		if(Input.getKey(keyLeft))
 			getTransform().translate(getTransform().getLocalRotation().getLeft().mul(moveAmt));
 		
 		if(Input.getKey(keyRight))
 			getTransform().translate(getTransform().getLocalRotation().getRight().mul(moveAmt));
+		
+		if(Input.getKey(keyUp))
+			getTransform().translate(getTransform().getLocalRotation().getUp().mul(moveAmt));
+		
+		if(Input.getKey(keyDown))
+			getTransform().translate(getTransform().getLocalRotation().getDown().mul(moveAmt));
 	}
 }
