@@ -44,11 +44,11 @@ public class Tiles {
 			new Vector2f(10, 10),
 			
 			new Sprite[] {
-				new Sprite(CENTER, 	new Vector2f(4, 0)),
-				new Sprite(UP, 		new Vector2f(1, 0)),
-				new Sprite(DOWN,	new Vector2f(7, 0)),
-				new Sprite(LEFT,	new Vector2f(3, 0)),
-				new Sprite(RIGHT,	new Vector2f(5, 0))
+				new Sprite(CENTER, 	new Vector2f(4, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(UP, 		new Vector2f(1, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(DOWN,	new Vector2f(7, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(LEFT,	new Vector2f(3, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(RIGHT,	new Vector2f(5, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT))
 			}
 		);
 	}
@@ -75,11 +75,11 @@ public class Tiles {
 			new Vector2f(10, 10),
 			
 			new Sprite[] {
-				new Sprite(BASE_1, new Vector2f(7, 0)),
-				new Sprite(BASE_2, new Vector2f(8, 0)),
-				new Sprite(BASE_3, new Vector2f(9, 0)),
-				new Sprite(BASE_4, new Vector2f(0, 1)),
-				new Sprite(BASE_5, new Vector2f(1, 1))
+				new Sprite(BASE_1, new Vector2f(7, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(BASE_2, new Vector2f(8, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(BASE_3, new Vector2f(9, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(BASE_4, new Vector2f(0, 1), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(BASE_5, new Vector2f(1, 1), new Vector2f(TILE_WIDTH, TILE_HEIGHT))
 			}
 		);
 	}
@@ -94,7 +94,7 @@ public class Tiles {
 			new Vector2f(1, 1),
 			
 			new Sprite[] {
-				new Sprite(SMALL_HUT_1, new Vector2f(0, 0))
+				new Sprite(SMALL_HUT_1, new Vector2f(0, 0), new Vector2f(37, 53))
 			}
 		);		
 	}

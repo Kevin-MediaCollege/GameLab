@@ -10,12 +10,14 @@ import com.snakybo.sengine.rendering.Vertex;
 public class Sprite {
 	private String name;
 	private Vector2f position;
+	private Vector2f size;
 	
 	private Mesh mesh;
 	
-	public Sprite(String name, Vector2f position) {
+	public Sprite(String name, Vector2f position, Vector2f size) {
 		this.name = name;
 		this.position = position;
+		this.size = size;
 	}
 	
 	public void generateMesh(Vector2f spriteSheetSize) {
@@ -45,6 +47,10 @@ public class Sprite {
 	
 	public Vector2f getPosition() {
 		return position;
+	}
+	
+	public Vector2f getSize() {
+		return size;
 	}
 	
 	public Mesh getMesh() {

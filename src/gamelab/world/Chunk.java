@@ -57,7 +57,7 @@ public class Chunk {
 		
 		tile.getTransform().getLocalPosition().set(position.getX(), position.getY(), -31);
 		tile.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
-		tile.getTransform().getLocalScale().set(Tiles.TILE_WIDTH, 0, Tiles.TILE_HEIGHT);
+		tile.getTransform().getLocalScale().set(spriteSheet.getSprite(texture).getSize().getX(), 0, spriteSheet.getSprite(texture).getSize().getY());
 		
 		TestGame.instance.addChild(tile);
 		
