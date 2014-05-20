@@ -20,14 +20,14 @@ public class Tile {
 		tile = new GameObject();
 		
 		final Transform tileTransform = tile.getTransform();
-		final Vector2f activeSpriteSize = spriteRenderer.getActiveSprite().getSize();
+		final Vector2f spriteSize = spriteRenderer.getSpriteSheet().getSpriteSize();
 		final Quaternion tileRotation = new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270));
 		
 		tile.addComponent(spriteRenderer);
 		
 		tileTransform.getPosition().set(x, y, TILE_Z_LAYER);
 		tileTransform.getRotation().set(tileRotation);
-		tileTransform.getLocalScale().set(activeSpriteSize.getX(), 0, activeSpriteSize.getY());
+		tileTransform.getLocalScale().set(spriteSize.getX(), 0, spriteSize.getY());
 		
 		TestGame.instance.addChild(tile);
 	}

@@ -1,37 +1,36 @@
 package gamelab.world.chunk;
 
 import gamelab.world.World;
+import gamelab.world.noise.PerlinNoise;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 /** @author Kevin Krol
  * @since May 20, 2014 */
-public class ChunkProviderBase implements IChunkProvider {
-	private Chunk[] chunks;
+public class ChunkProviderBase implements IChunkProvider {	
+	private Random random;
 	
-	private List<Chunk> loadedChunks;
-	private List<Chunk> unloadQueue;
+	private PerlinNoise perlinNoise;
 	
 	private World world;
 	
-	public ChunkProviderBase(World world) {
-		loadedChunks = new ArrayList<Chunk>();
-		unloadQueue = new ArrayList<Chunk>();
-		
+	public ChunkProviderBase(World world, long seed) {
 		this.world = world;
-	}
-	
-	@Override
-	public boolean chunkExists(int x, int y) {
-		if(chunks[x * y] != null)
-			return true;
 		
-		return false;
+		random = new Random(seed);
+		
+		perlinNoise = new PerlinNoise(random.nextInt());
 	}
 
 	@Override
 	public Chunk provideChunk(int x, int y) {
+		random.setSeed((long)x * 996746212733L + (long)y * 837299812787L);
+		
+		generateTerrain(x, y);
+		
+		Chunk chunk = new Chunk(x, y);
+		
 		return null;
 	}
 
@@ -39,16 +38,14 @@ public class ChunkProviderBase implements IChunkProvider {
 	public void loadChunk(int x, int y) {}
 
 	@Override
-	public void unloadQueuedChunks() {
-		for(Chunk chunk : unloadQueue)
-			chunk.onChunkUnload();
+	public void unloadQueuedChunks() {}
+	
+	private void generateTerrain(int x, int y) {
 		
-		unloadQueue.clear();
-	}
-
-	@Override
-	public int getLoadedChunkCount() {
-		return loadedChunks.size();
 	}
 	
+	@Override
+	public int getLoadedChunkCount() {
+		return 0;
+	}
 }

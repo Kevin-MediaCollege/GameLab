@@ -11,6 +11,9 @@ import static org.lwjgl.opengl.GL15.glDeleteBuffers;
  * @since Apr 5, 2014 */
 public class TextureResource {
 	private int id;
+	private int width;
+	private int height;
+	
 	private int refCount;
 	
 	/** Constructor for the shader resource */
@@ -40,5 +43,13 @@ public class TextureResource {
 	/** @return The ID of the texture */
 	public int getTextureId() {
 		return id;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
 	}
 }

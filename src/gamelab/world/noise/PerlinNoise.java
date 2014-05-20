@@ -9,7 +9,7 @@
 * purpose. Use it at your own risk. If there's a problem you get to fix it.
 *
 ****************************************************************************/
-package gamelab.utils;
+package gamelab.world.noise;
 
 import java.util.Random;
 
@@ -27,7 +27,7 @@ import java.util.Random;
 * @author Justin Couch
 * @version $Revision: 1.4 $
 */
-public class Perlin
+public class PerlinNoise
 {
     // Constants for setting up the Perlin-1 noise functions
     private static final int B = 0x1000;
@@ -61,7 +61,7 @@ public class Perlin
     /**
 * Create a new noise creator with the default seed value
 */
-    public Perlin()
+    public PerlinNoise()
     {
         this(DEFAULT_SEED);
     }
@@ -71,7 +71,7 @@ public class Perlin
 *
 * @param seed The seed value to use
 */
-    public Perlin(int seed)
+    public PerlinNoise(int seed)
     {
         p_imp = new int[DEFAULT_SAMPLE_SIZE << 1];
 

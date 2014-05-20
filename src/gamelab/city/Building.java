@@ -18,7 +18,7 @@ public class Building {
 
 		GameObject building = new GameObject();
 		
-		building.addComponent(new SpriteRenderer(TileData.Cities.spriteSheet, TileData.Cities.SMALL_HUT_1));
+		building.addComponent(new SpriteRenderer(TileData.Cities.spriteSheet, 0));
 		
 		building.getTransform().getLocalPosition().set(0, 0, 0);
 		

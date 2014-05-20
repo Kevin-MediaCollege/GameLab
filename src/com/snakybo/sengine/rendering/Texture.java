@@ -80,6 +80,14 @@ public class Texture {
 		return resource.getTextureId();
 	}
 	
+	public int getWidth() {
+		return resource.getWidth();
+	}
+	
+	public int getHeight() {
+		return resource.getHeight();
+	}
+	
 	/** Load a texture
 	 * @param fileName The texture file
 	 * @return A texture resource */
