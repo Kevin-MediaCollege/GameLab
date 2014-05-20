@@ -1,8 +1,8 @@
 package gamelab.city;
 
 import gamelab.TestGame;
-import gamelab.utils.rendering.SpriteSheetRenderer;
-import gamelab.world.Tiles;
+import gamelab.utils.rendering.SpriteRenderer;
+import gamelab.utils.tile.TileData;
 
 import com.snakybo.sengine.core.GameObject;
 import com.snakybo.sengine.core.utils.Quaternion;
@@ -18,7 +18,7 @@ public class Building {
 
 		GameObject building = new GameObject();
 		
-		building.addComponent(new SpriteSheetRenderer(Tiles.Cities.spriteSheet, Tiles.Cities.SMALL_HUT_1));
+		building.addComponent(new SpriteRenderer(TileData.Cities.spriteSheet, TileData.Cities.SMALL_HUT_1));
 		
 		building.getTransform().getLocalPosition().set(0, 0, 0);
 		

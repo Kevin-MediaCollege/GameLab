@@ -7,13 +7,15 @@ import com.snakybo.sengine.rendering.Shader;
 
 /** @author Kevin Krol
  * @since May 14, 2014 */
-public class SpriteSheetRenderer extends Component {
+public class SpriteRenderer extends Component {
 	private Material material;
 	
 	private SpriteSheet spriteSheet;
 	private Sprite activeSprite;
 	
-	public SpriteSheetRenderer(SpriteSheet spriteSheet, String activeSpriteName) {
+	private boolean enabled;
+	
+	public SpriteRenderer(SpriteSheet spriteSheet, String activeSpriteName) {
 		this.spriteSheet = spriteSheet;
 		
 		material = new Material();
@@ -24,13 +26,31 @@ public class SpriteSheetRenderer extends Component {
 	
 	@Override
 	protected void render(Shader shader, RenderingEngine renderingEngine) {
-		shader.bind();
-		shader.updateUniforms(getTransform(), material, renderingEngine);
-		
-		activeSprite.getMesh().draw();
+		if(enabled) {
+			shader.bind();
+			shader.updateUniforms(getTransform(), material, renderingEngine);
+			
+			activeSprite.getMesh().draw();
+		}
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 	
 	public void setActiveSprite(String name) {
 		this.activeSprite = spriteSheet.getSprite(name);
+	}
+	
+	public SpriteSheet getSpriteSheet() {
+		return spriteSheet;
+	}
+	
+	public Sprite getActiveSprite() {
+		return activeSprite;
 	}
 }

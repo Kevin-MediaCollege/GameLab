@@ -1,7 +1,7 @@
 package gamelab;
 
 import gamelab.city.CityManager;
-import gamelab.world.WorldManager;
+import gamelab.world.World;
 
 import com.snakybo.sengine.components.Camera;
 import com.snakybo.sengine.components.FreeMove;
@@ -14,7 +14,7 @@ import com.snakybo.sengine.core.utils.Vector3f;
 public class TestGame extends Game {
 	public static TestGame instance;
 	
-	private WorldManager worldManager;
+	private World worldManager;
 	private CityManager cityManager;
 	
 	@Override
@@ -23,11 +23,11 @@ public class TestGame extends Game {
 		
 		coreEngine.getRenderingEngine().setAmbientLight(new Vector3f(1f, 1f, 1f));
 		
-		worldManager = new WorldManager();
-		worldManager.generate();
+		//worldManager = new World();
+		//worldManager.generate();
 		
-		cityManager = new CityManager();
-		cityManager.createPlayerCity();
+		//cityManager = new CityManager();
+		//cityManager.createPlayerCity();
 		
 		GameObject camera = 
 				//new GameObject(new FreeLook(0.5f), new FreeMove(25.0f, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S), Camera.initPerspectiveCamera((float)Math.toRadians(70.0f), (float)Window.getWidth() / (float)Window.getHeight(), 0.01f, 1000.0f));

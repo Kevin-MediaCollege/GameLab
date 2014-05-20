@@ -1,4 +1,4 @@
-package gamelab.world;
+package gamelab.utils.tile;
 
 import gamelab.utils.rendering.Sprite;
 import gamelab.utils.rendering.SpriteSheet;
@@ -8,7 +8,7 @@ import com.snakybo.sengine.rendering.Texture;
 
 /** @author Kevin Krol
  * @since May 12, 2014 */
-public class Tiles {
+public class TileData {
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;
 	
@@ -79,7 +79,15 @@ public class Tiles {
 				new Sprite(BASE_2, new Vector2f(8, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
 				new Sprite(BASE_3, new Vector2f(9, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
 				new Sprite(BASE_4, new Vector2f(0, 1), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
-				new Sprite(BASE_5, new Vector2f(1, 1), new Vector2f(TILE_WIDTH, TILE_HEIGHT))
+				new Sprite(BASE_5, new Vector2f(1, 1), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				
+				new Sprite(DECORATOR_1, new Vector2f(0, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(DECORATOR_2, new Vector2f(1, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(DECORATOR_3, new Vector2f(2, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(DECORATOR_4, new Vector2f(3, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(DECORATOR_5, new Vector2f(4, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(DECORATOR_6, new Vector2f(5, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
+				new Sprite(DECORATOR_7, new Vector2f(6, 0), new Vector2f(TILE_WIDTH, TILE_HEIGHT)),
 			}
 		);
 	}
