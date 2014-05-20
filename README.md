@@ -1,4 +1,6 @@
-GameLab Project
+Leap Motion GameLab Project
 ---------------
 
-Previously a C++ project, now a Java project
+A game that makes use of the [Leap Motion](https://www.leapmotion.com/).
+
+Infuence your city by modifying the terrain around it, and watch how the city responds.
