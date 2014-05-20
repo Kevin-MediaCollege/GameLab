@@ -17,8 +17,10 @@ public class TextureResource {
 	private int refCount;
 	
 	/** Constructor for the shader resource */
-	public TextureResource() {
+	public TextureResource(int width, int height) {
 		this.id = glGenTextures();
+		this.width = width;
+		this.height = height;
 		this.refCount = 1;
 	}
 	

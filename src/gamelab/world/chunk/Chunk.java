@@ -1,25 +1,26 @@
 package gamelab.world.chunk;
 
-import gamelab.city.City;
 import gamelab.utils.tile.Tile;
 
 /** @author Kevin Krol
  * @since May 13, 2014 */
 public class Chunk {
-	public static final int CHUNK_SIZE = 5;
+	public static final int CHUNK_SIZE = 16;
 	
 	private Tile[] tileStorage;
 	//private City[] cities;
 	
-	private int xPosition;
-	private int yPosition;
+	private int chunkX;
+	private int chunkY;
 	
 	private boolean isChunkLoaded;
 	private boolean isChunkPopulated;
 	
-	public Chunk(int xPosition, int yPosition) {
-		this.xPosition = xPosition;
-		this.yPosition = yPosition;
+	public Chunk(int chunkX, int chunkY) {
+		tileStorage = new Tile[CHUNK_SIZE * CHUNK_SIZE];
+		
+		this.chunkX = chunkX;
+		this.chunkY = chunkY;
 		
 		isChunkLoaded = false;
 		isChunkPopulated = false;
@@ -39,16 +40,12 @@ public class Chunk {
 			tile.onUnload();
 	}
 	
-	public void populate() {
+	public void populate(IChunkProvider chunkProvider) {
 		
 	}
 	
-	public Tile getTileInChunk(int x, int y) {
-		return tileStorage[x * y];
-	}
-	
 	public boolean isAtLocation(int x, int y) {
-		return (xPosition == x) && (yPosition == y);
+		return (chunkX == x) && (chunkY == y);
 	}
 	
 	public boolean isChunkLoaded() {
@@ -59,36 +56,28 @@ public class Chunk {
 		return isChunkPopulated;
 	}
 	
-	
-	/*
-	public void generateBase() {
-		Random random = new Random();
+	public boolean setTileAt(int x, int y, int spriteId) {
+		if(tileStorage[x * y] != null)
+			return false;
 		
-		for(int tileY = 0; tileY < CHUNK_SIZE; tileY++) {
-			for(int tileX = 0; tileX < CHUNK_SIZE; tileX++) {
-				Vector2f position = new Vector2f(
-						(tileX * Tiles.TILE_WIDTH) + (xPosition * Tiles.TILE_WIDTH * CHUNK_SIZE),
-						(tileY * Tiles.TILE_HEIGHT) + (yPosition * Tiles.TILE_HEIGHT * CHUNK_SIZE)
-					);
-				
-				 String texture = "base-" + Integer.toString(random.nextInt(6 - 1) + 1);
-				
-				tiles[tileX][tileY] = createTile(Tiles.Dirt.spriteSheet, texture, position);
-			}
-		}
+		tileStorage[x * y] = new Tile(x, y, spriteId);
+		
+		return true;
 	}
 	
-	private GameObject createTile(SpriteSheet spriteSheet, String texture, Vector2f position) {
-		GameObject tile = new GameObject();
-		
-		tile.addComponent(new SpriteRenderer(spriteSheet, texture));
-		
-		tile.getTransform().getLocalPosition().set(position.getX(), position.getY(), -31);
-		tile.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
-		tile.getTransform().getLocalScale().set(spriteSheet.getSprite(texture).getSize().getX(), 0, spriteSheet.getSprite(texture).getSize().getY());
-		
-		TestGame.instance.addChild(tile);
-		
-		return tile;
-	}*/
+	public Tile getTileInChunk(int x, int y) {
+		return tileStorage[x * y];
+	}
+	
+	public int getChunkX() {
+		return chunkX;
+	}
+	
+	public int getChunkY() {
+		return chunkY;
+	}
+	
+	public int getTileStorageLength() {
+		return tileStorage.length;
+	}
 }

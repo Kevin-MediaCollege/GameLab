@@ -2,11 +2,10 @@ package gamelab.utils.tile;
 
 import gamelab.TestGame;
 import gamelab.utils.rendering.SpriteRenderer;
+import gamelab.world.chunk.Chunk;
 
 import com.snakybo.sengine.core.GameObject;
-import com.snakybo.sengine.core.Transform;
 import com.snakybo.sengine.core.utils.Quaternion;
-import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector3f;
 
 /** @author Kevin Krol
@@ -16,18 +15,16 @@ public class Tile {
 	
 	final private GameObject tile;
 	
-	public Tile(int x, int y, SpriteRenderer spriteRenderer) {
-		tile = new GameObject();
+	public Tile(int x, int y, int spriteId) {
+		this.tile = new GameObject();
 		
-		final Transform tileTransform = tile.getTransform();
-		final Vector2f spriteSize = spriteRenderer.getSpriteSheet().getSpriteSize();
-		final Quaternion tileRotation = new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270));
+		tile.addComponent(new SpriteRenderer(TileData.TILES, 0));
 		
-		tile.addComponent(spriteRenderer);
+		tile.getTransform().getLocalPosition().set(x * Chunk.CHUNK_SIZE, y * Chunk.CHUNK_SIZE, TILE_Z_LAYER);
 		
-		tileTransform.getPosition().set(x, y, TILE_Z_LAYER);
-		tileTransform.getRotation().set(tileRotation);
-		tileTransform.getLocalScale().set(spriteSize.getX(), 0, spriteSize.getY());
+		tile.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
+		tile.getTransform().rotate(new Vector3f(0, 0, 1), (float)Math.toRadians(180));
+		tile.getTransform().getLocalScale().set(TileData.TILE_WIDTH, 0, TileData.TILE_HEIGHT);
 		
 		TestGame.instance.addChild(tile);
 	}

@@ -120,7 +120,8 @@ public class Texture {
 			
 			buffer.flip();
 			
-			TextureResource resource = new TextureResource();
+			TextureResource resource = new TextureResource(image.getWidth(), image.getHeight());
+			
 			glBindTexture(GL_TEXTURE_2D, resource.getTextureId());
 			
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

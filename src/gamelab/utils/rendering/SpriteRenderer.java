@@ -26,6 +26,8 @@ public class SpriteRenderer extends Component {
 		material.addTexture("diffuse", spriteSheet.getTexture());
 		
 		setActiveSprite(activeSprite);
+		
+		enabled = true;
 	}
 	
 	@Override
@@ -47,8 +49,10 @@ public class SpriteRenderer extends Component {
 	}
 	
 	public void setActiveSprite(int activeSprite) {
-		final Vector2f p = spriteSheet.spriteIdToTextureCoords(activeSprite);
+		final Vector2f p = spriteSheet.spriteIdToTextureCoords(1);
 		final Vector2f s = spriteSheet.getSpriteSize();
+		
+		System.out.println(p.toString() + s.toString() + p.add(s));
 		
 		final Vertex[] vertices = new Vertex[] {
 			new Vertex(new Vector3f(-0.5f, 0, -0.5f), new Vector2f(p.getX(),			p.getY())),

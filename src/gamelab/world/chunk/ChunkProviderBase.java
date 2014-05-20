@@ -3,7 +3,6 @@ package gamelab.world.chunk;
 import gamelab.world.World;
 import gamelab.world.noise.PerlinNoise;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /** @author Kevin Krol
@@ -22,26 +21,40 @@ public class ChunkProviderBase implements IChunkProvider {
 		
 		perlinNoise = new PerlinNoise(random.nextInt());
 	}
+	
+	@Override
+	public boolean chunkExists(int x, int y) {
+		return false;
+	}
 
 	@Override
 	public Chunk provideChunk(int x, int y) {
 		random.setSeed((long)x * 996746212733L + (long)y * 837299812787L);
 		
-		generateTerrain(x, y);
-		
 		Chunk chunk = new Chunk(x, y);
 		
-		return null;
+		generateTerrain(chunk);
+		
+		return chunk;
 	}
-
+	
 	@Override
 	public void loadChunk(int x, int y) {}
 
 	@Override
 	public void unloadQueuedChunks() {}
 	
-	private void generateTerrain(int x, int y) {
-		
+	private void generateTerrain(Chunk chunk) {
+		if(!chunk.isChunkPopulated() && !chunkExists(chunk.getChunkX(), chunk.getChunkY())) {
+			for(int i = 0; i < chunk.getTileStorageLength(); i++) {
+				final int tileX = i & 0xF;
+				final int tileY = i >> 4;
+			
+				chunk.setTileAt(tileX, tileY, 1);
+			}
+			
+			chunk.populate(this);
+		}
 	}
 	
 	@Override
