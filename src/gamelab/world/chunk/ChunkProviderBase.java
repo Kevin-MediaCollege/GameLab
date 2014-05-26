@@ -3,11 +3,18 @@ package gamelab.world.chunk;
 import gamelab.world.World;
 import gamelab.world.noise.PerlinNoise;
 
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.List;
 import java.util.Random;
+
+import com.snakybo.sengine.components.Camera;
 
 /** @author Kevin Krol
  * @since May 20, 2014 */
-public class ChunkProviderBase implements IChunkProvider {	
+public class ChunkProviderBase extends ChunkProvider {
+	private volatile List<Chunk> chunks;
+	
 	private Random random;
 	
 	private PerlinNoise perlinNoise;
@@ -15,11 +22,36 @@ public class ChunkProviderBase implements IChunkProvider {
 	private World world;
 	
 	public ChunkProviderBase(World world, long seed) {
+		super();
+		
 		this.world = world;
 		
-		random = new Random(seed);
+		chunks = new ArrayList<Chunk>();
 		
+		random = new Random(seed);
 		perlinNoise = new PerlinNoise(random.nextInt());
+		
+		chunkProviderThread.start();
+	}
+	
+	@Override
+	public void run() {
+		while(chunkProviderThread.isAlive()) {
+			try {	
+				for(Chunk chunk : chunks) {
+					if(!chunk.isVisible(world.getCamera())) {
+						if(chunk.isChunkLoaded())
+							chunk.onChunkUnload();
+					} else {
+						if(!chunk.isChunkLoaded())
+							chunk.onChunkLoad();
+					}
+				}
+				
+				Thread.sleep(5);
+			} catch(ConcurrentModificationException e) {
+			} catch(InterruptedException e) {}
+		}
 	}
 	
 	@Override
@@ -34,6 +66,9 @@ public class ChunkProviderBase implements IChunkProvider {
 		Chunk chunk = new Chunk(x, y);
 		
 		generateTerrain(chunk);
+		
+		chunk.onChunkLoad();
+		chunks.add(chunk);
 		
 		return chunk;
 	}
@@ -50,7 +85,9 @@ public class ChunkProviderBase implements IChunkProvider {
 				final int tileX = i & 0xF;
 				final int tileY = i >> 4;
 			
-				chunk.setTileAt(tileX, tileY, 1);
+				final int textureId = random.nextInt((9 - 7) + 1) + 7;
+				
+				chunk.setTileAt(tileX, tileY, textureId);
 			}
 			
 			chunk.populate(this);
@@ -58,7 +95,24 @@ public class ChunkProviderBase implements IChunkProvider {
 	}
 	
 	@Override
-	public int getLoadedChunkCount() {
-		return 0;
+	public Chunk getChunkAt(int x, int y) {		
+		if((float)x / 2 + 1 >= 16)
+			x += 1;
+		
+		if((float)y / 2 + 1 >= 16)
+			y += 1;
+		
+		x = (x / 2) >> 4;
+		y = (y / 2) >> 4;
+				
+		for(Chunk chunk : chunks) {
+			final int chunkX = chunk.getChunkX();
+			final int chunkY = chunk.getChunkY();
+						
+			if(x == chunkX && y == chunkY)
+				return chunk;
+		}
+		
+		return null;
 	}
 }

@@ -11,5 +11,5 @@ public interface IChunkProvider {
 	
 	void unloadQueuedChunks();
 	
-	int getLoadedChunkCount();
+	Chunk getChunkAt(int x, int y);
 }

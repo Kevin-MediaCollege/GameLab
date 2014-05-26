@@ -81,6 +81,12 @@ public class CoreEngine {
 			unprocessedTime += passedTime;
 			frameCounter += passedTime;
 			
+			if(frameCounter >= 1.0) {
+				Time.fps = frames;
+				frames = 0;
+				frameCounter = 0;
+			}
+			
 			while(unprocessedTime > frameTime) {
 				render = true;
 				
@@ -93,12 +99,6 @@ public class CoreEngine {
 				Input.update();
 				
 				game.update((float)frameTime);
-				
-				if(frameCounter >= 1.0) {
-					Time.fps = frames;
-					frames = 0;
-					frameCounter = 0;
-				}
 			}
 			
 			if(render) {

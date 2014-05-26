@@ -39,8 +39,8 @@ public class SpriteSheet {
 	public Vector2f getSpriteSize() {
 		final Vector2f result = new Vector2f(0, 0);
 		
-		result.setX(1.0f / (texture.getWidth() / rows));
-		result.setY(1.0f / (texture.getHeight() / cols));
+		result.setX(1.0f / rows);
+		result.setY(1.0f / cols);
 		
 		return result;
 	}

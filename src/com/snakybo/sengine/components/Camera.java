@@ -2,8 +2,11 @@ package com.snakybo.sengine.components;
 
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.CoreEngine;
+import com.snakybo.sengine.core.Input;
 import com.snakybo.sengine.core.utils.Matrix4f;
+import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector3f;
+import com.snakybo.sengine.rendering.Window;
 
 /** Camera component extends {@link Component}
  * 
@@ -11,6 +14,8 @@ import com.snakybo.sengine.core.utils.Vector3f;
  * @since Apr 4, 2014 */
 public class Camera extends Component {
 	private Matrix4f projection;
+	
+	private Vector2f orthoSize;
 	
 	/** Initialize a perspective camera
 	 * @param fov The field of view
@@ -30,13 +35,32 @@ public class Camera extends Component {
 	 * @param near The near clipping plane
 	 * @param far The far clipping plane */
 	public static Camera initOrthographicCamera(float left, float right, float bottom, float top, float near, float far) {
-		return new Camera(new Matrix4f().initOrthographicCamera(left, right, bottom, top, near, far));
+		Camera camera = new Camera(new Matrix4f().initOrthographicCamera(left, right, bottom, top, near, far));
+		
+		camera.orthoSize = new Vector2f(right - left, top - bottom);
+		
+		return camera;
 	}
 	
 	/** Constructor for the camera
 	 * @param projection The projection of the camera */
 	public Camera(Matrix4f projection) {
 		this.projection = projection;
+	}
+	
+	@Override
+	protected void addToEngine(CoreEngine engine) {
+		engine.getRenderingEngine().addCamera(this);
+	}
+	
+	public Vector2f mouseToWorld() {
+		final Vector2f mousePosition = Input.getMousePosition();
+		final Vector2f cameraPosition = getTransform().getLocalPosition().getXY();
+		
+		mousePosition.set(mousePosition.add(cameraPosition));
+		mousePosition.set((int)mousePosition.getX() >> 4, (int)mousePosition.getY() >> 4);
+		
+		return mousePosition;
 	}
 	
 	/** Get the view projcetion of the camera represented as a matrix 4 */
@@ -50,8 +74,7 @@ public class Camera extends Component {
 		return projection.mul(cameraRotation.mul(cameraTranslation));
 	}
 	
-	@Override
-	protected void addToEngine(CoreEngine engine) {
-		engine.getRenderingEngine().addCamera(this);
+	public Vector2f getOrthoSize() {
+		return orthoSize;
 	}
 }

@@ -1,5 +1,6 @@
 package gamelab;
 
+import gamelab.player.InputHandler;
 import gamelab.world.World;
 
 import com.snakybo.sengine.components.Camera;
@@ -22,31 +23,25 @@ public class TestGame extends Game {
 		
 		coreEngine.getRenderingEngine().setAmbientLight(new Vector3f(1f, 1f, 1f));
 		
-		world = new World();
-		//new Building(new City(false));
+		Camera camera = Camera.initOrthographicCamera(0, Window.getWidth(), 0, Window.getHeight(), -32, 32);
+		FreeMove freeMove = new FreeMove(300, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S);
 		
-		GameObject camera = 
-				//new GameObject(new FreeLook(0.5f), new FreeMove(25.0f, KeyCode.E, KeyCode.Q, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S), Camera.initPerspectiveCamera((float)Math.toRadians(70.0f), (float)Window.getWidth() / (float)Window.getHeight(), 0.01f, 1000.0f));
-				new GameObject(new FreeMove(300, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S), Camera.initOrthographicCamera(0, Window.getWidth(), 0, Window.getHeight(), -32, 32));
+		world = new World(camera);
 		
-		addChild(camera);
+		addChild(new GameObject(camera, freeMove, new InputHandler(camera, world)));
 		
-		/*new Tile(0, 0, 0);
-		new Tile(1, 0, 0);
-		new Tile(2, 0, 0);
-		new Tile(3, 0, 0);
-		new Tile(4, 0, 0);
-		new Tile(5, 0, 0);
+		world.start();
 		
-		/*GameObject go = new GameObject();
-		
-		go.addComponent(new SpriteRenderer(TileData.TILES, 0));
-		
-		
-		addChild(go);*/
 		
 		
 		//enableLeapMotion();
+	}
+	
+	@Override
+	protected void update(float delta) {
+		super.update(delta);
+		
+		//System.out.println(Time.getFps());
 	}
 	
 //	private void enableLeapMotion() {
