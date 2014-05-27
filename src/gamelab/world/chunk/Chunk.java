@@ -1,6 +1,7 @@
 package gamelab.world.chunk;
 
 import gamelab.tile.Tile;
+import gamelab.world.World;
 
 import com.snakybo.sengine.core.utils.Bounds;
 
@@ -12,14 +13,18 @@ public class Chunk {
 	private Tile[] tileStorage;
 	//private City[] cities;
 	
+	private World world;
+	
 	private int chunkX;
 	private int chunkY;
 	
 	private boolean isChunkLoaded;
 	private boolean isChunkPopulated;
 	
-	public Chunk(int chunkX, int chunkY) {
+	public Chunk(World world, int chunkX, int chunkY) {
 		tileStorage = new Tile[CHUNK_SIZE * CHUNK_SIZE];
+		
+		this.world = world;
 		
 		this.chunkX = chunkX;
 		this.chunkY = chunkY;
@@ -77,7 +82,7 @@ public class Chunk {
 		if(tileStorage[index] != null)
 			return false;
 		
-		tileStorage[index] = new Tile(x + (chunkX * CHUNK_SIZE), y + (chunkY * CHUNK_SIZE), spriteId);
+		tileStorage[index] = new Tile(world, x + (chunkX * CHUNK_SIZE), y + (chunkY * CHUNK_SIZE), spriteId);
 		
 		return true;
 	}

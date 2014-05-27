@@ -61,7 +61,7 @@ public class ChunkProviderBase extends ChunkProvider {
 	public Chunk provideChunk(int x, int y) {
 		random.setSeed((long)x * 996746212733L + (long)y * 837299812787L);
 		
-		Chunk chunk = new Chunk(x, y);
+		Chunk chunk = new Chunk(world, x, y);
 		
 		generateTerrain(chunk);
 		
@@ -83,7 +83,7 @@ public class ChunkProviderBase extends ChunkProvider {
 				final int tileX = i & 0xF;
 				final int tileY = i >> 4;
 			
-				final int textureId = random.nextInt((9 - 7) + 1) + 7;
+				final int textureId = random.nextInt((12 - 10) + 1) + 10;
 				
 				chunk.setTileAt(tileX, tileY, textureId);
 			}

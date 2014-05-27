@@ -29,6 +29,10 @@ public class World {
 				chunkProvider.provideChunk(x, y);
 	}
 	
+	public Chunk getChunkFromTileCoords(int x, int y) {
+		return chunkProvider.getChunkAt(x, y);
+	}
+	
 	public Chunk getChunkAt(int x, int y) {
 		return chunkProvider.getChunkAt(x, y);
 	}

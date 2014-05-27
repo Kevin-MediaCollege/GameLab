@@ -1,6 +1,7 @@
 package gamelab.player;
 
 import gamelab.tile.Tile;
+import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.world.World;
 import gamelab.world.chunk.Chunk;
 
@@ -27,18 +28,12 @@ public class InputHandler extends Component {
 		
 		Chunk chunk = world.getChunkAt((int)mouseWorld.getX(), (int)mouseWorld.getY());
 		
-		if(chunk == null)
-			return;
-		
-		if(Input.getKey(KeyCode.Y))
-			chunk.onChunkUnload();
-		
-		Tile tile = chunk.getTileInChunk((int)mouseWorld.getX(), (int)mouseWorld.getY());
-		
-		if(tile == null)
-			return;
-		
-		if(Input.getKey(KeyCode.T))
-			tile.onUnload();
+		if(chunk != null) {
+			Tile tile = chunk.getTileInChunk((int)mouseWorld.getX(), (int)mouseWorld.getY());
+			
+			if(tile != null)
+				if(Input.getMouse(0))
+					tile.setToGrass();
+		}
 	}
 }

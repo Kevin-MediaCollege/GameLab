@@ -17,6 +17,8 @@ public class SpriteRenderer extends Component {
 	private Material material;
 	private Mesh spriteMesh;
 	
+	private int activeSprite;
+	
 	private boolean enabled;
 	
 	public SpriteRenderer(SpriteSheet spriteSheet, int activeSprite) {
@@ -65,9 +67,15 @@ public class SpriteRenderer extends Component {
 		};
 		
 		spriteMesh = new Mesh(vertices, indices, true);
+		
+		this.activeSprite = activeSprite;
 	}
 	
 	public SpriteSheet getSpriteSheet() {
 		return spriteSheet;
+	}
+	
+	public int getActiveSprite() {
+		return activeSprite;
 	}
 }

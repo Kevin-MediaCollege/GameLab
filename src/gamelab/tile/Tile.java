@@ -3,6 +3,8 @@ package gamelab.tile;
 import gamelab.TestGame;
 import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.utils.rendering.SpriteSheet;
+import gamelab.world.World;
+import gamelab.world.chunk.Chunk;
 
 import com.snakybo.sengine.core.GameObject;
 import com.snakybo.sengine.core.utils.Bounds;
@@ -22,7 +24,9 @@ public class Tile {
 	
 	final private GameObject tile;
 	
-	public Tile(int x, int y, int spriteId) {
+	private World world;
+	
+	public Tile(World world, int x, int y, int spriteId) {
 		this.tile = new GameObject();
 		
 		tile.addComponent(new SpriteRenderer(TILES, spriteId));
@@ -34,6 +38,22 @@ public class Tile {
 		tile.getTransform().getLocalScale().set(TILE_WIDTH, 0, TILE_HEIGHT);
 		
 		TestGame.instance.addChild(tile);
+	}
+	
+	public void setToGrass() {
+		final Vector2f position = tile.getTransform().getLocalPosition().getXY();
+		
+		SpriteRenderer renderer = tile.getComponent(SpriteRenderer.class);
+		
+		renderer.setActiveSprite(24);
+		
+		Chunk chunk = world.getChunkFromTileCoords((int)position.getX(), (int)position.getY());
+		
+		//Tile topTile = chunk.getTileInChunk((int)position.getX(), (int)position.getY());
+		
+		//if(topTile.getSprite() != 24) {
+		//	topTile.setToGrass();
+		//}
 	}
 	
 	public void onLoad() {
@@ -60,5 +80,9 @@ public class Tile {
 		result.setTop(position.getY() + size.getY());
 		
 		return result;
+	}
+	
+	public int getSprite() {
+		return tile.getComponent(SpriteRenderer.class).getActiveSprite();
 	}
 }
