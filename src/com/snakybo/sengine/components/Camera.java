@@ -3,10 +3,10 @@ package com.snakybo.sengine.components;
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.CoreEngine;
 import com.snakybo.sengine.core.Input;
+import com.snakybo.sengine.core.utils.Bounds;
 import com.snakybo.sengine.core.utils.Matrix4f;
 import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector3f;
-import com.snakybo.sengine.rendering.Window;
 
 /** Camera component extends {@link Component}
  * 
@@ -51,6 +51,19 @@ public class Camera extends Component {
 	@Override
 	protected void addToEngine(CoreEngine engine) {
 		engine.getRenderingEngine().addCamera(this);
+	}
+	
+	public Bounds toBounds() {
+		final Vector2f position = getTransform().getPosition().getXY();
+		
+		Bounds result = new Bounds(0, 0, 0, 0);
+		
+		result.setLeft(position.getX());
+		result.setBottom(position.getY());
+		result.setRight(position.getX() + orthoSize.getX());
+		result.setTop(position.getY() + orthoSize.getY());
+		
+		return result;
 	}
 	
 	public Vector2f mouseToWorld() {

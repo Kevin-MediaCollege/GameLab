@@ -32,8 +32,6 @@ public class TestGame extends Game {
 		
 		world.start();
 		
-		
-		
 		//enableLeapMotion();
 	}
 	

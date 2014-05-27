@@ -2,8 +2,7 @@ package gamelab.world.chunk;
 
 import gamelab.tile.Tile;
 
-import com.snakybo.sengine.components.Camera;
-import com.snakybo.sengine.core.utils.Vector2f;
+import com.snakybo.sengine.core.utils.Bounds;
 
 /** @author Kevin Krol
  * @since May 13, 2014 */
@@ -55,26 +54,17 @@ public class Chunk {
 		return isChunkPopulated;
 	}
 	
-	public boolean isVisible(Camera camera) {
-		final Vector2f cameraPosition = camera.getTransform().getPosition().getXY();
-		final Vector2f cameraSize = camera.getOrthoSize();
-				
+	public boolean isVisible(Bounds bounds) {
+		bounds.setLeft(bounds.getLeft() - Tile.TILE_WIDTH);
+		bounds.setRight(bounds.getRight() + (2 * Tile.TILE_WIDTH));
+		bounds.setBottom(bounds.getBottom() - Tile.TILE_HEIGHT);
+		bounds.setTop(bounds.getTop() + Tile.TILE_HEIGHT);
+		
 		for(Tile tile : tileStorage) {
-			final Vector2f tilePosition = tile.getTile().getTransform().getPosition().getXY();
-			final Vector2f tileSize = tile.getTile().getTransform().getLocalScale().getXZ();
+			final Bounds tileBounds = tile.getBounds();
 			
-			final float tileX1 = tilePosition.getX() + (tileSize.getX() / 2);
-			final float tileX2 = tilePosition.getX() - (tileSize.getX() / 2);
-			final float tileY1 = tilePosition.getY() + (tileSize.getY() / 2);
-			final float tileY2 = tilePosition.getY() - (tileSize.getY() / 2);
-			
-			final float cameraX1 = cameraPosition.getX();
-			final float cameraX2 = cameraPosition.getX() + cameraSize.getX();
-			final float cameraY1 = cameraPosition.getY();
-			final float cameraY2 = cameraPosition.getY() + cameraSize.getY();
-			
-			if(tileX1 >= cameraX1 && tileX2 <= cameraX2)
-				if(tileY1 >= cameraY1 && tileY2 <= cameraY2)
+			if(tileBounds.getLeft() >= (bounds.getLeft() - Tile.TILE_WIDTH) && tileBounds.getRight() <= (bounds.getRight() + (2 * Tile.TILE_WIDTH)))
+				if(tileBounds.getBottom() >= bounds.getBottom() && tileBounds.getTop() <= bounds.getTop())
 					return true;
 		}
 		
@@ -92,10 +82,11 @@ public class Chunk {
 		return true;
 	}
 	
-	public Tile getTileInChunk(int x, int y) {		
-		System.out.println(Math.abs(x) + " " + Math.abs(y) + " " + (Math.abs(x) >> 1) * CHUNK_SIZE + (Math.abs(y) >> 1));
+	public Tile getTileInChunk(int x, int y) {
+		x = (x + 1) >> 1 & 0xF;
+		y = (y + 1) >> 1 & 0xF;
 		
-		return null;//return tileStorage[(x >> 1) * CHUNK_SIZE + (y >> 1)];
+		return tileStorage[x * CHUNK_SIZE + y];
 	}
 	
 	public int getChunkX() {

@@ -8,8 +8,6 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Random;
 
-import com.snakybo.sengine.components.Camera;
-
 /** @author Kevin Krol
  * @since May 20, 2014 */
 public class ChunkProviderBase extends ChunkProvider {
@@ -39,7 +37,7 @@ public class ChunkProviderBase extends ChunkProvider {
 		while(chunkProviderThread.isAlive()) {
 			try {	
 				for(Chunk chunk : chunks) {
-					if(!chunk.isVisible(world.getCamera())) {
+					if(!chunk.isVisible(world.getCamera().toBounds())) {
 						if(chunk.isChunkLoaded())
 							chunk.onChunkUnload();
 					} else {
@@ -95,7 +93,7 @@ public class ChunkProviderBase extends ChunkProvider {
 	}
 	
 	@Override
-	public Chunk getChunkAt(int x, int y) {		
+	public Chunk getChunkAt(int x, int y) {
 		if((float)x / 2 + 1 >= 16)
 			x += 1;
 		

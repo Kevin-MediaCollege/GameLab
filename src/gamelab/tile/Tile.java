@@ -5,7 +5,9 @@ import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.utils.rendering.SpriteSheet;
 
 import com.snakybo.sengine.core.GameObject;
+import com.snakybo.sengine.core.utils.Bounds;
 import com.snakybo.sengine.core.utils.Quaternion;
+import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector3f;
 import com.snakybo.sengine.rendering.Texture;
 
@@ -44,5 +46,19 @@ public class Tile {
 	
 	public GameObject getTile() {
 		return tile;
+	}
+	
+	public Bounds getBounds() {
+		final Vector2f position = tile.getTransform().getPosition().getXY();
+		final Vector2f size = tile.getTransform().getLocalScale().getXZ();
+		
+		Bounds result = new Bounds(0, 0, 0, 0);
+		
+		result.setLeft(position.getX());
+		result.setBottom(position.getY());
+		result.setRight(position.getX() + size.getX());
+		result.setTop(position.getY() + size.getY());
+		
+		return result;
 	}
 }
