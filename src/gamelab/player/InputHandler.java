@@ -1,14 +1,12 @@
 package gamelab.player;
 
 import gamelab.tile.Tile;
-import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.world.World;
 import gamelab.world.chunk.Chunk;
 
 import com.snakybo.sengine.components.Camera;
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.Input;
-import com.snakybo.sengine.core.Input.KeyCode;
 import com.snakybo.sengine.core.utils.Vector2f;
 
 /** @author Kevin Krol
@@ -26,14 +24,14 @@ public class InputHandler extends Component {
 	protected void input(float delta) {
 		final Vector2f mouseWorld = camera.mouseToWorld();
 		
-		Chunk chunk = world.getChunkAt((int)mouseWorld.getX(), (int)mouseWorld.getY());
+		Chunk chunk = world.getChunkFromMouseCoords((int)mouseWorld.getX(), (int)mouseWorld.getY());
 		
 		if(chunk != null) {
-			Tile tile = chunk.getTileInChunk((int)mouseWorld.getX(), (int)mouseWorld.getY());
+			Tile tile = chunk.getTile((int)mouseWorld.getX(), (int)mouseWorld.getY());
 			
 			if(tile != null)
 				if(Input.getMouse(0))
-					tile.setToGrass();
+					tile.updateSprite(Tile.GRASS);
 		}
 	}
 }

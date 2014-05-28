@@ -204,4 +204,8 @@ public class Vector2f {
 	public float getY() {
 		return y;
 	}
+	
+	public Vector3f toVector3f() {
+		return new Vector3f(x, y, 0);
+	}
 }

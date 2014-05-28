@@ -3,11 +3,8 @@ package gamelab.tile;
 import gamelab.TestGame;
 import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.utils.rendering.SpriteSheet;
-import gamelab.world.World;
-import gamelab.world.chunk.Chunk;
 
 import com.snakybo.sengine.core.GameObject;
-import com.snakybo.sengine.core.utils.Bounds;
 import com.snakybo.sengine.core.utils.Quaternion;
 import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector3f;
@@ -20,69 +17,49 @@ public class Tile {
 	
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;
-	public static final int TILE_Z_LAYER = 0;
 	
-	final private GameObject tile;
+	public static final int DIRT = 0;
+	public static final int GRASS = 1;
 	
-	private World world;
+	private final GameObject tile;
+	private final SpriteRenderer renderer;
+	private final int tileId;
 	
-	public Tile(World world, int x, int y, int spriteId) {
+	public Tile(int tileId, int x, int y) {		
+		this.tileId = tileId;
 		this.tile = new GameObject();
+		this.renderer = new SpriteRenderer(TILES, 0);
 		
-		tile.addComponent(new SpriteRenderer(TILES, spriteId));
-		
-		tile.getTransform().getLocalPosition().set(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_Z_LAYER);
-		
+		tile.addComponent(renderer);
+
+		tile.getTransform().setPosition(new Vector3f(x * TILE_WIDTH, y * TILE_WIDTH, 0));
 		tile.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
-		tile.getTransform().rotate(new Vector3f(0, 0, 1), (float)Math.toRadians(180));
-		tile.getTransform().getLocalScale().set(TILE_WIDTH, 0, TILE_HEIGHT);
+		tile.getTransform().setScale(new Vector3f(TILE_WIDTH, 0, TILE_HEIGHT));
 		
+		tile.getTransform().rotate(new Vector3f(0, 0, 1), (float)Math.toRadians(180));
+
 		TestGame.instance.addChild(tile);
 	}
 	
-	public void setToGrass() {
-		final Vector2f position = tile.getTransform().getLocalPosition().getXY();
-		
-		SpriteRenderer renderer = tile.getComponent(SpriteRenderer.class);
-		
-		renderer.setActiveSprite(24);
-		
-		Chunk chunk = world.getChunkFromTileCoords((int)position.getX(), (int)position.getY());
-		
-		//Tile topTile = chunk.getTileInChunk((int)position.getX(), (int)position.getY());
-		
-		//if(topTile.getSprite() != 24) {
-		//	topTile.setToGrass();
-		//}
+	public void load() {
+		renderer.setEnabled(true);
 	}
 	
-	public void onLoad() {
-		tile.getComponent(SpriteRenderer.class).setEnabled(true);
+	public void unload() {
+		renderer.setEnabled(false);
 	}
 	
-	public void onUnload() {
-		tile.getComponent(SpriteRenderer.class).setEnabled(false);
+	public void updateSprite(int spriteId) {
+		renderer.setActiveSprite(spriteId);
 	}
 	
-	public GameObject getTile() {
-		return tile;
-	}
-	
-	public Bounds getBounds() {
-		final Vector2f position = tile.getTransform().getPosition().getXY();
-		final Vector2f size = tile.getTransform().getLocalScale().getXZ();
+	public Vector2f getPosition() {
+		Vector2f position = tile.getTransform().getPosition().getXY();
 		
-		Bounds result = new Bounds(0, 0, 0, 0);
-		
-		result.setLeft(position.getX());
-		result.setBottom(position.getY());
-		result.setRight(position.getX() + size.getX());
-		result.setTop(position.getY() + size.getY());
-		
-		return result;
+		return new Vector2f(position.getX() / TILE_WIDTH, position.getY() / TILE_HEIGHT);
 	}
 	
-	public int getSprite() {
-		return tile.getComponent(SpriteRenderer.class).getActiveSprite();
+	public int getTileId() {
+		return tileId;
 	}
 }

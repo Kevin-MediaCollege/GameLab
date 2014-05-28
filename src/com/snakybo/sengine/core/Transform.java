@@ -89,7 +89,7 @@ public class Transform {
 	}
 	
 	/** @return Whether or not the transformation has changed */
-	private boolean hasChanged() {
+	public boolean hasChanged() {
 		if(parent != null && parent.hasChanged())
 			return true;
 		
