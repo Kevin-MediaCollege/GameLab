@@ -1,5 +1,7 @@
 package gamelab.tile;
 
+import java.util.Random;
+
 import gamelab.TestGame;
 import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.utils.rendering.SpriteSheet;
@@ -13,26 +15,26 @@ import com.snakybo.sengine.rendering.Texture;
 /** @author Kevin Krol
  * @since May 20, 2014 */
 public class Tile {
-	public static final SpriteSheet TILES = new SpriteSheet(new Texture("tiles.png"), 10, 10);
-	
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;
 	
 	public static final int DIRT = 0;
 	public static final int GRASS = 1;
 	
+	private static final SpriteSheet TILE_SPRITESHEET = new SpriteSheet(new Texture("tiles.png"), 10, 10);
+	
 	private final GameObject tile;
 	private final SpriteRenderer renderer;
 	private final int tileId;
 	
-	public Tile(int tileId, int x, int y) {		
+	public Tile(int tileId, int x, int y) {
 		this.tileId = tileId;
 		this.tile = new GameObject();
-		this.renderer = new SpriteRenderer(TILES, 0);
+		this.renderer = new SpriteRenderer(TILE_SPRITESHEET, 0);
 		
 		tile.addComponent(renderer);
-
-		tile.getTransform().setPosition(new Vector3f(x * TILE_WIDTH, y * TILE_WIDTH, 0));
+		
+		tile.getTransform().setPosition(new Vector3f(x * TILE_WIDTH, y * TILE_HEIGHT, 0));
 		tile.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		tile.getTransform().setScale(new Vector3f(TILE_WIDTH, 0, TILE_HEIGHT));
 		
@@ -53,10 +55,15 @@ public class Tile {
 		renderer.setActiveSprite(spriteId);
 	}
 	
-	public Vector2f getPosition() {
-		Vector2f position = tile.getTransform().getPosition().getXY();
+	public int getRandomSpriteId(int[] spriteIds) {
+		Random random = new Random();
 		
-		return new Vector2f(position.getX() / TILE_WIDTH, position.getY() / TILE_HEIGHT);
+		return spriteIds[random.nextInt(spriteIds.length)];
+	}
+	
+	public Vector2f getPosition() {
+		// TODO: Deze shit
+		return new Vector2f(0, 0);
 	}
 	
 	public int getTileId() {

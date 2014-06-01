@@ -1,10 +1,7 @@
 package gamelab.world.chunk;
 
-import gamelab.tile.Tile;
-
 import com.snakybo.sengine.components.Camera;
 import com.snakybo.sengine.core.utils.Bounds;
-import com.snakybo.sengine.core.utils.Vector2f;
 
 /** @author Kevin Krol
  * @since May 28, 2014 */
@@ -27,34 +24,32 @@ public class ChunkChecker implements Runnable {
 	@Override
 	public void run() {
 		while(chunkChecker.isAlive()) {
-			if(camera.getTransform().hasChanged())
-				continue;
-			
-			final Bounds bounds = camera.toBounds();
-			
-			for(Chunk chunk : chunkProvider.getChunkList()) {
-				final Tile[] tiles = chunk.getTiles();
+			if(camera.getTransform().hasChanged()) {
+				final Bounds cameraBounds = camera.toBounds();
+				final Chunk[] chunkList = chunkProvider.getChunkList();
 				
-				boolean changed = false;
-				
-				for(Tile tile : tiles) {
-					final Vector2f pos = tile.getPosition();
+				for(Chunk chunk : chunkList) {
+					final Bounds chunkBounds = chunk.toBounds();
 					
-					if(pos.getX() >= bounds.getLeft() && (pos.getX() + Tile.TILE_WIDTH) <= bounds.getRight()) {
-						if(pos.getY() >= bounds.getBottom() && (pos.getY() + Tile.TILE_HEIGHT) <= bounds.getTop()) {
-							changed = true; 
+					boolean changed = false;
+					
+					if(chunkBounds.getLeft() <= cameraBounds.getRight() && chunkBounds.getRight() >= cameraBounds.getLeft()) {
+						if(chunkBounds.getTop() >= cameraBounds.getBottom() && chunkBounds.getBottom() <= cameraBounds.getTop()) {
+							changed = true;
 							
 							if(!chunk.isLoaded()) {
+								System.out.println("Loaded a chunk");
 								chunk.load();
-								break;
 							}
 						}
 					}
+					
+					if(!changed && chunk.isLoaded()) {
+						System.out.println("Unloaded a chunk");
+						chunk.unload();
+					}
 				}
-				
-				if(!changed && chunk.isLoaded())
-					chunk.unload();
 			}
 		}
-	}	
+	}
 }

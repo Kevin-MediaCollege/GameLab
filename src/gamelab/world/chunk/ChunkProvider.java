@@ -3,20 +3,19 @@ package gamelab.world.chunk;
 import gamelab.tile.Tile;
 import gamelab.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Vector;
 
 /** @author Kevin Krol
  * @since May 20, 2014 */
 public class ChunkProvider {
-	private List<Chunk> chunks;
+	private Vector<Chunk> chunks;
 	
 	private World world;
 	
 	private long seed;
 	
 	public ChunkProvider(World world, long seed) {
-		chunks = new ArrayList<Chunk>();
+		chunks = new Vector<Chunk>();
 		
 		this.world = world;
 		this.seed = seed;
@@ -33,10 +32,9 @@ public class ChunkProvider {
 		seed = (long)x * 996746212733L + (long)y * 837299812787L;
 		
 		Chunk chunk = new Chunk(x, y);
+		chunks.add(chunk);
 		
 		generateTerrain(chunk);
-		
-		chunks.add(chunk);
 		
 		return chunk;
 	}
@@ -46,25 +44,22 @@ public class ChunkProvider {
 	}
 	
 	public Chunk getChunkAt(int x, int y) {
-		for(Chunk chunk : chunks) {
-			final int chunkX = chunk.getX();
-			final int chunkY = chunk.getY();
-						
-			if(x == chunkX && y == chunkY)
+		for(Chunk chunk : chunks)
+			if(x == chunk.getX() && y == chunk.getY())
 				return chunk;
-		}
 		
 		return null;
 	}
 	
 	private void generateTerrain(Chunk chunk) {
-		if(!chunkExists(chunk.getX(), chunk.getY()))
+		if(!chunkExists(chunk.getX(), chunk.getY())) {
 			for(int i = 0; i < chunk.getTileStorageLength(); i++) {
 				int x = i & 0xF;
 				int y = i >> 4;
 				
-				world.setTile(chunk, Tile.DIRT, x, y);
+				world.setTile(x, y, Tile.DIRT);
 			}
+		}
 	}
 	
 	public World getWorld() {

@@ -29,6 +29,11 @@ public class Bounds {
 		this.top = top;
 	}
 	
+	@Override
+	public String toString() {
+		return "Bounds (left=" + left + ", bottom=" + bottom + ", right=" + right + ", top=" + top + ")";
+	}
+
 	public void setLeft(float left) {
 		this.left = left;
 	}

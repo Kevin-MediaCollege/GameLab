@@ -1,6 +1,10 @@
 package gamelab.world.chunk;
 
 import gamelab.tile.Tile;
+import gamelab.tile.TileDirt;
+
+import com.snakybo.sengine.core.utils.Bounds;
+import com.snakybo.sengine.core.utils.Vector2f;
 
 /** @author Kevin Krol
  * @since May 13, 2014 */
@@ -27,37 +31,54 @@ public class Chunk {
 		isLoaded = true;
 		
 		for(Tile tile : tileStorage)
-			tile.load();
+			if(tile != null)
+				tile.load();
 	}
 	
 	public void unload() {
 		isLoaded = false;
 		
 		for(Tile tile : tileStorage)
-			tile.unload();
+			if(tile != null)
+				tile.unload();
+	}
+	
+	public Bounds toBounds() {
+		return new Bounds(chunkX * (CHUNK_SIZE * Tile.TILE_WIDTH), chunkY * (CHUNK_SIZE * Tile.TILE_HEIGHT), (chunkX + 1) * (CHUNK_SIZE * Tile.TILE_WIDTH), (chunkY + 1) * (CHUNK_SIZE * Tile.TILE_HEIGHT));
 	}
 	
 	public boolean isLoaded() {
 		return isLoaded;
 	}
 	
-	public void setTile(int index, Tile tile) {
-		tileStorage[index] = tile;
+	public boolean setTileId(int x, int y, int tileId) {
+		int xPos = (chunkX * CHUNK_SIZE) + x;
+		int yPos = (chunkY * CHUNK_SIZE) + y;
+		
+		Tile tile = null;
+		
+		switch(tileId) {
+		case Tile.DIRT:
+			tile = new TileDirt(xPos, yPos);
+		}
+		
+		tileStorage[x * Chunk.CHUNK_SIZE + y] = tile;
+		
+		return true;
 	}
 	
-	public Tile getTile(int x, int y) {
-	//	System.out.println("Before: " + x + " " + y);
+	public Tile getTileAt(int x, int y) {
+		x = (x + 1) >> 1 & 0xF;
+		y = (y + 1) >> 1 & 0xF;
 		
-		x = x >> 1 & 0xF;
-		y = y >> 1 & 0xF;
 		
-	//	System.out.println("After: " + x + " " + y);
+		System.out.println(x + " " + y);
 		
-		return tileStorage[x * CHUNK_SIZE + y];
-	}
-	
-	public Tile[] getTiles() {
-		return tileStorage;
+		for(Tile tile : tileStorage)
+			if(tile.getPosition().equals(new Vector2f(x, y)))
+				return tile;
+		
+		return null;
 	}
 	
 	public int getX() {

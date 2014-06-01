@@ -1,6 +1,5 @@
 package gamelab.world;
 
-import gamelab.tile.Tile;
 import gamelab.world.chunk.Chunk;
 import gamelab.world.chunk.ChunkProvider;
 
@@ -11,6 +10,11 @@ import com.snakybo.sengine.components.Camera;
 /** @author Kevin Krol
  * @since May 12, 2014 */
 public class World {
+	public static final int MIN_WORLD_X = -5000;
+	public static final int MIN_WORLD_Y = -5000;
+	public static final int MAX_WORLD_X = 5000;
+	public static final int MAX_WORLD_Y = 5000;
+	
 	private ChunkProvider chunkProvider;
 	private Random random;
 	private Camera camera;	
@@ -29,12 +33,19 @@ public class World {
 				chunkProvider.provideChunk(x, y);
 	}
 	
-	public void setTile(Chunk chunk, int tileId, int x, int y) {
-		if(chunk.getTile(x, y) == null) {
-			Tile tile = new Tile(tileId, x, y);
-			
-			chunk.setTile(x * Chunk.CHUNK_SIZE + y, tile);
-		}
+	public boolean setTile(int x, int y, int tileId) {
+		if(x >= MIN_WORLD_X && x <= MAX_WORLD_X && y >= MIN_WORLD_X && y <= MAX_WORLD_Y)
+			return getChunkFromChunkCoords(x >> 4, y >> 4).setTileId(x & 15, y & 15, tileId);
+		
+		return false;
+	}
+	
+	public Chunk getChunkFromTileCoords(int x, int y) {
+		return getChunkFromChunkCoords(x >> 4, y >> 4);
+	}
+	
+	public Chunk getChunkFromChunkCoords(int x, int y) {
+		return chunkProvider.getChunkAt(x, y);
 	}
 	
 	public Chunk getChunkFromMouseCoords(int x, int y) {

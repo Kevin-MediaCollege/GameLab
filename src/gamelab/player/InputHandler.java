@@ -22,16 +22,16 @@ public class InputHandler extends Component {
 	
 	@Override
 	protected void input(float delta) {
-		final Vector2f mouseWorld = camera.mouseToWorld();
-		
-		Chunk chunk = world.getChunkFromMouseCoords((int)mouseWorld.getX(), (int)mouseWorld.getY());
-		
-		if(chunk != null) {
-			Tile tile = chunk.getTile((int)mouseWorld.getX(), (int)mouseWorld.getY());
+		if(Input.getMouse(0)) {
+			final Vector2f mouseWorld = camera.mouseToWorld();
 			
-			if(tile != null)
-				if(Input.getMouse(0))
-					tile.updateSprite(Tile.GRASS);
+			Chunk chunk = world.getChunkFromMouseCoords((int)mouseWorld.getX(), (int)mouseWorld.getY());
+			
+			if(chunk != null) {
+				Tile tile = chunk.getTileAt((int)mouseWorld.getX(), (int)mouseWorld.getY());
+				
+				world.setTile((int)tile.getPosition().getX(), (int)tile.getPosition().getY(), Tile.GRASS);
+			}
 		}
 	}
 }

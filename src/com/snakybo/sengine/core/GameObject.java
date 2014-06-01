@@ -1,5 +1,7 @@
 package com.snakybo.sengine.core;
 
+import gamelab.tile.Tile;
+
 import java.util.ArrayList;
 
 import com.snakybo.sengine.rendering.RenderingEngine;
