@@ -28,9 +28,9 @@ public class InputHandler extends Component {
 			Chunk chunk = world.getChunkFromMouseCoords((int)mouseWorld.getX(), (int)mouseWorld.getY());
 			
 			if(chunk != null) {
-				Tile tile = chunk.getTileAt((int)mouseWorld.getX(), (int)mouseWorld.getY());
+				Tile tile = chunk.getTileFromMouseCoords((int)mouseWorld.getX(), (int)mouseWorld.getY());
 				
-				//world.setTile((int)tile.getPosition().getX(), (int)tile.getPosition().getY(), Tile.GRASS);
+				world.setTile(tile.getPosition().getX(), tile.getPosition().getY(), Tile.GRASS);
 			}
 		}
 	}

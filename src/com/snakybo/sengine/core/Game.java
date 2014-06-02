@@ -33,6 +33,10 @@ public abstract class Game {
 		GameObject.root.addChild(gameObject);
 	}
 	
+	public void removeChild(GameObject gameObject) {
+		GameObject.root.removeChild(gameObject);
+	}
+	
 	/** Set the core engine of the game
 	 * @param engine The core engine */
 	public void setEngine(CoreEngine engine) {

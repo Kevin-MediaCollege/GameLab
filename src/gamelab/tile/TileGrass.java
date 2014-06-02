@@ -5,8 +5,8 @@ package gamelab.tile;
 public class TileGrass extends Tile {
 	private static int[] spriteIds = new int[] {24};
 	
-	public TileGrass(int x, int y) {
-		super(Tile.GRASS, x, y);
+	public TileGrass(int x, int y, int rawX, int rawY) {
+		super(Tile.GRASS, x, y, rawX, rawY);
 		
 		updateSprite(getRandomSpriteId(spriteIds));
 	}

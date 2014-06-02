@@ -1,14 +1,14 @@
 package gamelab.tile;
 
-import java.util.Random;
-
 import gamelab.TestGame;
 import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.utils.rendering.SpriteSheet;
 
+import java.util.Random;
+
 import com.snakybo.sengine.core.GameObject;
 import com.snakybo.sengine.core.utils.Quaternion;
-import com.snakybo.sengine.core.utils.Vector2f;
+import com.snakybo.sengine.core.utils.Vector2i;
 import com.snakybo.sengine.core.utils.Vector3f;
 import com.snakybo.sengine.rendering.Texture;
 
@@ -27,10 +27,16 @@ public class Tile {
 	private final SpriteRenderer renderer;
 	private final int tileId;
 	
-	public Tile(int tileId, int x, int y) {
+	private int rawX;
+	private int rawY;
+	
+	public Tile(int tileId, int x, int y, int rawX, int rawY) {
 		this.tileId = tileId;
 		this.tile = new GameObject();
 		this.renderer = new SpriteRenderer(TILE_SPRITESHEET, 0);
+		
+		this.rawX = rawX;
+		this.rawY = rawY;
 		
 		tile.addComponent(renderer);
 		
@@ -61,12 +67,15 @@ public class Tile {
 		return spriteIds[random.nextInt(spriteIds.length)];
 	}
 	
-	public Vector2f getPosition() {
-		// TODO: Deze shit
-		return new Vector2f(0, 0);
+	public Vector2i getPosition() {
+		return new Vector2i(rawX, rawY);
 	}
 	
 	public int getTileId() {
 		return tileId;
+	}
+	
+	public GameObject getGameObject() {
+		return tile;
 	}
 }

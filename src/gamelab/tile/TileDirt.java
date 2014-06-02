@@ -5,8 +5,8 @@ package gamelab.tile;
 public class TileDirt extends Tile {
 	private static int[] spriteIds = new int[] {10, 11, 12};
 	
-	public TileDirt(int x, int y) {
-		super(Tile.DIRT, x, y);
+	public TileDirt(int x, int y, int rawX, int rawY) {
+		super(Tile.DIRT, x, y, rawX, rawY);
 		
 		updateSprite(getRandomSpriteId(spriteIds));
 	}

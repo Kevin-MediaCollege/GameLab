@@ -1,10 +1,11 @@
 package gamelab.world.chunk;
 
+import gamelab.TestGame;
 import gamelab.tile.Tile;
 import gamelab.tile.TileDirt;
+import gamelab.tile.TileGrass;
 
 import com.snakybo.sengine.core.utils.Bounds;
-import com.snakybo.sengine.core.utils.Vector2f;
 
 /** @author Kevin Krol
  * @since May 13, 2014 */
@@ -55,11 +56,20 @@ public class Chunk {
 		int xPos = (chunkX * CHUNK_SIZE) + x;
 		int yPos = (chunkY * CHUNK_SIZE) + y;
 		
-		Tile tile = null;
+		Tile tile = getTileAt(x, y);
+		
+		if(tile != null)
+			TestGame.instance.removeChild(tile.getGameObject());
 		
 		switch(tileId) {
 		case Tile.DIRT:
-			tile = new TileDirt(xPos, yPos);
+			tile = new TileDirt(xPos, yPos, x, y);
+			break;
+		case Tile.GRASS:
+			tile = new TileGrass(xPos, yPos, x, y);
+			break;
+		default:
+			throw new IllegalArgumentException("The tile with the ID " + tileId + " has not been referenced to a tile.");
 		}
 		
 		tileStorage[x * Chunk.CHUNK_SIZE + y] = tile;
@@ -68,14 +78,14 @@ public class Chunk {
 	}
 	
 	public Tile getTileAt(int x, int y) {
-		x = (x + 1) >> 1 & 0xF;
-		y = (y + 1) >> 1 & 0xF;
+		return tileStorage[x * Chunk.CHUNK_SIZE + y];
+	}
+	
+	public Tile getTileFromMouseCoords(int x, int y) {
+		x = ((x + 1) / 2) & 0xF;
+		y = ((y + 1) / 2) & 0xF;
 		
-		for(Tile tile : tileStorage)
-			if(tile.getPosition().equals(new Vector2f(x, y)))
-				return tile;
-		
-		return null;
+		return tileStorage[x * Chunk.CHUNK_SIZE + y];
 	}
 	
 	public int getX() {

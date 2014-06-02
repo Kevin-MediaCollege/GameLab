@@ -35,7 +35,7 @@ public class World {
 	
 	public boolean setTile(int x, int y, int tileId) {
 		if(x >= MIN_WORLD_X && x <= MAX_WORLD_X && y >= MIN_WORLD_X && y <= MAX_WORLD_Y)
-			return getChunkFromChunkCoords(x >> 4, y >> 4).setTile(x & 15, y & 15, tileId);
+			return getChunkFromChunkCoords(x >> 4, y >> 4).setTile(x & 0xF, y & 0xF, tileId);
 		
 		return false;
 	}

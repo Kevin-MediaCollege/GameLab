@@ -1,8 +1,9 @@
 package com.snakybo.sengine.core;
 
-import gamelab.tile.Tile;
-
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.snakybo.sengine.rendering.RenderingEngine;
 import com.snakybo.sengine.rendering.Shader;
@@ -18,8 +19,8 @@ import com.snakybo.sengine.rendering.Shader;
 public class GameObject {
 	static GameObject root;
 	
-	private ArrayList<GameObject> children;
-	private ArrayList<Component> components;
+	private List<GameObject> children;
+	private List<Component> components;
 	
 	private Transform transform;
 	private CoreEngine engine;
@@ -27,8 +28,8 @@ public class GameObject {
 	/** Constructor for the game object
 	 * @param componentsToAdd A list of components to add to the game object */
 	public GameObject(Component... componentsToAdd) {
-		children = new ArrayList<GameObject>();
-		components = new ArrayList<Component>();
+		children = new CopyOnWriteArrayList<GameObject>();
+		components = new CopyOnWriteArrayList<Component>();
 		
 		transform = new Transform();
 		engine = null;
@@ -55,6 +56,10 @@ public class GameObject {
 		return this;
 	}
 	
+	public void removeChild(GameObject child) {
+		children.remove(child);
+	}
+	
 	public <T extends Component> T getComponent(Class<T> type) {
 		for(Component component : components)
 			if(type.equals(component.getClass()))
@@ -68,8 +73,9 @@ public class GameObject {
 	public void inputAll(float delta) {
 		input(delta);
 		
-		for(GameObject child : children)
-			child.inputAll(delta);
+		Iterator<GameObject> it = children.iterator();
+		while(it.hasNext())
+			it.next().inputAll(delta);
 	}
 	
 	/** Update this game object and all of it's children
@@ -77,8 +83,9 @@ public class GameObject {
 	public void updateAll(float delta) {
 		update(delta);
 		
-		for(GameObject child : children)
-			child.updateAll(delta);
+		Iterator<GameObject> it = children.iterator();
+		while(it.hasNext())
+			it.next().updateAll(delta);
 	}
 	
 	/** Render this game object and all of it's children
@@ -87,8 +94,9 @@ public class GameObject {
 	public void renderAll(Shader shader, RenderingEngine renderingEngine) {
 		render(shader, renderingEngine);
 		
-		for(GameObject child : children)
-			child.renderAll(shader, renderingEngine);
+		Iterator<GameObject> it = children.iterator();
+		while(it.hasNext())
+			it.next().renderAll(shader, renderingEngine);
 	}
 	
 	/** Handle input for the game object and it's components
@@ -96,23 +104,26 @@ public class GameObject {
 	public void input(float delta) {
 		transform.update();
 		
-		for(Component component : components)
-			component.input(delta);
+		Iterator<Component> it = components.iterator();
+		while(it.hasNext())
+			it.next().input(delta);
 	}
 	
 	/** Update the game object and it's components
 	 * @param delta The current delta time */
 	public void update(float delta) {
-		for(Component component : components)
-			component.update(delta);
+		Iterator<Component> it = components.iterator();
+		while(it.hasNext())
+			it.next().update(delta);
 	}
 	
 	/** Render the game object and it's components
 	 * @param shader The active shader
 	 * @param renderingEngine The rendering engine */
 	public void render(Shader shader, RenderingEngine renderingEngine) {
-		for(Component component : components)
-			component.render(shader, renderingEngine);
+		Iterator<Component> it = components.iterator();
+		while(it.hasNext())
+			it.next().render(shader, renderingEngine);
 	}
 	
 	/** Set the core engine of the game object
