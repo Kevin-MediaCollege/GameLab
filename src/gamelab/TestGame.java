@@ -1,6 +1,7 @@
 package gamelab;
 
 import gamelab.player.InputHandler;
+import gamelab.utils.city.City;
 import gamelab.world.World;
 
 import com.snakybo.sengine.components.Camera;
@@ -31,6 +32,10 @@ public class TestGame extends Game {
 		addChild(new GameObject(camera, freeMove, new InputHandler(camera, world)));
 		
 		world.start();
+		
+		City city = new City();
+		
+		city.addBuilding();
 		
 		//enableLeapMotion();
 	}

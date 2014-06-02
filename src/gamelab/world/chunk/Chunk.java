@@ -51,7 +51,7 @@ public class Chunk {
 		return isLoaded;
 	}
 	
-	public boolean setTileId(int x, int y, int tileId) {
+	public boolean setTile(int x, int y, int tileId) {
 		int xPos = (chunkX * CHUNK_SIZE) + x;
 		int yPos = (chunkY * CHUNK_SIZE) + y;
 		
@@ -70,9 +70,6 @@ public class Chunk {
 	public Tile getTileAt(int x, int y) {
 		x = (x + 1) >> 1 & 0xF;
 		y = (y + 1) >> 1 & 0xF;
-		
-		
-		System.out.println(x + " " + y);
 		
 		for(Tile tile : tileStorage)
 			if(tile.getPosition().equals(new Vector2f(x, y)))
