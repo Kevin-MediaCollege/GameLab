@@ -1,49 +1,50 @@
 package gamelab.utils.city;
 
-import gamelab.TestGame;
+import gamelab.tile.Tile;
 import gamelab.utils.city.citizen.Citizen;
-import gamelab.utils.rendering.SpriteRenderer;
+import gamelab.utils.city.citizen.CitizenManager;
 
-import com.snakybo.sengine.core.GameObject;
-import com.snakybo.sengine.core.utils.Quaternion;
-import com.snakybo.sengine.core.utils.Vector3f;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.snakybo.sengine.core.Component;
+import com.snakybo.sengine.core.utils.Vector2f;
+import com.snakybo.sengine.core.utils.Vector2i;
 
 /** @author Kevin Krol
  * @since Jun 2, 2014 */
-public class Building {
-	private final GameObject building;
-	private final SpriteRenderer renderer;
+public class Building extends Component {
+	public static final int RADIUS_MULTIPLIER = 10;
+	
+	private List<Citizen> citizens;
 	
 	private City city;
 	
-	private int size;
+	private int rawX;
+	private int rawY;
 	
-	public Building(City city, int x, int y) {
+	public Building(int rawX, int rawY) {
+		this.rawX = rawX;
+		this.rawY = rawY;
+	}
+	
+	public void init(City city) {
+		citizens = new ArrayList<Citizen>();
+		
 		this.city = city;
-		this.building = new GameObject();
-		this.renderer = new SpriteRenderer(City.BUILDING_SPRITESHEET, 0);
-		
-		building.addComponent(renderer);
-		
-		building.getTransform().setPosition(new Vector3f(x * 39, y * 55, 1));
-		building.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
-		building.getTransform().setScale(new Vector3f(39, 0, 55));
-		
-		building.getTransform().rotate(new Vector3f(0, 0, 1), (float)Math.toRadians(180));
-
-		TestGame.instance.addChild(building);
-		
-		size = 1;
 		
 		addCitizens();
 	}
 	
 	private void addCitizens() {
-		for(int i = 0; i < size; i++)
-			new Citizen(this);
+		citizens.add(CitizenManager.addCitizen(getParent()).getComponent(Citizen.class));
 	}
 	
-	public GameObject getBuilding() {
-		return building;
+	public Vector2i getPosition() {
+		return new Vector2i(rawX, rawY);
+	}
+	
+	public City getCity() {
+		return city;
 	}
 }

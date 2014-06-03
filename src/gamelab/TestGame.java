@@ -33,7 +33,7 @@ public class TestGame extends Game {
 		
 		world.start();
 		
-		City city = new City();
+		City city = new City(world);
 		
 		city.addBuilding();
 		

@@ -95,6 +95,13 @@ public class Vector2f {
 		return new Vector2f((float)(x * cos - y * sin), (float)(x * sin + y * cos));
 	}
 	
+	public float distance(Vector2f r) {
+		float _x = this.x - r.getX();
+		float _y = this.y - r.getY();
+		
+		return (float)Math.sqrt(_x * _x + _y * _y);
+	}
+	
 	/** Linearly interpolate the vector
 	 * @param dest The destination
 	 * @param lerpFactor The lerp factor

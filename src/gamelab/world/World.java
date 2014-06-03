@@ -1,5 +1,6 @@
 package gamelab.world;
 
+import gamelab.tile.Tile;
 import gamelab.world.chunk.Chunk;
 import gamelab.world.chunk.ChunkProvider;
 
@@ -38,6 +39,10 @@ public class World {
 			return getChunkFromChunkCoords(x >> 4, y >> 4).setTile(x & 0xF, y & 0xF, tileId);
 		
 		return false;
+	}
+	
+	public Tile getTileAt(int x, int y) {
+		return getChunkFromTileCoords(x / Tile.TILE_WIDTH, y / Tile.TILE_HEIGHT).getTileAt(x >> 4, y >> 4);
 	}
 	
 	public Chunk getChunkFromTileCoords(int x, int y) {

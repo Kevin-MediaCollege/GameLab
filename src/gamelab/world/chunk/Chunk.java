@@ -99,4 +99,8 @@ public class Chunk {
 	public int getTileStorageLength() {
 		return tileStorage.length;
 	}
+	
+	public Tile[] getTiles() {
+		return tileStorage;
+	}
 }
