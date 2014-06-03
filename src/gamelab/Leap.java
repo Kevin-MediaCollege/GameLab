@@ -122,6 +122,7 @@ public class Leap extends Listener {
                 case TYPE_SWIPE:
                     SwipeGesture swipe = new SwipeGesture(gesture);
                     
+                    }
                     System.out.println(
                     		"Swipe id: " + swipe.id()
                     		+ ", " + swipe.state()
@@ -132,6 +133,7 @@ public class Leap extends Listener {
                 case TYPE_SCREEN_TAP:
                     ScreenTapGesture screenTap = new ScreenTapGesture(gesture);
                     
+                                        
                     System.out.println(
                     		"Screen Tap id: " + screenTap.id()
                     		+ ", " + screenTap.state()
