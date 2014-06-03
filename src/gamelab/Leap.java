@@ -14,10 +14,20 @@ import com.leapmotion.leap.Listener;
 import com.leapmotion.leap.ScreenTapGesture;
 import com.leapmotion.leap.SwipeGesture;
 import com.leapmotion.leap.Vector;
+import com.snakybo.sengine.core.Input;
 
 /** @author Kevin Krol
  * @since May 15, 2014 */
 public class Leap extends Listener {
+	public static boolean xMovePlus = false;
+	public static boolean yMovePlus = false;
+	public static boolean zMovePlus = false;
+	
+	public static boolean xMoveMin = false;
+	public static boolean yMoveMin = false;
+	public static boolean zMoveMin = false;
+	
+	
 	public void onInit(Controller controller) {
 		System.out.println("[LEAP] Initialized");
 	}
@@ -38,6 +48,7 @@ public class Leap extends Listener {
 	public void onExit(Controller controller) {
 		System.out.println("Exited");
 	}
+	
 	
 	public void onFrame(Controller controller) {
 		Frame frame = controller.frame();
@@ -121,7 +132,47 @@ public class Leap extends Listener {
                     break;
                 case TYPE_SWIPE:
                     SwipeGesture swipe = new SwipeGesture(gesture);
+                    Vector aPoint = new Vector(10f, 0f, 0f);
+                    Vector bPoint = new Vector(0f, 10f, 0f);
+                    Vector cPoint = new Vector(0f, 0f, 10f);
+                    Vector dPoint = new Vector(-10f, 0f, 0f);
+                    Vector ePoint = new Vector(0f, -10f, 0f);
+                    Vector fPoint = new Vector(0f, 0f, -10f);
+                    Vector origin = Vector.zero();
+                    float distanceXplus = origin.distanceTo(aPoint); // distance = 10
+                    float distanceYplus = origin.distanceTo(bPoint); // distance = 10
+                    float distanceZplus = origin.distanceTo(cPoint); // distance = 10
+                    float distanceXmin = origin.distanceTo(dPoint); // distance = -10
+                    float distanceYmin = origin.distanceTo(ePoint); // distance = -10
+                    float distanceZmin = origin.distanceTo(fPoint); // distance = -10
                     
+                    if(distanceXplus > 10)
+                    xMovePlus = true;
+                    xMoveMin = false;
+                    
+                    if(distanceXmin > -10)
+                    xMoveMin = true;
+                    xMovePlus = false;
+                    
+                    if(distanceYplus > 10)
+                    yMovePlus = true;
+                    yMoveMin = false;
+                    
+                    if(distanceYmin > -10)
+                    yMoveMin = true;
+                    yMovePlus = false;
+                    
+                    if(distanceZplus > 10)
+                    zMovePlus = true;
+                    zMoveMin = false;
+                    
+                    if(distanceZmin > -10)
+                    zMoveMin = true;
+                    zMovePlus = false;
+                	
+            			
+            		
+
                     System.out.println(
                     		"Swipe id: " + swipe.id()
                     		+ ", " + swipe.state()

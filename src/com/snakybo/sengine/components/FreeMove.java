@@ -49,6 +49,7 @@ public class FreeMove extends Component {
 	
 	@Override
 	protected void input(float delta) {
+		
 		float moveAmt = speed * delta;
 		
 		if(Input.getKey(keyForward))

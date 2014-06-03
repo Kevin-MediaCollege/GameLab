@@ -4,6 +4,9 @@ import gamelab.player.InputHandler;
 import gamelab.utils.city.City;
 import gamelab.world.World;
 
+import java.io.IOException;
+
+import com.leapmotion.leap.Controller;
 import com.snakybo.sengine.components.Camera;
 import com.snakybo.sengine.components.FreeMove;
 import com.snakybo.sengine.core.CoreEngine;
@@ -29,7 +32,7 @@ public class TestGame extends Game {
 		
 		world = new World(camera);
 		
-		addChild(new GameObject(camera, freeMove, new InputHandler(camera, world)));
+		addChild(new GameObject(camera, freeMove, new InputReaderLeap(), new InputHandler(camera, world)));
 		
 		world.start();
 		
@@ -37,7 +40,7 @@ public class TestGame extends Game {
 		
 		city.addBuilding();
 		
-		//enableLeapMotion();
+		enableLeapMotion();
 	}
 	
 	@Override
@@ -47,23 +50,29 @@ public class TestGame extends Game {
 		//System.out.println(Time.getFps());
 	}
 	
-//	private void enableLeapMotion() {
-//		// Create a sample listener and controller
-//        Leap listener = new Leap();
-//        Controller controller = new Controller();
-//
-//        // Have the sample listener receive events from the controller
-//        controller.addListener(listener);
-//
-//        // Keep this process running until Enter is pressed
-//        System.out.println("Press Enter to quit...");
-//        try {
-//            System.in.read();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Remove the sample listener when done
-//        controller.removeListener(listener);
-//	}
+	private void enableLeapMotion() {
+		
+        new Thread(new Runnable() {
+        	@Override
+        	public void run() {
+        		// Create a sample listener and controller
+                Leap listener = new Leap();
+                Controller controller = new Controller();
+
+                // Have the sample listener receive events from the controller
+                controller.addListener(listener);
+
+                // Keep this process running until Enter is pressed
+//                System.out.println("Press Enter to quit...");
+                try {
+                 System.in.read();
+              } catch (IOException e) {
+                  e.printStackTrace();
+              }
+
+              // Remove the sample listener when done
+              controller.removeListener(listener);
+      	}
+    }).run();
+	}
 }
