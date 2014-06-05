@@ -53,8 +53,8 @@ public class Chunk {
 	}
 	
 	public boolean setTile(int x, int y, int tileId) {
-		int xPos = (chunkX * CHUNK_SIZE) + x;
-		int yPos = (chunkY * CHUNK_SIZE) + y;
+		int xPos = x + (chunkX * CHUNK_SIZE);
+		int yPos = y + (chunkY * CHUNK_SIZE);
 		
 		Tile tile = getTileAt(x, y);
 		

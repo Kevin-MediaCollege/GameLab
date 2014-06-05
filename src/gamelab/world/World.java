@@ -29,24 +29,24 @@ public class World {
 	public void start() {
 		chunkProvider = new ChunkProvider(this, random.nextLong());
 		
-		for(int x = 0; x < 1; x++)
-			for(int y = 0; y < 1; y++)
+		for(int x = 0; x < 2; x++)
+			for(int y = 0; y < 2; y++)
 				chunkProvider.provideChunk(x, y);
 	}
 	
-	public boolean setTile(int x, int y, int tileId) {
+	public boolean setTile(Chunk chunk, int x, int y, int tileId) {
 		if(x >= MIN_WORLD_X && x <= MAX_WORLD_X && y >= MIN_WORLD_X && y <= MAX_WORLD_Y)
-			return getChunkFromChunkCoords(x >> 4, y >> 4).setTile(x & 0xF, y & 0xF, tileId);
+			return chunk.setTile(x & 0xF, y & 0xF, tileId);
 		
 		return false;
 	}
 	
 	public Tile getTileAt(int x, int y) {
-		return getChunkFromTileCoords(x / Tile.TILE_WIDTH, y / Tile.TILE_HEIGHT).getTileAt(x >> 4, y >> 4);
+		return getChunkFromTileCoords(x, y).getTileAt(x / Tile.TILE_WIDTH, y / Tile.TILE_HEIGHT);
 	}
 	
 	public Chunk getChunkFromTileCoords(int x, int y) {
-		return getChunkFromChunkCoords(x >> 4, y >> 4);
+		return getChunkFromChunkCoords((x / Tile.TILE_WIDTH) >> 4, (y / Tile.TILE_HEIGHT) >> 4);
 	}
 	
 	public Chunk getChunkFromChunkCoords(int x, int y) {

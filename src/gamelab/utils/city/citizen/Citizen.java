@@ -56,6 +56,7 @@ public class Citizen extends Component {
 	private void isAtHome() {
 		// TODO: Citizen is at home
 		//System.out.println("Citizen is at home");
+		
 		flags = FLAG_FIND_RESOURCE;
 	}
 	
@@ -70,14 +71,12 @@ public class Citizen extends Component {
 		
 		List<Tile> tiles = new ArrayList<Tile>();
 		
-		for(int x = -1; x < 2; x++) {
-			for(int y = -1; y < 2; y++) {
-				int xPos = (int)(getTransform().getPosition().getX());
-				int yPos = (int)(getTransform().getPosition().getY());
+		for(int x = -4; x < 5; x++) {
+			for(int y = -4; y < 5; y++) {
+				int xPos = (int)getTransform().getPosition().getX();
+				int yPos = (int)getTransform().getPosition().getY();
 				
-				//System.out.println(xPos + " " + yPos);
-				
-				tiles.add(home.getCity().getWorld().getTileAt(xPos, yPos));
+				tiles.add(home.getCity().getWorld().getTileAt(xPos + (x * Tile.TILE_WIDTH), yPos + (y * Tile.TILE_HEIGHT)));
 			}
 		}
 		

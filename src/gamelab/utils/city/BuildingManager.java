@@ -29,7 +29,7 @@ public class BuildingManager {
 		buildingGo.addComponent(new SpriteRenderer(BUILDING_SPRITESHEET, 0));
 		buildingGo.addComponent(building);
 		
-		buildingGo.getTransform().setPosition(new Vector3f(2 * BUILDING_WIDTH - (BUILDING_WIDTH / 2), 2 * BUILDING_HEIGHT - (BUILDING_HEIGHT / 2), 1));
+		buildingGo.getTransform().setPosition(new Vector3f(5 * BUILDING_WIDTH - (BUILDING_WIDTH / 2), 5 * BUILDING_HEIGHT - (BUILDING_HEIGHT / 2), 1));
 		buildingGo.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		buildingGo.getTransform().setScale(new Vector3f(BUILDING_WIDTH, 0, BUILDING_HEIGHT));
 		

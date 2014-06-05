@@ -56,8 +56,8 @@ public class ChunkProvider {
 			for(int i = 0; i < chunk.getTileStorageLength(); i++) {
 				int x = i & 0xF;
 				int y = i >> 4;
-				
-				world.setTile(x, y, Tile.DIRT);
+			
+				world.setTile(chunk, x, y, Tile.DIRT);
 			}
 		}
 	}
