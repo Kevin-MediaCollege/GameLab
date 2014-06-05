@@ -4,9 +4,6 @@ import gamelab.player.InputHandler;
 import gamelab.utils.city.City;
 import gamelab.world.World;
 
-import java.io.IOException;
-
-import com.leapmotion.leap.Controller;
 import com.snakybo.sengine.components.Camera;
 import com.snakybo.sengine.components.FreeMove;
 import com.snakybo.sengine.core.CoreEngine;
@@ -28,51 +25,22 @@ public class TestGame extends Game {
 		coreEngine.getRenderingEngine().setAmbientLight(new Vector3f(1f, 1f, 1f));
 		
 		Camera camera = Camera.initOrthographicCamera(0, Window.getWidth(), 0, Window.getHeight(), -32, 32);
-		FreeMove freeMove = new FreeMove(300, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S);
+		
+		addChild(new GameObject(
+				camera,
+				new FreeMove(300, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S),
+				new InputHandler(camera, world),
+				new LeapInputReader()
+			)
+		);
 		
 		world = new World(camera);
-		
-		addChild(new GameObject(camera, freeMove,new LeapInputReader(), new InputHandler(camera, world)));
-		
-		world.start();
+		world.start();		
 		
 		City city = new City(world);
 		
 		city.addBuilding();
 		
-		enableLeapMotion();
-	}
-	
-	@Override
-	protected void update(float delta) {
-		super.update(delta);
-		
-		//System.out.println(Time.getFps());
-	}
-	
-	private void enableLeapMotion() {
-		
-        new Thread(new Runnable() {
-        	@Override
-        	public void run() {
-        		// Create a sample listener and controller
-                Leap listener = new Leap();
-                Controller controller = new Controller();
-
-                // Have the sample listener receive events from the controller
-                controller.addListener(listener);
-
-                // Keep this process running until Enter is pressed
-//                System.out.println("Press Enter to quit...");
-                try {
-                 System.in.read();
-              } catch (IOException e) {
-                  e.printStackTrace();
-              }
-
-              // Remove the sample listener when done
-              controller.removeListener(listener);
-      	}
-    }).run();
+		new LeapInputManager();
 	}
 }
