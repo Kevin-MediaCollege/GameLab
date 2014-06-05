@@ -53,13 +53,13 @@ public class Leap extends Listener {
 	public void onFrame(Controller controller) {
 		Frame frame = controller.frame();
 		
-        System.out.println(
-        		"Frame id: " + frame.id()
-        		+ ", timestamp: " + frame.timestamp()
-        		+ ", hands: " + frame.hands().count()
-        		+ ", fingers: " + frame.fingers().count()
-        		+ ", tools: " + frame.tools().count()
-        		+ ", gestures " + frame.gestures().count());
+//        System.out.println(
+//        		"Frame id: " + frame.id()
+//        		+ ", timestamp: " + frame.timestamp()
+//        		+ ", hands: " + frame.hands().count()
+//        		+ ", fingers: " + frame.fingers().count()
+//        		+ ", tools: " + frame.tools().count()
+//        		+ ", gestures " + frame.gestures().count());
 
         if(!frame.hands().isEmpty()) {
             // Get the first hand
@@ -76,25 +76,25 @@ public class Leap extends Listener {
                 
                 avgPos = avgPos.divide(fingers.count());
                 
-                System.out.println(
-                		"Hand has " + fingers.count()
-                		+ " fingers, average finger tip position: " + avgPos);
+//                System.out.println(
+//                		"Hand has " + fingers.count()
+//                		+ " fingers, average finger tip position: " + avgPos);
             }
 
             // Get the hand's sphere radius and palm position
-            System.out.println(
-            		"Hand sphere radius: " + hand.sphereRadius()
-            		+ " mm, palm position: " + hand.palmPosition());
+//            System.out.println(
+//            		"Hand sphere radius: " + hand.sphereRadius()
+//            		+ " mm, palm position: " + hand.palmPosition());
 
             // Get the hand's normal vector and direction
             Vector normal = hand.palmNormal();
             Vector direction = hand.direction();
 
             // Calculate the hand's pitch, roll, and yaw angles
-            System.out.println(
-            		"Hand pitch: " + Math.toDegrees(direction.pitch()) + " degrees, "
-            		+ "roll: " + Math.toDegrees(normal.roll()) + " degrees, "
-            		+ "yaw: " + Math.toDegrees(direction.yaw()) + " degrees");
+//            System.out.println(
+//            		"Hand pitch: " + Math.toDegrees(direction.pitch()) + " degrees, "
+//            		+ "roll: " + Math.toDegrees(normal.roll()) + " degrees, "
+//            		+ "yaw: " + Math.toDegrees(direction.yaw()) + " degrees");
         }
 
         GestureList gestures = frame.gestures();
@@ -122,13 +122,13 @@ public class Leap extends Listener {
                         sweptAngle = (circle.progress() - previousUpdate.progress()) * 2 * Math.PI;
                     }
 
-                    System.out.println(
-                    		"Circle id: " + circle.id()
-                    		+ ", " + circle.state()
-                    		+ ", progress: " + circle.progress()
-                    		+ ", radius: " + circle.radius()
-                    		+ ", angle: " + Math.toDegrees(sweptAngle)
-                    		+ ", " + clockwiseness);
+//                    System.out.println(
+//                    		"Circle id: " + circle.id()
+//                    		+ ", " + circle.state()
+//                    		+ ", progress: " + circle.progress()
+//                    		+ ", radius: " + circle.radius()
+//                    		+ ", angle: " + Math.toDegrees(sweptAngle)
+//                    		+ ", " + clockwiseness);
                     break;
                 case TYPE_SWIPE:
 				SwipeGesture vSwipe = new SwipeGesture(gesture);
@@ -161,42 +161,44 @@ public class Leap extends Listener {
                 	}
                 	
                 	
-            			
+            		System.out.println(
+            				"vSwipe id:" + vSwipe.id()
+            				+ ", " + sDirection);
             		
 
-                    System.out.println(
-                    		"Swipe id: " + vSwipe.id()
-                    		+ ", " + vSwipe.state()
-                    		+ ", position: " + vSwipe.position()
-                    		+ ", direction: " + vSwipe.direction()
-                    		+ ", speed: " + vSwipe.speed());
+//                    System.out.println(
+//                    		"Swipe id: " + vSwipe.id()
+//                    		+ ", " + vSwipe.state()
+//                    		+ ", position: " + vSwipe.position()
+//                    		+ ", direction: " + vSwipe.direction()
+//                    		+ ", speed: " + vSwipe.speed());
                     break;
                 case TYPE_SCREEN_TAP:
                     ScreenTapGesture screenTap = new ScreenTapGesture(gesture);
                     
                                         
-                    System.out.println(
-                    		"Screen Tap id: " + screenTap.id()
-                    		+ ", " + screenTap.state()
-                    		+ ", position: " + screenTap.position()
-                    		+ ", direction: " + screenTap.direction());
+//                    System.out.println(
+//                    		"Screen Tap id: " + screenTap.id()
+//                    		+ ", " + screenTap.state()
+//                    		+ ", position: " + screenTap.position()
+//                    		+ ", direction: " + screenTap.direction());
                     break;
                 case TYPE_KEY_TAP:
                     KeyTapGesture keyTap = new KeyTapGesture(gesture);
                     
-                    System.out.println(
-                    		"Key Tap id: " + keyTap.id()
-                    		+ ", " + keyTap.state()
-                    		+ ", position: " + keyTap.position()
-                    		+ ", direction: " + keyTap.direction());
+//                    System.out.println(
+//                    		"Key Tap id: " + keyTap.id()
+//                    		+ ", " + keyTap.state()
+//                    		+ ", position: " + keyTap.position()
+//                    		+ ", direction: " + keyTap.direction());
                     break;
                 default:
-                    System.out.println("Unknown gesture type.");
+                 //   System.out.println("Unknown gesture type.");
                     break;
             }
         }
 
-        if(!frame.hands().isEmpty() || !gestures.isEmpty())
-            System.out.println();
+       // if(!frame.hands().isEmpty() || !gestures.isEmpty())
+            //System.out.println();
 	}
 }
