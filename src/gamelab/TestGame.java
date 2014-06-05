@@ -32,7 +32,7 @@ public class TestGame extends Game {
 		
 		world = new World(camera);
 		
-		addChild(new GameObject(camera, freeMove, new InputReaderLeap(), new InputHandler(camera, world)));
+		addChild(new GameObject(camera, freeMove, new InputHandler(camera, world)));
 		
 		world.start();
 		
