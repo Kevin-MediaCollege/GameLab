@@ -131,54 +131,45 @@ public class Leap extends Listener {
                     		+ ", " + clockwiseness);
                     break;
                 case TYPE_SWIPE:
-                    SwipeGesture swipe = new SwipeGesture(gesture);
-                    Vector aPoint = new Vector(10f, 0f, 0f);
-                    Vector bPoint = new Vector(0f, 10f, 0f);
-                    Vector cPoint = new Vector(0f, 0f, 10f);
-                    Vector dPoint = new Vector(-10f, 0f, 0f);
-                    Vector ePoint = new Vector(0f, -10f, 0f);
-                    Vector fPoint = new Vector(0f, 0f, -10f);
-                    Vector origin = Vector.zero();
-                    float distanceXplus = origin.distanceTo(aPoint); // distance = 10
-                    float distanceYplus = origin.distanceTo(bPoint); // distance = 10
-                    float distanceZplus = origin.distanceTo(cPoint); // distance = 10
-                    float distanceXmin = origin.distanceTo(dPoint); // distance = -10
-                    float distanceYmin = origin.distanceTo(ePoint); // distance = -10
-                    float distanceZmin = origin.distanceTo(fPoint); // distance = -10
-                    
-                    if(distanceXplus > 10)
-                    xMovePlus = true;
-                    xMoveMin = false;
-                    
-                    if(distanceXmin > -10)
-                    xMoveMin = true;
-                    xMovePlus = false;
-                    
-                    if(distanceYplus > 10)
-                    yMovePlus = true;
-                    yMoveMin = false;
-                    
-                    if(distanceYmin > -10)
-                    yMoveMin = true;
-                    yMovePlus = false;
-                    
-                    if(distanceZplus > 10)
-                    zMovePlus = true;
-                    zMoveMin = false;
-                    
-                    if(distanceZmin > -10)
-                    zMoveMin = true;
-                    zMovePlus = false;
+				SwipeGesture vSwipe = new SwipeGesture(gesture);
+                	String sDirection;
+
+                	// Compare directions and give preference to the greatest linear movement.
+                	float fAbsX = Math.abs(vSwipe.direction().getX());
+                	float fAbsY = Math.abs(vSwipe.direction().getY());
+                	float fAbsZ = Math.abs(vSwipe.direction().getZ());
+
+                	// Was X the greatest?
+                	if (fAbsX > fAbsY && fAbsX > fAbsZ)
+                	{
+                		if (vSwipe.direction().getX() > 0)
+                			sDirection = "Right";
+                		else sDirection = "Left";
+                	}
+                	// Was Y the greatest?
+                	else if (fAbsY > fAbsX && fAbsY > fAbsZ)
+                	{
+                		if (vSwipe.direction().getY() > 0)
+                			sDirection = "Up";
+                		else sDirection = "Down";
+                	}
+                	else // Z was the greatest.
+                	{
+                		if (vSwipe.direction().getZ() > 0)
+                			sDirection = "Backward";
+                		else sDirection = "Forward";
+                	}
+
                 	
             			
             		
 
                     System.out.println(
-                    		"Swipe id: " + swipe.id()
-                    		+ ", " + swipe.state()
-                    		+ ", position: " + swipe.position()
-                    		+ ", direction: " + swipe.direction()
-                    		+ ", speed: " + swipe.speed());
+                    		"Swipe id: " + vSwipe.id()
+                    		+ ", " + vSwipe.state()
+                    		+ ", position: " + vSwipe.position()
+                    		+ ", direction: " + vSwipe.direction()
+                    		+ ", speed: " + vSwipe.speed());
                     break;
                 case TYPE_SCREEN_TAP:
                     ScreenTapGesture screenTap = new ScreenTapGesture(gesture);

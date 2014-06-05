@@ -1,6 +1,5 @@
 package gamelab.utils.city;
 
-import gamelab.tile.Tile;
 import gamelab.utils.city.citizen.Citizen;
 import gamelab.utils.city.citizen.CitizenManager;
 
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.snakybo.sengine.core.Component;
-import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector2i;
 
 /** @author Kevin Krol
