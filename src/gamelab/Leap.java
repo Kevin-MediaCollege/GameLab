@@ -19,13 +19,7 @@ import com.snakybo.sengine.core.Input;
 /** @author Kevin Krol
  * @since May 15, 2014 */
 public class Leap extends Listener {
-	public static boolean xMovePlus = false;
-	public static boolean yMovePlus = false;
-	public static boolean zMovePlus = false;
-	
-	public static boolean xMoveMin = false;
-	public static boolean yMoveMin = false;
-	public static boolean zMoveMin = false;
+	public static String sDirection;
 	
 	
 	public void onInit(Controller controller) {
@@ -132,7 +126,7 @@ public class Leap extends Listener {
                     break;
                 case TYPE_SWIPE:
 				SwipeGesture vSwipe = new SwipeGesture(gesture);
-                	String sDirection;
+               
 
                 	// Compare directions and give preference to the greatest linear movement.
                 	float fAbsX = Math.abs(vSwipe.direction().getX());
