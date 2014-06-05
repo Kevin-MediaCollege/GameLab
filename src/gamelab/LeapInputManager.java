@@ -15,8 +15,6 @@ public class LeapInputManager implements Runnable {
 	private Controller leapController;
 	
 	public LeapInputManager() {
-		System.out.println("hallo");
-		
 		if(leapInputManager == null) {
 			leapInputManager = new Thread(this, LEAP_THREAD_NAME);
 			leapInputManager.start();

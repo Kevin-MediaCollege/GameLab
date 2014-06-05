@@ -15,10 +15,10 @@ import com.snakybo.sengine.rendering.Texture;
 /** @author Kevin Krol
  * @since Jun 3, 2014 */
 public class CitizenManager {
-	private static final SpriteSheet CITIZENS_SPRITESHEET = new SpriteSheet(new Texture("citizens.png"), 8, 8);
+	private static final SpriteSheet CITIZENS_SPRITESHEET = new SpriteSheet(new Texture("citizens.png"), 13, 1);
 	
-	private static final int CITIZEN_WIDTH = 16;
-	private static final int CITIZEN_HEIGHT = 16;
+	private static final int CITIZEN_WIDTH = 18;
+	private static final int CITIZEN_HEIGHT = 23;
 	
 	private static List<GameObject> citizens = new ArrayList<GameObject>();;
 	

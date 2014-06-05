@@ -15,10 +15,10 @@ import com.snakybo.sengine.rendering.Texture;
 /** @author Kevin Krol
  * @since Jun 3, 2014 */
 public class BuildingManager {
-	private static final SpriteSheet BUILDING_SPRITESHEET = new SpriteSheet(new Texture("buildings.png"), 1, 1);
+	private static final SpriteSheet BUILDING_SPRITESHEET = new SpriteSheet(new Texture("buildings.png"), 4, 1);
 	
-	private static final int BUILDING_WIDTH = 64;
-	private static final int BUILDING_HEIGHT = 64;
+	private static final int BUILDING_WIDTH = 76;
+	private static final int BUILDING_HEIGHT = 61;
 	
 	private static List<GameObject> buildings = new ArrayList<GameObject>();
 	

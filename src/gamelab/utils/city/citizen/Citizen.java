@@ -70,7 +70,7 @@ public class Citizen extends Component {
 		//System.out.println("Citizen should find a resource");
 		
 		List<Tile> tiles = new ArrayList<Tile>();
-		
+		// TODO: Do not constantly update the available tiles
 		for(int x = -4; x < 5; x++) {
 			for(int y = -4; y < 5; y++) {
 				int xPos = (int)getTransform().getPosition().getX();
@@ -79,9 +79,6 @@ public class Citizen extends Component {
 				tiles.add(home.getCity().getWorld().getTileAt(xPos + (x * Tile.TILE_WIDTH), yPos + (y * Tile.TILE_HEIGHT)));
 			}
 		}
-		
-		for(Tile tile : tiles)
-			tile.getGameObject().getComponent(SpriteRenderer.class).setActiveSprite(0);
 	}
 	
 	private void moveToResource() {

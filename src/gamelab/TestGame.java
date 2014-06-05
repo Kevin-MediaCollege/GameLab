@@ -26,6 +26,8 @@ public class TestGame extends Game {
 		
 		Camera camera = Camera.initOrthographicCamera(0, Window.getWidth(), 0, Window.getHeight(), -32, 32);
 		
+		world = new World(camera);
+		
 		addChild(new GameObject(
 				camera,
 				new FreeMove(300, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S),
@@ -34,8 +36,7 @@ public class TestGame extends Game {
 			)
 		);
 		
-		world = new World(camera);
-		world.start();		
+		world.start();			
 		
 		City city = new City(world);
 		
