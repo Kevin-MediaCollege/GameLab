@@ -1,6 +1,7 @@
 package gamelab.tile;
 
 import gamelab.TestGame;
+import gamelab.utils.city.citizen.Citizen;
 import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.utils.rendering.SpriteSheet;
 
@@ -26,6 +27,8 @@ public class Tile {
 	private final GameObject tile;
 	private final SpriteRenderer renderer;
 	private final int tileId;
+	
+	private Citizen user;
 	
 	private int rawX;
 	private int rawY;
@@ -77,5 +80,17 @@ public class Tile {
 	
 	public GameObject getGameObject() {
 		return tile;
+	}
+	
+	public void use(Citizen citizen) {
+		this.user = citizen;
+	}
+	
+	public boolean isBeingUsed() {
+		return user != null;
+	}
+	
+	public void stopUsing() {
+		user = null;
 	}
 }

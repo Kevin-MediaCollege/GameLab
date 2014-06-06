@@ -21,9 +21,13 @@ public class Building extends Component {
 	private int rawX;
 	private int rawY;
 	
+	private int size;
+	
 	public Building(int rawX, int rawY) {
 		this.rawX = rawX;
 		this.rawY = rawY;
+		
+		size = 1;
 	}
 	
 	public void init(City city) {
@@ -34,8 +38,22 @@ public class Building extends Component {
 		addCitizens();
 	}
 	
+	@Override
+	protected void update(float delta) {
+		
+	}
+	
+	private void recalculateCitizenRadius() {
+		for(Citizen citizen : citizens)
+			citizen.recalculateRadius();
+	}
+	
 	private void addCitizens() {
-		citizens.add(CitizenManager.addCitizen(getParent()).getComponent(Citizen.class));
+		Citizen citizen = CitizenManager.addCitizen(getParent()).getComponent(Citizen.class);
+		
+		citizen.recalculateRadius();
+		
+		citizens.add(citizen);
 	}
 	
 	public Vector2i getPosition() {
@@ -44,5 +62,9 @@ public class Building extends Component {
 	
 	public City getCity() {
 		return city;
+	}
+	
+	public int getSize() {
+		return size;
 	}
 }

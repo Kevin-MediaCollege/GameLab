@@ -215,4 +215,8 @@ public class Vector2f {
 	public Vector3f toVector3f() {
 		return new Vector3f(x, y, 0);
 	}
+	
+	public Vector2i toVector2i() {
+		return new Vector2i((int)x, (int)y);
+	}
 }

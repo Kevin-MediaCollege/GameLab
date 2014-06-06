@@ -2,13 +2,14 @@ package gamelab.utils.city.citizen;
 
 import gamelab.tile.Tile;
 import gamelab.utils.city.Building;
-import gamelab.utils.rendering.SpriteRenderer;
+import gamelab.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.GameObject;
+import com.snakybo.sengine.core.utils.Vector2i;
 
 /** @author Kevin Krol
  * @since Jun 2, 2014 */
@@ -22,14 +23,19 @@ public class Citizen extends Component {
 	
 	private Building home;
 	
+	private List<Tile> availableTiles;
 	private Tile targetTile;
 	
 	private int flags;
+	private int attempts;
 	
 	public Citizen(GameObject home) {
+		availableTiles = new ArrayList<Tile>();
+		
 		this.home = home.getComponent(Building.class);
 		
 		flags = FLAG_IS_AT_HOME;
+		attempts = 0;
 	}
 	
 	@Override
@@ -53,9 +59,28 @@ public class Citizen extends Component {
 			storeResource();
 	}
 	
+	public void recalculateRadius() {
+		availableTiles.clear();
+		
+		final int startX = -(home.getSize() / 2);
+		final int startY = -(home.getSize() / 2);
+		final int endX = (home.getSize() / 2) + 1;
+		final int endY = (home.getSize() / 2) + 1;
+		
+		final Vector2i position = getTransform().getPosition().getXY().toVector2i();
+		final World world = home.getCity().getWorld();
+		
+		for(int x = startX; x < endX; x++)
+			for(int y = startY; y < endY; y++)
+				availableTiles.add(world.getTileAt(
+						position.getX() + (x * Tile.TILE_WIDTH),
+						position.getY() + (y * Tile.TILE_HEIGHT)
+					));
+	}
+	
 	private void isAtHome() {
 		// TODO: Citizen is at home
-		//System.out.println("Citizen is at home");
+		System.out.println("Citizen is at home");
 		
 		flags = FLAG_FIND_RESOURCE;
 	}
@@ -66,18 +91,25 @@ public class Citizen extends Component {
 	}
 	
 	private void findResource() {
-		// TODO: Citizen shoulld find a resource
-		//System.out.println("Citizen should find a resource");
+		System.out.println("Citizen should find a resource");
 		
-		List<Tile> tiles = new ArrayList<Tile>();
-		// TODO: Do not constantly update the available tiles
-		for(int x = -4; x < 5; x++) {
-			for(int y = -4; y < 5; y++) {
-				int xPos = (int)getTransform().getPosition().getX();
-				int yPos = (int)getTransform().getPosition().getY();
-				
-				tiles.add(home.getCity().getWorld().getTileAt(xPos + (x * Tile.TILE_WIDTH), yPos + (y * Tile.TILE_HEIGHT)));
+		targetTile = null;
+		
+		for(Tile tile : availableTiles) {
+			if(tile.getTileId() == Tile.GRASS && !tile.isBeingUsed()) {
+				tile.use(this);
+				targetTile = tile;
+				break;
 			}
+		}
+		
+		if(targetTile == null) {
+			attempts++;
+			
+			if(attempts >= 5)
+				flags = FLAG_RETURN_TO_HOME;
+		} else {
+			flags = FLAG_MOVE_TO_RESOURCE;
 		}
 	}
 	
