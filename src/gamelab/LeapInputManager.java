@@ -23,6 +23,10 @@ public class LeapInputManager implements Runnable {
 			leapController = new Controller();
 			
 			leapController.addListener(leapListener);
+			if(leapController.config().setFloat("Gesture.Swipe.MinLength", 100f)
+					&& leapController.config().setFloat("Gesture.Swipe.MinVelocity", 50f))
+						leapController.config().save();
+			
 		}
 	}
 	
@@ -33,6 +37,7 @@ public class LeapInputManager implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 	
 		leapController.removeListener(leapListener);
 	}

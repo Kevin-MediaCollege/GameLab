@@ -22,12 +22,14 @@ public class Leap extends Listener {
 	public static String sDirection;
 	
 	
+	
 	public void onInit(Controller controller) {
 		System.out.println("[LEAP] Initialized");
 	}
 	
 	public void onConnect(Controller controller) {
 		System.out.println("[LEAP] Connected");
+		
 		
 		controller.enableGesture(Gesture.Type.TYPE_SWIPE);
         controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
@@ -92,6 +94,7 @@ public class Leap extends Listener {
         }
 
         GestureList gestures = frame.gestures();
+        
         
         for (int i = 0; i < gestures.count(); i++) {
             Gesture gesture = gestures.get(i);
