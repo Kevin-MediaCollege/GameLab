@@ -5,7 +5,7 @@ import com.snakybo.sengine.core.Component;
 public class LeapInputReader extends Component {
 			@Override
 			protected void update(float delta){
-				float speed = 300;
+				float speed = 100;
 				float moveAmt = speed * delta;
 				
 				if(Leap.sDirection == "Right")

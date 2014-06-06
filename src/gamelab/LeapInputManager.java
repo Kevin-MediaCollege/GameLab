@@ -3,6 +3,7 @@ package gamelab;
 import java.io.IOException;
 
 import com.leapmotion.leap.Controller;
+import com.leapmotion.leap.Gesture;
 
 /** @author Kevin Krol
  * @since Jun 5, 2014 */
@@ -18,14 +19,16 @@ public class LeapInputManager implements Runnable {
 		if(leapInputManager == null) {
 			leapInputManager = new Thread(this, LEAP_THREAD_NAME);
 			leapInputManager.start();
-			
+			System.out.println("Gesture Swipe" +","+ "Gesture.Swipe.MinVelocity");
 			leapListener = new Leap();
 			leapController = new Controller();
 			
 			leapController.addListener(leapListener);
-			if(leapController.config().setFloat("Gesture.Swipe.MinLength", 100f)
-					&& leapController.config().setFloat("Gesture.Swipe.MinVelocity", 50f))
-						leapController.config().save();
+			leapController.config().setFloat("Gesture.Swipe.MinLength", 5f);
+			leapController.config().setFloat("Gesture.Swipe.MinVelocity", 100f);
+			leapController.config().save();
+			System.out.println("Gesture Swipe" +","+ leapController.config().getFloat("Gesture.Swipe.MinLength") 
+					+","+ leapController.config().getFloat("Gesture.Swipe.MinVelocity"));
 			
 		}
 	}

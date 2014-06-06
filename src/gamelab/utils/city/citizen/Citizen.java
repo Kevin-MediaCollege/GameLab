@@ -80,18 +80,18 @@ public class Citizen extends Component {
 	
 	private void isAtHome() {
 		// TODO: Citizen is at home
-		System.out.println("Citizen is at home");
+		//System.out.println("Citizen is at home");
 		
 		flags = FLAG_FIND_RESOURCE;
 	}
 	
 	private void returnToHome() {
 		// TODO: Citizen should return to home
-		System.out.println("Citizen should return to home");
+		//System.out.println("Citizen should return to home");
 	}
 	
 	private void findResource() {
-		System.out.println("Citizen should find a resource");
+		//System.out.println("Citizen should find a resource");
 		
 		targetTile = null;
 		
@@ -115,17 +115,17 @@ public class Citizen extends Component {
 	
 	private void moveToResource() {
 		// TODO: Citizen should move to a resource
-		System.out.println("Citizen should move to a resource");
+		//System.out.println("Citizen should move to a resource");
 	}
 	
 	private void gatherResource() {
 		// TODO: Citizen should gather a resource
-		System.out.println("Citizen should gather a resource");
+		//System.out.println("Citizen should gather a resource");
 	}
 	
 	private void storeResource() {
 		// TODO: Citizen should store a resource at the warehouse
-		System.out.println("Citizen should store a resource at the warehouse");
+		//System.out.println("Citizen should store a resource at the warehouse");
 	}
 	
 	public void setFlags(int flags) {
