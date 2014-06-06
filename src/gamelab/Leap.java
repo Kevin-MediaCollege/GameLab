@@ -78,7 +78,7 @@ public class Leap extends Listener {
          long currentID = controller.frame().id();
          for( int history = 0; history < currentID - lastFrameID; history++)
          {
-        	 Vector NewHandPosition = controller.frame().translation(history)
+        	// Vector NewHandPosition = controller.frame().translation(history)
              processFrame( controller.frame(history) );
              
          }

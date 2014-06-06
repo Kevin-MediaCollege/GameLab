@@ -1,6 +1,8 @@
 package gamelab.tile;
 
-import gamelab.TestGame;
+import gamelab.GameLab;
+import gamelab.resource.Resource;
+import gamelab.resource.Tree;
 import gamelab.utils.city.citizen.Citizen;
 import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.utils.rendering.SpriteSheet;
@@ -9,6 +11,7 @@ import java.util.Random;
 
 import com.snakybo.sengine.core.GameObject;
 import com.snakybo.sengine.core.utils.Quaternion;
+import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector2i;
 import com.snakybo.sengine.core.utils.Vector3f;
 import com.snakybo.sengine.rendering.Texture;
@@ -28,6 +31,7 @@ public class Tile {
 	private final SpriteRenderer renderer;
 	private final int tileId;
 	
+	private Resource resource;
 	private Citizen user;
 	
 	private int rawX;
@@ -49,19 +53,47 @@ public class Tile {
 		
 		tile.getTransform().rotate(new Vector3f(0, 0, 1), (float)Math.toRadians(180));
 
-		TestGame.instance.addChild(tile);
+		GameLab.instance.addChild(tile);
 	}
 	
 	public void load() {
 		renderer.setEnabled(true);
+		
+		if(resource != null)
+			resource.load();
 	}
 	
 	public void unload() {
 		renderer.setEnabled(false);
+		
+		if(resource != null)
+			resource.unload();
 	}
 	
 	public void updateSprite(int spriteId) {
 		renderer.setActiveSprite(spriteId);
+	}
+	
+	public void use(Citizen citizen) {
+		this.user = citizen;
+	}
+	
+	public void addResource(int type) {
+		final Vector2f position = getGameObject().getTransform().getPosition().getXY();
+		
+		switch(type) {
+		case Resource.TREE:
+			resource = new Tree((int)position.getX(), (int)position.getY());
+			break;
+		}
+	}
+	
+	public void stopUsing() {
+		user = null;
+	}
+	
+	public boolean isBeingUsed() {
+		return user != null;
 	}
 	
 	public int getRandomSpriteId(int[] spriteIds) {
@@ -82,15 +114,7 @@ public class Tile {
 		return tile;
 	}
 	
-	public void use(Citizen citizen) {
-		this.user = citizen;
-	}
-	
-	public boolean isBeingUsed() {
-		return user != null;
-	}
-	
-	public void stopUsing() {
-		user = null;
+	public Resource getResource() {
+		return resource;
 	}
 }

@@ -1,5 +1,6 @@
 package gamelab.utils.city.citizen;
 
+import gamelab.resource.Resource;
 import gamelab.tile.Tile;
 import gamelab.utils.city.Building;
 import gamelab.world.World;
@@ -9,7 +10,9 @@ import java.util.List;
 
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.GameObject;
+import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector2i;
+import com.snakybo.sengine.core.utils.Vector3f;
 
 /** @author Kevin Krol
  * @since Jun 2, 2014 */
@@ -20,43 +23,47 @@ public class Citizen extends Component {
 	public static final int FLAG_MOVE_TO_RESOURCE = 0x03;
 	public static final int FLAG_GATHER_RESOURCE = 0x04;
 	public static final int FLAG_STORE_RESOURCE = 0x05;
+	public static final int FLAG_PLANT_RESOURCE = 0x06;
 	
 	private Building home;
 	
 	private List<Tile> availableTiles;
 	private Tile targetTile;
 	
-	private int flags;
-	private int attempts;
+	private int flag;
+	private float attempts;
 	
 	public Citizen(GameObject home) {
 		availableTiles = new ArrayList<Tile>();
 		
 		this.home = home.getComponent(Building.class);
 		
-		flags = FLAG_IS_AT_HOME;
+		flag = FLAG_IS_AT_HOME;
 		attempts = 0;
 	}
 	
 	@Override
 	protected void update(float delta) {
-		if((flags & FLAG_IS_AT_HOME) == FLAG_IS_AT_HOME)
-			isAtHome();
+		if(flag == FLAG_IS_AT_HOME)
+			isAtHome(delta);
 		
-		if((flags & FLAG_RETURN_TO_HOME) == FLAG_RETURN_TO_HOME)
+		if(flag == FLAG_RETURN_TO_HOME)
 			returnToHome();
 		
-		if((flags & FLAG_FIND_RESOURCE) == FLAG_FIND_RESOURCE)
+		if(flag == FLAG_FIND_RESOURCE)
 			findResource();
 		
-		if((flags & FLAG_MOVE_TO_RESOURCE) == FLAG_MOVE_TO_RESOURCE)
+		if(flag == FLAG_MOVE_TO_RESOURCE)
 			moveToResource();
 		
-		if((flags & FLAG_GATHER_RESOURCE) == FLAG_GATHER_RESOURCE)
+		if(flag == FLAG_GATHER_RESOURCE)
 			gatherResource();
 		
-		if((flags & FLAG_STORE_RESOURCE) == FLAG_STORE_RESOURCE)
+		if(flag == FLAG_STORE_RESOURCE)
 			storeResource();
+		
+		if(flag == FLAG_PLANT_RESOURCE)
+			plantResource();
 	}
 	
 	public void recalculateRadius() {
@@ -78,22 +85,39 @@ public class Citizen extends Component {
 					));
 	}
 	
-	private void isAtHome() {
-		// TODO: Citizen is at home
+
+	private void isAtHome(float delta) {
 		//System.out.println("Citizen is at home");
 		
-		flags = FLAG_FIND_RESOURCE;
+		attempts += delta;
+
+		
+		if(attempts >= 2.5f) {
+			attempts = 0;
+			flag = FLAG_FIND_RESOURCE;
+		}
 	}
 	
 	private void returnToHome() {
-		// TODO: Citizen should return to home
+
 		//System.out.println("Citizen should return to home");
+		
+		final Vector3f position = getTransform().getPosition();
+		final Vector3f homePosition = getTransform().getPosition();
+		
+		if(position.getX() != homePosition.getX() || position.getY() != homePosition.getY())
+			getTransform().getPosition().set(homePosition.getX(), homePosition.getY(), position.getZ());
+		
+		flag = FLAG_IS_AT_HOME;
+
 	}
 	
 	private void findResource() {
 		//System.out.println("Citizen should find a resource");
 		
 		targetTile = null;
+		
+		recalculateRadius();
 		
 		for(Tile tile : availableTiles) {
 			if(tile.getTileId() == Tile.GRASS && !tile.isBeingUsed()) {
@@ -106,29 +130,56 @@ public class Citizen extends Component {
 		if(targetTile == null) {
 			attempts++;
 			
-			if(attempts >= 5)
-				flags = FLAG_RETURN_TO_HOME;
+			if(attempts >= 5) {
+				attempts = 0;
+				flag = FLAG_RETURN_TO_HOME;
+			}
 		} else {
-			flags = FLAG_MOVE_TO_RESOURCE;
+			attempts = 0;
+			flag = FLAG_MOVE_TO_RESOURCE;
 		}
 	}
 	
 	private void moveToResource() {
-		// TODO: Citizen should move to a resource
-		//System.out.println("Citizen should move to a resource");
+
+		final Vector2f position = getTransform().getPosition().getXY();
+		final Vector2f tilePosition = targetTile.getGameObject().getTransform().getPosition().getXY();
+		
+		if(position.distance(tilePosition) > 1) {
+			final Vector3f target = tilePosition.sub(position).normalize().toVector3f();
+			target.setZ(0);
+			
+			getTransform().translate(target);
+		} else {
+			flag = FLAG_GATHER_RESOURCE;
+		}
+
 	}
 	
 	private void gatherResource() {
 		// TODO: Citizen should gather a resource
-		//System.out.println("Citizen should gather a resource");
+
+		System.out.println("Citizen should gather a resource");
+		
+		if(targetTile.getResource() == null) {
+			flag = FLAG_PLANT_RESOURCE;
+		} else {
+			flag = FLAG_RETURN_TO_HOME;
+		}
+	}
+	
+	private void plantResource() {
+		// TODO: Properly plant resources
+		System.out.println("Citizen should plant a resource");
+		
+		targetTile.addResource(Resource.TREE);
+		
+		flag = FLAG_FIND_RESOURCE;
+
 	}
 	
 	private void storeResource() {
 		// TODO: Citizen should store a resource at the warehouse
 		//System.out.println("Citizen should store a resource at the warehouse");
-	}
-	
-	public void setFlags(int flags) {
-		this.flags = flags;
 	}
 }

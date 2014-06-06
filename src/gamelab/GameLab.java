@@ -13,14 +13,14 @@ import com.snakybo.sengine.core.Input.KeyCode;
 import com.snakybo.sengine.core.utils.Vector3f;
 import com.snakybo.sengine.rendering.Window;
 
-public class TestGame extends Game {
-	public static TestGame instance;
+public class GameLab extends Game {
+	public static GameLab instance;
 	
 	private World world;
 	
 	@Override
 	protected void init(CoreEngine coreEngine) {
-		TestGame.instance = this;
+		GameLab.instance = this;
 		
 		coreEngine.getRenderingEngine().setAmbientLight(new Vector3f(1f, 1f, 1f));
 		
