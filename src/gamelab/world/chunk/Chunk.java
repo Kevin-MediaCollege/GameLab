@@ -1,6 +1,6 @@
 package gamelab.world.chunk;
 
-import gamelab.TestGame;
+import gamelab.GameLab;
 import gamelab.tile.Tile;
 import gamelab.tile.TileDirt;
 import gamelab.tile.TileGrass;
@@ -59,7 +59,7 @@ public class Chunk {
 		Tile tile = getTileAt(x, y);
 		
 		if(tile != null)
-			TestGame.instance.removeChild(tile.getGameObject());
+			GameLab.instance.removeChild(tile.getGameObject());
 		
 		switch(tileId) {
 		case Tile.DIRT:

@@ -27,7 +27,7 @@ public class Building extends Component {
 		this.rawX = rawX;
 		this.rawY = rawY;
 		
-		size = 1;
+		size = 10;
 	}
 	
 	public void init(City city) {

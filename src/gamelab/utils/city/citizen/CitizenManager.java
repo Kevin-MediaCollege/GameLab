@@ -1,6 +1,6 @@
 package gamelab.utils.city.citizen;
 
-import gamelab.TestGame;
+import gamelab.GameLab;
 import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.utils.rendering.SpriteSheet;
 
@@ -36,7 +36,7 @@ public class CitizenManager {
 		
 		citizen.getTransform().rotate(new Vector3f(0, 0, 1), (float)Math.toRadians(180));
 
-		TestGame.instance.addChild(citizen);
+		GameLab.instance.addChild(citizen);
 		
 		citizens.add(citizen);
 		
