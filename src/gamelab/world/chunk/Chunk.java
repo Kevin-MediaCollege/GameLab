@@ -78,6 +78,12 @@ public class Chunk {
 	}
 	
 	public Tile getTileAt(int x, int y) {
+		if(x >= 16)
+			x = 0;
+		
+		if(y >= 16)
+			y = 0;
+		
 		return tileStorage[x * Chunk.CHUNK_SIZE + y];
 	}
 	
