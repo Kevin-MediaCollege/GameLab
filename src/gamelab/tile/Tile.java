@@ -25,6 +25,8 @@ public class Tile {
 	public static final int DIRT = 0;
 	public static final int GRASS = 1;
 	
+	private static final float TILE_LAYER = 0;
+	
 	private static final SpriteSheet TILE_SPRITESHEET = new SpriteSheet(new Texture("tiles.png"), 10, 10);
 	
 	private final GameObject tile;
@@ -47,7 +49,7 @@ public class Tile {
 		
 		tile.addComponent(renderer);
 		
-		tile.getTransform().setPosition(new Vector3f(x * TILE_WIDTH, y * TILE_HEIGHT, 0));
+		tile.getTransform().setPosition(new Vector3f(x * TILE_WIDTH, y * TILE_HEIGHT, TILE_LAYER));
 		tile.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		tile.getTransform().setScale(new Vector3f(TILE_WIDTH, 0, TILE_HEIGHT));
 		

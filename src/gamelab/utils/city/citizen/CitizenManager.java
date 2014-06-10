@@ -17,6 +17,8 @@ import com.snakybo.sengine.rendering.Texture;
 public class CitizenManager {
 	private static final SpriteSheet CITIZENS_SPRITESHEET = new SpriteSheet(new Texture("citizens.png"), 13, 1);
 	
+	private static final float CITIZEN_LAYER = 100;
+	
 	private static final int CITIZEN_WIDTH = 18;
 	private static final int CITIZEN_HEIGHT = 23;
 	
@@ -30,7 +32,7 @@ public class CitizenManager {
 		citizen.addComponent(new SpriteRenderer(CITIZENS_SPRITESHEET, 0));
 		citizen.addComponent(new Citizen(home));
 		
-		citizen.getTransform().setPosition(new Vector3f(position.getX(), position.getY(), 1.5f));
+		citizen.getTransform().setPosition(new Vector3f(position.getX(), position.getY(), CITIZEN_LAYER));
 		citizen.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		citizen.getTransform().setScale(new Vector3f(CITIZEN_WIDTH, 0, CITIZEN_HEIGHT));
 		

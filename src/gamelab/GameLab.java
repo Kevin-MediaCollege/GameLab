@@ -24,7 +24,7 @@ public class GameLab extends Game {
 		
 		coreEngine.getRenderingEngine().setAmbientLight(new Vector3f(1f, 1f, 1f));
 		
-		Camera camera = Camera.initOrthographicCamera(0, Window.getWidth(), 0, Window.getHeight(), -32, 32);
+		Camera camera = Camera.initOrthographicCamera(0, Window.getWidth(), 0, Window.getHeight(), -500, 500);
 		
 		world = new World(camera);
 		

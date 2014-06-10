@@ -9,8 +9,8 @@ import com.snakybo.sengine.rendering.Texture;
 public class Tree extends Resource{
 	private static final SpriteSheet TREE_SPRITESHEET = new SpriteSheet(new Texture("trees.png"), 8, 1);
 	
-	private static final int TREE_WIDTH = 120;
-	private static final int TREE_HEIGHT = 70;
+	private static final int TREE_WIDTH = 70;
+	private static final int TREE_HEIGHT = 120;
 	
 	public Tree(int x, int y) {
 		super(TREE_SPRITESHEET, x, y, TREE_WIDTH, TREE_HEIGHT);

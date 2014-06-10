@@ -15,6 +15,8 @@ import com.snakybo.sengine.core.utils.Vector3f;
 public class Resource {
 	public static final int TREE = 0;
 	
+	private static final float LAYER = 150;
+	
 	private final GameObject resource;
 	private final SpriteRenderer renderer;
 	
@@ -24,7 +26,7 @@ public class Resource {
 		
 		resource.addComponent(renderer);
 		
-		resource.getTransform().setPosition(new Vector3f(x * width, y * height, 0));
+		resource.getTransform().setPosition(new Vector3f(x, y + 32, LAYER));
 		resource.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		resource.getTransform().setScale(new Vector3f(width, 0, height));
 		

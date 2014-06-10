@@ -1,5 +1,6 @@
 package com.snakybo.sengine.rendering;
 
+import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
 import static org.lwjgl.opengl.GL11.GL_BACK;
 import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
@@ -8,12 +9,14 @@ import static org.lwjgl.opengl.GL11.GL_CW;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.GL_EQUAL;
+import static org.lwjgl.opengl.GL11.GL_GREATER;
 import static org.lwjgl.opengl.GL11.GL_LESS;
 import static org.lwjgl.opengl.GL11.GL_ONE;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_VERSION;
+import static org.lwjgl.opengl.GL11.glAlphaFunc;
 import static org.lwjgl.opengl.GL11.glBlendFunc;
 import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glClearColor;
@@ -58,7 +61,7 @@ public class RenderingEngine extends MappedValues {
 		samplerMap.put("diffuse", 0);
 		samplerMap.put("normalMap", 1);
 		
-		addVector3f("ambient", new Vector3f(0.1f, 0.1f, 0.1f));
+		addVector3f("ambient", new Vector3f(1, 1, 1));
 		
 		forwardAmbient = new Shader("forward-ambient");
 		
@@ -68,6 +71,7 @@ public class RenderingEngine extends MappedValues {
 		glCullFace(GL_BACK);
 		glEnable(GL_CULL_FACE);
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_ALPHA_TEST);
 		
 		glEnable(GL_DEPTH_CLAMP);
 		
@@ -92,6 +96,8 @@ public class RenderingEngine extends MappedValues {
 		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+		glAlphaFunc(GL_GREATER, 0);
 		
 		gameObject.renderAll(forwardAmbient, this);
 		

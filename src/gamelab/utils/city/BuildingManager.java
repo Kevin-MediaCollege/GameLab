@@ -17,6 +17,8 @@ import com.snakybo.sengine.rendering.Texture;
 public class BuildingManager {
 	private static final SpriteSheet BUILDING_SPRITESHEET = new SpriteSheet(new Texture("buildings.png"), 4, 1);
 	
+	private static final float BUILDING_LAYER = 50;
+	
 	private static final int BUILDING_WIDTH = 76;
 	private static final int BUILDING_HEIGHT = 61;
 	
@@ -29,7 +31,7 @@ public class BuildingManager {
 		buildingGo.addComponent(new SpriteRenderer(BUILDING_SPRITESHEET, 0));
 		buildingGo.addComponent(building);
 		
-		buildingGo.getTransform().setPosition(new Vector3f(5 * BUILDING_WIDTH - (BUILDING_WIDTH / 2), 5 * BUILDING_HEIGHT - (BUILDING_HEIGHT / 2), 1));
+		buildingGo.getTransform().setPosition(new Vector3f(5 * BUILDING_WIDTH - (BUILDING_WIDTH / 2), 5 * BUILDING_HEIGHT - (BUILDING_HEIGHT / 2), BUILDING_LAYER));
 		buildingGo.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		buildingGo.getTransform().setScale(new Vector3f(BUILDING_WIDTH, 0, BUILDING_HEIGHT));
 		

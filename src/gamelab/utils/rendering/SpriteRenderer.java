@@ -11,7 +11,7 @@ import com.snakybo.sengine.rendering.Vertex;
 
 /** @author Kevin Krol
  * @since May 14, 2014 */
-public class SpriteRenderer extends Component {
+public class SpriteRenderer extends Component {	
 	private SpriteSheet spriteSheet;
 	
 	private Material material;
