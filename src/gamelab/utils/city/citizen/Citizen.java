@@ -3,16 +3,17 @@ package gamelab.utils.city.citizen;
 import gamelab.resource.Resource;
 import gamelab.tile.Tile;
 import gamelab.utils.city.Building;
+import gamelab.utils.rendering.SpriteSheet;
 import gamelab.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.snakybo.sengine.core.Component;
-import com.snakybo.sengine.core.GameObject;
 import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector2i;
 import com.snakybo.sengine.core.utils.Vector3f;
+import com.snakybo.sengine.rendering.Texture;
 
 /** @author Kevin Krol
  * @since Jun 2, 2014 */
@@ -25,6 +26,13 @@ public class Citizen extends Component {
 	public static final int FLAG_STORE_RESOURCE = 0x05;
 	public static final int FLAG_PLANT_RESOURCE = 0x06;
 	
+	public static final SpriteSheet CITIZENS_SPRITESHEET = new SpriteSheet(new Texture("citizens.png"), 13, 1);
+	
+	public static final float CITIZEN_LAYER = 100;
+	
+	public static final int CITIZEN_WIDTH = 18;
+	public static final int CITIZEN_HEIGHT = 23;
+	
 	private Building home;
 	
 	private List<Tile> availableTiles;
@@ -33,10 +41,10 @@ public class Citizen extends Component {
 	private int flag;
 	private float attempts;
 	
-	public Citizen(GameObject home) {
+	public Citizen(Building home) {
 		availableTiles = new ArrayList<Tile>();
 		
-		this.home = home.getComponent(Building.class);
+		this.home = home;
 		
 		flag = FLAG_IS_AT_HOME;
 		attempts = 0;
@@ -66,6 +74,7 @@ public class Citizen extends Component {
 			plantResource();
 	}
 	
+	/** Recalculate the radius of this citizen */
 	public void recalculateRadius() {
 		availableTiles.clear();
 		
@@ -85,21 +94,20 @@ public class Citizen extends Component {
 					));
 	}
 	
-
+	/** Run as long as the citizen is at home */
 	private void isAtHome(float delta) {
 		//System.out.println("Citizen is at home");
 		
 		attempts += delta;
 
-		
 		if(attempts >= 2.5f) {
 			attempts = 0;
 			flag = FLAG_FIND_RESOURCE;
 		}
 	}
 	
+	/** Run as long as the citizen should return to home */
 	private void returnToHome() {
-
 		//System.out.println("Citizen should return to home");
 		
 		final Vector3f position = getTransform().getPosition();
@@ -112,6 +120,7 @@ public class Citizen extends Component {
 
 	}
 	
+	/** Run as long as the citizen should find a resource */
 	private void findResource() {
 		//System.out.println("Citizen should find a resource");
 		
@@ -140,8 +149,8 @@ public class Citizen extends Component {
 		}
 	}
 	
+	/** Run as long as the citizen should move to a resource */
 	private void moveToResource() {
-
 		final Vector2f position = getTransform().getPosition().getXY();
 		final Vector2f tilePosition = targetTile.getGameObject().getTransform().getPosition().getXY();
 		
@@ -156,6 +165,7 @@ public class Citizen extends Component {
 
 	}
 	
+	/** Run as long the citizen should gather a resource */
 	private void gatherResource() {
 		// TODO: Citizen should gather a resource
 
@@ -168,6 +178,7 @@ public class Citizen extends Component {
 		}
 	}
 	
+	/** Run as long as the citizen should plant a resource */
 	private void plantResource() {
 		// TODO: Properly plant resources
 		System.out.println("Citizen should plant a resource");
@@ -178,6 +189,7 @@ public class Citizen extends Component {
 
 	}
 	
+	/** Run as long as the citizen should store a resource */
 	private void storeResource() {
 		// TODO: Citizen should store a resource at the warehouse
 		//System.out.println("Citizen should store a resource at the warehouse");

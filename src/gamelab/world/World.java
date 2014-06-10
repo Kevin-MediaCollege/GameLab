@@ -26,6 +26,7 @@ public class World {
 		random = new Random();
 	}
 	
+	/** Initialize the world */
 	public void start() {
 		chunkProvider = new ChunkProvider(this, random.nextLong());
 		
@@ -34,6 +35,11 @@ public class World {
 				chunkProvider.provideChunk(x, y);
 	}
 	
+	/** Set a tile in the specified chunk at the specified coordinates
+	 * @param chunk The chunk to place the tile in
+	/** @param x The X position in the chunk
+	/** @param y The Y position in the chunk
+	/** @param tileId The ID of the tile to place */
 	public boolean setTile(Chunk chunk, int x, int y, int tileId) {
 		if(x >= MIN_WORLD_X && x <= MAX_WORLD_X && y >= MIN_WORLD_X && y <= MAX_WORLD_Y)
 			return chunk.setTile(x & 0xF, y & 0xF, tileId);
@@ -41,18 +47,22 @@ public class World {
 		return false;
 	}
 	
+	/** @return The tile at the specified coordinates */
 	public Tile getTileAt(int x, int y) {
 		return getChunkFromTileCoords(x, y).getTileAt(x / Tile.TILE_WIDTH, y / Tile.TILE_HEIGHT);
 	}
 	
+	/** @return The chunk at the specified tile coordinates */
 	public Chunk getChunkFromTileCoords(int x, int y) {
 		return getChunkFromChunkCoords((x / Tile.TILE_WIDTH) >> 4, (y / Tile.TILE_HEIGHT) >> 4);
 	}
 	
+	/** @return The chunk at the specified coordinates */
 	public Chunk getChunkFromChunkCoords(int x, int y) {
 		return chunkProvider.getChunkAt(x, y);
 	}
 	
+	/** @return The chunk at the mouse coordinates */
 	public Chunk getChunkFromMouseCoords(int x, int y) {
 		if((float)x / 2 + 1 >= 16)
 			x += 1;
@@ -66,6 +76,7 @@ public class World {
 		return chunkProvider.getChunkAt(x, y);
 	}
 	
+	/** @return The camera */
 	public Camera getCamera() {
 		return camera;
 	}

@@ -23,11 +23,15 @@ public class Leap extends Listener {
 	
 	//private int lastProcessedFrameId;
 	
+	/** On the Leap initialization
+	 * @param controller The Leap controller */
 	public void onInit(Controller controller) {
 		lastFrameId = 0;
 		//lastProcessedFrameId = 0;
 	}
 	
+	/** Run when the Leap connection is established
+	 * @param controller The Leap controller */
 	public void onConnect(Controller controller) {
 		controller.enableGesture(Gesture.Type.TYPE_SWIPE);
 		controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
@@ -35,12 +39,13 @@ public class Leap extends Listener {
 		controller.enableGesture(Gesture.Type.TYPE_KEY_TAP);
 	}	
 	
+	/** Executed each frame the Leap is active
+	 * @param controller The Leap controller */
 	public void onFrame(Controller controller) {
 		Frame currentFrame = controller.frame();
 		//Frame previousFrame = controller.frame(1);
 		
 		HandList hands = currentFrame.hands();
-		
 		
 		if(hands != null && hands.count() > 0) {
 			Hand firstHand = hands.get(0);
@@ -53,6 +58,8 @@ public class Leap extends Listener {
 		}
 	}
 	
+	/** Process the current frame
+	 * @param frame The current frame of the Leap */
 	private void processFrame(Frame frame) {
 		if(frame.id() == lastFrameId)
 			return;
@@ -62,6 +69,8 @@ public class Leap extends Listener {
 		lastFrameId = frame.id();
 	}
 	
+	/** Get the next frame
+	 * @param controller The leap controller */
 	private void nextFrame(Controller controller) {
 		long currentId = controller.frame().id();
 		
@@ -71,12 +80,15 @@ public class Leap extends Listener {
 		lastFrameId = currentId;
 	}
 	
+	/** Process the next frame
+	 * @param frame The next frame */
 	private void processNextFrame(Frame frame) {
 		if(frame.isValid()) {
 			
 		}
 	}
 	
+	/** @return The swipe direction */
 	public static SwipeDirection getSwipeDirection() {
 		return swipeDirection;
 	}

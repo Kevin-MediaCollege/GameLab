@@ -30,6 +30,7 @@ public class GameLab extends Game {
 		
 		world = new World(camera);
 		
+		// Add the main camera game object
 		addChild(new GameObject(
 				camera,
 				new FreeMove(300, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S),

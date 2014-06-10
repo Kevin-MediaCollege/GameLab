@@ -42,14 +42,18 @@ public class SpriteRenderer extends Component {
 		}
 	}
 	
+	/** @return Whether or not the renderer is enabled */
 	public boolean isEnabled() {
 		return enabled;
 	}
 	
+	/** Set whether or not the renderer is enabled */
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 	
+	/** Set the active sprite of the renderer
+	 * @param activeSprite The new active sprite */
 	public void setActiveSprite(int activeSprite) {
 		final Vector2f p = spriteSheet.spriteIdToTextureCoords(activeSprite);
 		final Vector2f s = spriteSheet.getSpriteSize();
@@ -71,10 +75,12 @@ public class SpriteRenderer extends Component {
 		this.activeSprite = activeSprite;
 	}
 	
+	/** @return The spritesheet of the renderer */
 	public SpriteSheet getSpriteSheet() {
 		return spriteSheet;
 	}
 	
+	/** @return The active sprite */
 	public int getActiveSprite() {
 		return activeSprite;
 	}

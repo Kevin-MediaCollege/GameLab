@@ -36,10 +36,12 @@ public class Resource {
 		GameLab.instance.addChild(resource);
 	}
 	
+	/** Called when the resource enters the camera's viewport */
 	public void load() {
 		renderer.setEnabled(true);
 	}
 	
+	/** Called when the resource leaves the camera's viewport */
 	public void unload() {
 		renderer.setEnabled(false);
 	}

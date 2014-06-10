@@ -18,6 +18,8 @@ public class SpriteSheet {
 		this.cols = cols;
 	}
 	
+	/** Calculate the sprite coordinates on the spritesheet from the spriteId
+	 * @param spriteId The ID of the sprite */
 	public Vector2f spriteIdToTextureCoords(int spriteId) {
 		int spriteX = spriteId;
 		int spriteY = 0;
@@ -36,6 +38,7 @@ public class SpriteSheet {
 		return result;
 	}
 	
+	/** @return The size of each individual sprite on the spritesheet */
 	public Vector2f getSpriteSize() {
 		final Vector2f result = new Vector2f(0, 0);
 		
@@ -45,14 +48,17 @@ public class SpriteSheet {
 		return result;
 	}
 	
+	/** @return The texture of the spritesheet */
 	public Texture getTexture() {
 		return texture;
 	}
 	
+	/** @return The amount of rows */
 	public int getRows() {
 		return rows;
 	}
 	
+	/** @return The amount of collums */
 	public int getCols() {
 		return cols;
 	}

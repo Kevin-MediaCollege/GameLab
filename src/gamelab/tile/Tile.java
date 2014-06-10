@@ -58,6 +58,7 @@ public class Tile {
 		GameLab.instance.addChild(tile);
 	}
 	
+	/** Called when the tile enters the camera's viewport */
 	public void load() {
 		renderer.setEnabled(true);
 		
@@ -65,6 +66,7 @@ public class Tile {
 			resource.load();
 	}
 	
+	/** Called when the tile leaves the camera's viewport */
 	public void unload() {
 		renderer.setEnabled(false);
 		
@@ -72,14 +74,20 @@ public class Tile {
 			resource.unload();
 	}
 	
+	/** Update the tile's sprite
+	 * @param spriteId The ID of the sprite on the spritesheet */
 	public void updateSprite(int spriteId) {
 		renderer.setActiveSprite(spriteId);
 	}
 	
+	/** Set this tile 'unavailable' for citizens to use
+	 * @param citizen The citizen that is currently using the tile */
 	public void use(Citizen citizen) {
 		this.user = citizen;
 	}
 	
+	/** Add a resource to this tile
+	 * @param type The type of the resource */
 	public void addResource(int type) {
 		final Vector2f position = getGameObject().getTransform().getPosition().getXY();
 		
@@ -90,32 +98,40 @@ public class Tile {
 		}
 	}
 	
+	/** Make the tile 'available' for citizens to use */
 	public void stopUsing() {
 		user = null;
 	}
 	
+	/** @return Whether the tile is currently being used */
 	public boolean isBeingUsed() {
 		return user != null;
 	}
 	
+	/** @return A random sprite ID from a list of sprites
+	 * @param spriteIds The list of sprites */
 	public int getRandomSpriteId(int[] spriteIds) {
 		Random random = new Random();
 		
 		return spriteIds[random.nextInt(spriteIds.length)];
 	}
 	
+	/** @return The 'tile'-position of this tile */
 	public Vector2i getPosition() {
 		return new Vector2i(rawX, rawY);
 	}
 	
+	/** @return The tile ID of this tile */
 	public int getTileId() {
 		return tileId;
 	}
 	
+	/** @return The Game Object of this tile */
 	public GameObject getGameObject() {
 		return tile;
 	}
 	
+	/** @return The resource this tile has */
 	public Resource getResource() {
 		return resource;
 	}
