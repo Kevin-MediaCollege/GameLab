@@ -43,10 +43,10 @@ public class Building extends Component {
 		
 	}
 	
-	private void recalculateCitizenRadius() {
+	/*private void recalculateCitizenRadius() {
 		for(Citizen citizen : citizens)
 			citizen.recalculateRadius();
-	}
+	}*/
 	
 	private void addCitizens() {
 		Citizen citizen = CitizenManager.addCitizen(getParent()).getComponent(Citizen.class);

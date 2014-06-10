@@ -1,6 +1,7 @@
 package gamelab.resource;
 
 import gamelab.GameLab;
+import gamelab.tile.Tile;
 import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.utils.rendering.SpriteSheet;
 
@@ -26,7 +27,7 @@ public class Resource {
 		
 		resource.addComponent(renderer);
 		
-		resource.getTransform().setPosition(new Vector3f(x, y + 32, LAYER));
+		resource.getTransform().setPosition(new Vector3f(x, y + Tile.TILE_HEIGHT, LAYER));
 		resource.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		resource.getTransform().setScale(new Vector3f(width, 0, height));
 		

@@ -23,7 +23,6 @@ import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11.glCullFace;
 import static org.lwjgl.opengl.GL11.glDepthFunc;
 import static org.lwjgl.opengl.GL11.glDepthMask;
-import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glFrontFace;
 import static org.lwjgl.opengl.GL11.glGetString;
@@ -67,15 +66,15 @@ public class RenderingEngine extends MappedValues {
 		
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		
-		glFrontFace(GL_CW);
-		glCullFace(GL_BACK);
-		glEnable(GL_CULL_FACE);
+		glEnable(GL_DEPTH_CLAMP);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_ALPHA_TEST);
-		
-		glEnable(GL_DEPTH_CLAMP);
-		
+		glEnable(GL_CULL_FACE);
 		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_BLEND);
+		
+		glFrontFace(GL_CW);
+		glCullFace(GL_BACK);
 	}
 	
 	/** Update shader uniforms with structs
@@ -94,9 +93,7 @@ public class RenderingEngine extends MappedValues {
 	public void render(GameObject gameObject) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		
 		glAlphaFunc(GL_GREATER, 0);
 		
 		gameObject.renderAll(forwardAmbient, this);
@@ -112,7 +109,6 @@ public class RenderingEngine extends MappedValues {
 		
 		glDepthFunc(GL_LESS);
 		glDepthMask(true);
-		glDisable(GL_BLEND);
 	}
 	
 	/** Add a light to the rendering engine

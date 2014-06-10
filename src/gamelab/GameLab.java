@@ -1,5 +1,7 @@
 package gamelab;
 
+import gamelab.leap.LeapInputManager;
+import gamelab.leap.LeapMove;
 import gamelab.player.InputHandler;
 import gamelab.utils.city.City;
 import gamelab.world.World;
@@ -32,7 +34,7 @@ public class GameLab extends Game {
 				camera,
 				new FreeMove(300, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S),
 				new InputHandler(camera, world),
-				new LeapInputReader()
+				new LeapMove(100)
 			)
 		);
 		
