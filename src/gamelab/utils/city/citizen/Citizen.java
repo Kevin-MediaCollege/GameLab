@@ -86,12 +86,14 @@ public class Citizen extends Component {
 		final Vector2i position = getTransform().getPosition().getXY().toVector2i();
 		final World world = home.getCity().getWorld();
 		
-		for(int x = startX; x < endX; x++)
-			for(int y = startY; y < endY; y++)
-				availableTiles.add(world.getTileAt(
-						position.getX() + (x * Tile.TILE_WIDTH),
-						position.getY() + (y * Tile.TILE_HEIGHT)
-					));
+		for(int x = startX; x < endX; x++) {
+			for(int y = startY; y < endY; y++) {
+				Tile tile = world.getTileAt(position.getX() + (x * Tile.TILE_WIDTH), position.getY() + (y * Tile.TILE_HEIGHT));
+				
+				if(tile != null)
+					availableTiles.add(tile);
+			}
+		}
 	}
 	
 	/** Run as long as the citizen is at home */

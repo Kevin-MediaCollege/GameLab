@@ -1,9 +1,8 @@
 package gamelab;
 
-import gamelab.leap.LeapInputManager;
 import gamelab.leap.LeapMove;
 import gamelab.player.InputHandler;
-import gamelab.utils.city.City;
+import gamelab.player.LeapInputHandler;
 import gamelab.world.World;
 
 import com.snakybo.sengine.components.Camera;
@@ -26,25 +25,26 @@ public class GameLab extends Game {
 		
 		coreEngine.getRenderingEngine().setAmbientLight(new Vector3f(1f, 1f, 1f));
 		
-		Camera camera = Camera.initOrthographicCamera(0, Window.getWidth(), 0, Window.getHeight(), -500, 500);
+		addCore();
+	}
+	
+	private void addCore() {
+		Camera camera = Camera.initOrthographicCamera(0, Window.getWidth(), 0, Window.getHeight(), -1000, 1000);
 		
-		world = new World(camera);
+		new LeapInputHandler();
 		
-		// Add the main camera game object
 		addChild(new GameObject(
-				camera,
-				new FreeMove(300, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S),
-				new InputHandler(camera, world),
-				new LeapMove(100)
-			)
-		);
+			camera,
+			new FreeMove(300, KeyCode.NONE, KeyCode.NONE, KeyCode.A, KeyCode.D, KeyCode.W, KeyCode.S),
+			new LeapMove(),
+			new InputHandler(this)
+		));
 		
-		world.start();			
-		
-		City city = new City(world);
-		
-		city.addBuilding();
-		
-		new LeapInputManager();
+		world = new World();
+		world.start(camera);
+	}
+	
+	public World getWorld() {
+		return world;
 	}
 }

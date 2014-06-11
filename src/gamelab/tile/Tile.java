@@ -93,7 +93,7 @@ public class Tile {
 		
 		switch(type) {
 		case Resource.TREE:
-			resource = new Tree((int)position.getX(), (int)position.getY());
+			resource = Resource.create(new Tree((int)position.getX(), (int)position.getY()));
 			break;
 		}
 	}

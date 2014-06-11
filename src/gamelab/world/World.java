@@ -1,6 +1,7 @@
 package gamelab.world;
 
 import gamelab.tile.Tile;
+import gamelab.utils.city.City;
 import gamelab.world.chunk.Chunk;
 import gamelab.world.chunk.ChunkProvider;
 
@@ -20,19 +21,18 @@ public class World {
 	private Random random;
 	private Camera camera;	
 	
-	public World(Camera camera) {		
+	/** Initialize the world */
+	public void start(Camera camera) {
 		this.camera = camera;
 		
 		random = new Random();
-	}
-	
-	/** Initialize the world */
-	public void start() {
 		chunkProvider = new ChunkProvider(this, random.nextLong());
 		
-		for(int x = 0; x < 2; x++)
+		for(int x = 0; x < 3; x++)
 			for(int y = 0; y < 2; y++)
 				chunkProvider.provideChunk(x, y);
+		
+		new City(this).addBuilding();
 	}
 	
 	/** Set a tile in the specified chunk at the specified coordinates
@@ -49,7 +49,11 @@ public class World {
 	
 	/** @return The tile at the specified coordinates */
 	public Tile getTileAt(int x, int y) {
-		return getChunkFromTileCoords(x, y).getTileAt(x / Tile.TILE_WIDTH, y / Tile.TILE_HEIGHT);
+		Chunk c = getChunkFromTileCoords(x, y);
+		
+		Tile t = c.getTileAt(x / Tile.TILE_WIDTH, y / Tile.TILE_HEIGHT);
+		
+		return t;
 	}
 	
 	/** @return The chunk at the specified tile coordinates */
@@ -63,7 +67,7 @@ public class World {
 	}
 	
 	/** @return The chunk at the mouse coordinates */
-	public Chunk getChunkFromMouseCoords(int x, int y) {
+	public Chunk getChunkFromMouseCoords(int x, int y) {		
 		if((float)x / 2 + 1 >= 16)
 			x += 1;
 		

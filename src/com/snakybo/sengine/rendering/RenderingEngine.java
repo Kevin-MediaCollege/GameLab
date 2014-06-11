@@ -69,8 +69,8 @@ public class RenderingEngine extends MappedValues {
 		glEnable(GL_DEPTH_CLAMP);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_ALPHA_TEST);
-		glEnable(GL_CULL_FACE);
 		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_CULL_FACE);
 		glEnable(GL_BLEND);
 		
 		glFrontFace(GL_CW);
