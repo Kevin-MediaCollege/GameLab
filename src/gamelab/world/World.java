@@ -51,9 +51,12 @@ public class World {
 	public Tile getTileAt(int x, int y) {
 		Chunk c = getChunkFromTileCoords(x, y);
 		
-		Tile t = c.getTileAt(x / Tile.TILE_WIDTH, y / Tile.TILE_HEIGHT);
+		if(c != null)
+			return c.getTileAt(x / Tile.TILE_WIDTH, y / Tile.TILE_HEIGHT);
 		
-		return t;
+		new Exception().printStackTrace();
+		
+		return null;
 	}
 	
 	/** @return The chunk at the specified tile coordinates */

@@ -91,6 +91,7 @@ public class Citizen extends Component {
 		
 		for(int x = startX; x < endX; x++) {
 			for(int y = startY; y < endY; y++) {
+				// FIXME: This makes it error
 				Tile tile = world.getTileAt(position.getX() + (x * Tile.TILE_WIDTH), position.getY() + (y * Tile.TILE_HEIGHT));
 				
 				if(tile != null)
