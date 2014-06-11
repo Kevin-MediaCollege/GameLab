@@ -59,10 +59,10 @@ public class SpriteRenderer extends Component {
 		final Vector2f s = spriteSheet.getSpriteSize();
 		
 		final Vertex[] vertices = new Vertex[] {
-			new Vertex(new Vector3f(-0.5f, 0, -0.5f), new Vector2f(p.getX(), 			p.getY())),
-			new Vertex(new Vector3f(-0.5f, 0,  0.5f), new Vector2f(p.getX(),			p.getY() + s.getY())),
-			new Vertex(new Vector3f( 0.5f, 0, -0.5f), new Vector2f(p.getX() + s.getX(),	p.getY())),
-			new Vertex(new Vector3f( 0.5f, 0,  0.5f), new Vector2f(p.getX() + s.getX(),	p.getY() + s.getY()))
+			new Vertex(new Vector3f(-0.5f, 0, -0.5f), new Vector2f(p.getX() + s.getX(), p.getY())),
+			new Vertex(new Vector3f(-0.5f, 0,  0.5f), new Vector2f(p.getX() + s.getX(), p.getY() + s.getY())),
+			new Vertex(new Vector3f( 0.5f, 0, -0.5f), new Vector2f(p.getX(),			p.getY())),
+			new Vertex(new Vector3f( 0.5f, 0,  0.5f), new Vector2f(p.getX(),			p.getY() + s.getY()))
 		};
 		
 		final int indices[] = {

@@ -1,5 +1,6 @@
 package gamelab.resource;
 
+import gamelab.utils.city.citizen.Citizen;
 import gamelab.utils.rendering.SpriteSheet;
 
 import com.snakybo.sengine.rendering.Texture;
@@ -37,8 +38,6 @@ public class Tree extends Resource {
 		if(stage < MAX_STAGE) {
 			timer += delta;
 			
-			System.out.println(timer);
-			
 			if(timer >= TIME_UNTIL_GROWTH) {
 				timer = 0;
 				
@@ -46,5 +45,19 @@ public class Tree extends Resource {
 				renderer.setActiveSprite(stage);
 			}
 		}
+	}
+	
+	@Override
+	public void harvest(Citizen citizen) {
+		this.stage = 1;
+		
+		renderer.setActiveSprite(stage);
+		
+		// TODO: Add resource to citizen's inventory
+	}
+	
+	@Override
+	public boolean canHarvest() {
+		return stage == MAX_STAGE;
 	}
 }

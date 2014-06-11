@@ -2,10 +2,9 @@ package gamelab.resource;
 
 import gamelab.GameLab;
 import gamelab.tile.Tile;
+import gamelab.utils.city.citizen.Citizen;
 import gamelab.utils.rendering.SpriteRenderer;
 import gamelab.utils.rendering.SpriteSheet;
-
-import java.util.Random;
 
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.GameObject;
@@ -36,6 +35,12 @@ public class Resource extends Component {
 	/** Called when the resource leaves the camera's viewport */
 	public void unload() {
 		renderer.setEnabled(false);
+	}
+	
+	public void harvest(Citizen citizen) {}
+	
+	public boolean canHarvest() {
+		return false;
 	}
 	
 	public static Resource create(Resource resource) {

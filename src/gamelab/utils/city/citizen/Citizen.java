@@ -38,8 +38,11 @@ public class Citizen extends Component {
 	private List<Tile> availableTiles;
 	private Tile targetTile;
 	
-	private int flag;
 	private float attempts;
+	
+	private int flag;
+	
+	private boolean harvest;
 	
 	public Citizen(Building home) {
 		availableTiles = new ArrayList<Tile>();
@@ -112,6 +115,9 @@ public class Citizen extends Component {
 	private void returnToHome() {
 		//System.out.println("Citizen should return to home");
 		
+		if(targetTile != null)
+			targetTile.stopUsing();
+		
 		final Vector3f position = getTransform().getPosition();
 		final Vector3f homePosition = getTransform().getPosition();
 		
@@ -124,30 +130,41 @@ public class Citizen extends Component {
 	
 	/** Run as long as the citizen should find a resource */
 	private void findResource() {
-		//System.out.println("Citizen should find a resource");
+		System.out.println("Citizen should find a resource");
+		
+		List<Tile> selectable = new ArrayList<Tile>();
+		Tile tileToHarvest = null;		
 		
 		targetTile = null;
+		harvest = false;
 		
 		recalculateRadius();
 		
-		for(Tile tile : availableTiles) {
-			if(tile.getTileId() == Tile.GRASS && !tile.isBeingUsed()) {
-				tile.use(this);
+		for(Tile tile : availableTiles)
+			if(!tile.isBeingUsed())
+				if(tile.getTileId() == Tile.GRASS)
+					selectable.add(tile);
+		
+		for(Tile tile : selectable) {
+			if(tile.getResource() == null) {
 				targetTile = tile;
 				break;
+			} else {
+				if(tile.getResource().canHarvest())
+					tileToHarvest = tile;
 			}
 		}
 		
-		if(targetTile == null) {
-			attempts++;
-			
-			if(attempts >= 5) {
-				attempts = 0;
-				flag = FLAG_RETURN_TO_HOME;
-			}
-		} else {
-			attempts = 0;
+		if(targetTile == null && tileToHarvest != null) {
+			targetTile = tileToHarvest;
+			harvest = true;
+		}
+		
+		if(targetTile != null) {
 			flag = FLAG_MOVE_TO_RESOURCE;
+			targetTile.use(this);
+		} else {
+			flag = FLAG_RETURN_TO_HOME;
 		}
 	}
 	
@@ -162,22 +179,19 @@ public class Citizen extends Component {
 			
 			getTransform().translate(target);
 		} else {
-			flag = FLAG_GATHER_RESOURCE;
+			flag = (harvest) ? FLAG_GATHER_RESOURCE : FLAG_PLANT_RESOURCE;
 		}
-
 	}
 	
 	/** Run as long the citizen should gather a resource */
 	private void gatherResource() {
 		// TODO: Citizen should gather a resource
-
 		System.out.println("Citizen should gather a resource");
 		
-		if(targetTile.getResource() == null) {
-			flag = FLAG_PLANT_RESOURCE;
-		} else {
-			flag = FLAG_RETURN_TO_HOME;
-		}
+		if(targetTile != null)
+			targetTile.getResource().harvest(this);
+		
+		flag = FLAG_FIND_RESOURCE;
 	}
 	
 	/** Run as long as the citizen should plant a resource */
@@ -188,12 +202,15 @@ public class Citizen extends Component {
 		targetTile.addResource(Resource.TREE);
 		
 		flag = FLAG_FIND_RESOURCE;
-
+		
+		targetTile.stopUsing();
 	}
 	
 	/** Run as long as the citizen should store a resource */
 	private void storeResource() {
 		// TODO: Citizen should store a resource at the warehouse
 		//System.out.println("Citizen should store a resource at the warehouse");
+		
+		targetTile.stopUsing();
 	}
 }

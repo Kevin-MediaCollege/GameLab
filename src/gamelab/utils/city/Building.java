@@ -10,6 +10,8 @@ import java.util.List;
 
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.GameObject;
+import com.snakybo.sengine.core.Input;
+import com.snakybo.sengine.core.Input.KeyCode;
 import com.snakybo.sengine.core.utils.Quaternion;
 import com.snakybo.sengine.core.utils.Vector2i;
 import com.snakybo.sengine.core.utils.Vector3f;
@@ -46,8 +48,9 @@ public class Building extends Component {
 	}
 	
 	@Override
-	protected void update(float delta) {
-		
+	protected void input(float delta) {
+		if(Input.getKeyDown(KeyCode.T))
+			addCitizen();
 	}
 	
 	/*private void recalculateCitizenRadius() {
@@ -56,7 +59,7 @@ public class Building extends Component {
 	}*/
 	
 	/** Add citizens to the building */
-	public void initCitizens() {
+	public void addCitizen() {
 		final Vector3f position = getTransform().getPosition();
 		
 		GameObject citizenGo = new GameObject();

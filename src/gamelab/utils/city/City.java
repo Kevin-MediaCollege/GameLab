@@ -46,7 +46,7 @@ public class City {
 		
 		buildings.add(building);
 		
-		building.initCitizens();
+		building.addCitizen();
 	}
 	
 	/** @return The world this building is in */
