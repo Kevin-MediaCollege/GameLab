@@ -4,6 +4,7 @@ package gamelab.citizen.item;
  * @since Jun 12, 2014 */
 public class Item {
 	public static final int TREE = 0;
+	public static final int FOOD = 1;
 	
 	private int id;
 	

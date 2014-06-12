@@ -4,7 +4,9 @@ import gamelab.GameLab;
 import gamelab.citizen.Citizen;
 import gamelab.rendering.SpriteRenderer;
 import gamelab.rendering.SpriteSheet;
+import gamelab.resource.Farmland;
 import gamelab.resource.Resource;
+import gamelab.resource.Stone;
 import gamelab.resource.Tree;
 
 import java.util.Random;
@@ -24,6 +26,7 @@ public class Tile {
 	
 	public static final int DIRT = 0;
 	public static final int GRASS = 1;
+	public static final int FARMLAND = 2;
 	
 	private static final float TILE_LAYER = 0;
 	
@@ -99,6 +102,12 @@ public class Tile {
 		switch(type) {
 		case Resource.TREE:
 			resource = Resource.create(new Tree((int)position.getX(), (int)position.getY()));
+			break;
+		case Resource.FARMLAND:
+			resource = Resource.create(new Farmland((int)position.getX(), (int)position.getY()));
+			break;
+		case Resource.STONE:
+			resource = Resource.create(new Stone((int)position.getX(), (int)position.getY()));
 			break;
 		}
 	}

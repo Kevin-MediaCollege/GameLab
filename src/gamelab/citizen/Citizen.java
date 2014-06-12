@@ -141,7 +141,7 @@ public class Citizen extends Component {
 		
 		for(Tile tile : availableTiles)
 			if(!tile.isBeingUsed())
-				if(tile.getTileId() == Tile.GRASS)
+				if(tile.getTileId() != Tile.DIRT)
 					selectable.add(tile);
 		
 		for(Tile tile : selectable) {
@@ -192,13 +192,21 @@ public class Citizen extends Component {
 	
 	/** Run as long as the citizen should plant a resource */
 	private void plantResource() {
-		System.out.println("Citizen should plant a resource");
+		int type = 0;
 		
-		targetTile.addResource(Resource.TREE);
+		switch(targetTile.getTileId()) {
+		case Tile.GRASS:
+			type = (int)Math.round(Math.random()) == 0 ? Resource.TREE : Resource.STONE;
+			break;
+		case Tile.FARMLAND:
+			type = Resource.FARMLAND;
+			break;
+		}
+		
+		targetTile.addResource(type);
+		targetTile.stopUsing();
 		
 		flag = FLAG_FIND_RESOURCE;
-		
-		targetTile.stopUsing();
 	}
 	
 	/** Run as long as the citizen should store a resource */
@@ -206,6 +214,9 @@ public class Citizen extends Component {
 		switch(item.getId()) {
 		case Item.TREE:
 			Data.woodAmount++;
+			break;
+		case Item.FOOD:
+			Data.foodAmount++;
 			break;
 		}
 		

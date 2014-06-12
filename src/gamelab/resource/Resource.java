@@ -1,10 +1,11 @@
 package gamelab.resource;
 
+import java.util.Random;
+
 import gamelab.GameLab;
 import gamelab.citizen.item.Item;
 import gamelab.rendering.SpriteRenderer;
 import gamelab.rendering.SpriteSheet;
-import gamelab.tile.Tile;
 
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.GameObject;
@@ -15,6 +16,8 @@ import com.snakybo.sengine.core.utils.Vector3f;
  * @since Jun 6, 2014 */
 public class Resource extends Component {
 	public static final int TREE = 0;
+	public static final int FARMLAND = 1;
+	public static final int STONE = 2;
 	
 	private static final float LAYER = 150;
 	
@@ -26,6 +29,7 @@ public class Resource extends Component {
 	protected int spriteId;
 	protected int width;
 	protected int height;
+	protected int offset;
 	
 	/** Called when the resource enters the camera's viewport */
 	public void load() {
@@ -45,6 +49,14 @@ public class Resource extends Component {
 		return false;
 	}
 	
+	/** @return A random sprite ID from a list of sprites
+	 * @param spriteIds The list of sprites */
+	public int getRandomSpriteId(int[] spriteIds) {
+		Random random = new Random();
+		
+		return spriteIds[random.nextInt(spriteIds.length)];
+	}
+	
 	public static Resource create(Resource resource) {
 		GameObject resourceGo = new GameObject();
 		SpriteRenderer renderer = new SpriteRenderer(resource.spriteSheet, resource.spriteId);
@@ -52,7 +64,7 @@ public class Resource extends Component {
 		resourceGo.addComponent(renderer);
 		resourceGo.addComponent(resource);
 		
-		resourceGo.getTransform().setPosition(new Vector3f(resource.x, resource.y + Tile.TILE_HEIGHT, LAYER));
+		resourceGo.getTransform().setPosition(new Vector3f(resource.x, resource.y + resource.offset, LAYER));
 		resourceGo.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		resourceGo.getTransform().setScale(new Vector3f(resource.width, 0, resource.height));
 		

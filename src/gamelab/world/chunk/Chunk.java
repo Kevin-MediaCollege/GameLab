@@ -3,6 +3,7 @@ package gamelab.world.chunk;
 import gamelab.GameLab;
 import gamelab.tile.Tile;
 import gamelab.tile.TileDirt;
+import gamelab.tile.TileFarmland;
 import gamelab.tile.TileGrass;
 
 import com.snakybo.sengine.core.utils.Bounds;
@@ -71,6 +72,9 @@ public class Chunk {
 			break;
 		case Tile.GRASS:
 			tile = new TileGrass(xPos, yPos, x, y);
+			break;
+		case Tile.FARMLAND:
+			tile = new TileFarmland(xPos, yPos, x, y);
 			break;
 		default:
 			throw new IllegalArgumentException("The tile with the ID " + tileId + " has not been referenced to a tile.");

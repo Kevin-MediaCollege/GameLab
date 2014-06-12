@@ -27,11 +27,12 @@ public class InputHandler extends Component {
 		if(camera == null)
 			return;
 		
-		
 		if(Input.getKeyDown(KeyCode.NUM_1)) {
 			Data.selectedTile = Tile.DIRT;
 		} else if(Input.getKeyDown(KeyCode.NUM_2)) {
 			Data.selectedTile = Tile.GRASS;
+		} else if(Input.getKeyDown(KeyCode.NUM_3)){
+			Data.selectedTile = Tile.FARMLAND;
 		}
 		
 		if(Input.getMouse(0)) {
