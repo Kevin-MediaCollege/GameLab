@@ -2,34 +2,34 @@ package gamelab.resource;
 
 import gamelab.citizen.item.Item;
 import gamelab.rendering.SpriteSheet;
-import gamelab.tile.Tile;
 
 import com.snakybo.sengine.rendering.Texture;
 
+//TODO: Farmland
 /** @author Kevin Krol
- * @since Jun 6, 2014 */
-public class Tree extends Resource {
-	private static final SpriteSheet TREE_SPRITESHEET = new SpriteSheet(new Texture("trees.png"), 8, 1);
+ * @since Jun 12, 2014 */
+public class Farmland extends Resource {
+	private static final SpriteSheet FARM_LAND_SPRITESHEET = new SpriteSheet(new Texture("farmland.png"), 4, 1);
 	
 	private static final float TIME_UNTIL_GROWTH = 45f;
 	
-	private static final int MAX_STAGE = 7;
+	private static final int MAX_STAGE = 3;
 	
-	private static final int TREE_WIDTH = 70;
-	private static final int TREE_HEIGHT = 120;
+	private static final int FARM_LAND_WIDTH = 32;
+	private static final int FARM_LAND_HEIGHT = 32;
 	
 	private float timer;
 	
 	private int stage;
 	
-	public Tree(int x, int y) {
-		this.spriteSheet = TREE_SPRITESHEET;
+	public Farmland(int x, int y) {
+		this.spriteSheet = FARM_LAND_SPRITESHEET;
 		this.x = x;
 		this.y = y;
 		this.spriteId = 0;
-		this.width = TREE_WIDTH;
-		this.height = TREE_HEIGHT;
-		this.offset = Tile.TILE_HEIGHT;
+		this.width = FARM_LAND_WIDTH;
+		this.height = FARM_LAND_HEIGHT;
+		this.offset = 0;
 		
 		this.timer = 0f;
 		this.stage = 1;

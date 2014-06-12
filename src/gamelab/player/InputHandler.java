@@ -8,6 +8,7 @@ import gamelab.player.LeapInputHandler;
 import com.snakybo.sengine.components.Camera;
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.Input;
+import com.snakybo.sengine.core.Input.KeyCode;
 import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.rendering.RenderingEngine;
 import com.snakybo.sengine.rendering.Shader;
@@ -29,6 +30,13 @@ public class InputHandler extends Component {
 			return;
 		
 		if(LeapInputHandler.LeapPosZ < 10) {
+		if(Input.getKeyDown(KeyCode.NUM_1)) {
+			Data.selectedTile = Tile.DIRT;
+		} else if(Input.getKeyDown(KeyCode.NUM_2)) {
+			Data.selectedTile = Tile.GRASS;
+		} else if(Input.getKeyDown(KeyCode.NUM_3)){
+			Data.selectedTile = Tile.FARMLAND;
+		}
 			final Vector2f mouseWorld = camera.mouseToWorld();
 			final Vector2f LeapWorld = camera.LeapToWorld();
 			
@@ -40,8 +48,7 @@ public class InputHandler extends Component {
 				Tile tile = chunk.getTileFromMouseCoords((int)LeapWorld.getX(), (int)LeapWorld.getY());
 				
 				
-				if(tile.getTileId() != Tile.GRASS)
-					game.getWorld().setTile(chunk, tile.getPosition().getX(), tile.getPosition().getY(), Tile.GRASS);
+				game.getWorld().setTile(chunk, tile.getPosition().getX(), tile.getPosition().getY(), Data.selectedTile);
 			}
 		}
 	}
