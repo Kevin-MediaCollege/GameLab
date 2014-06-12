@@ -1,10 +1,10 @@
 package gamelab.resource;
 
 import gamelab.GameLab;
+import gamelab.citizen.item.Item;
+import gamelab.rendering.SpriteRenderer;
+import gamelab.rendering.SpriteSheet;
 import gamelab.tile.Tile;
-import gamelab.utils.city.citizen.Citizen;
-import gamelab.utils.rendering.SpriteRenderer;
-import gamelab.utils.rendering.SpriteSheet;
 
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.GameObject;
@@ -37,7 +37,9 @@ public class Resource extends Component {
 		renderer.setEnabled(false);
 	}
 	
-	public void harvest(Citizen citizen) {}
+	public Item harvest() {
+		return new Item(0);
+	}
 	
 	public boolean canHarvest() {
 		return false;
@@ -61,5 +63,9 @@ public class Resource extends Component {
 		resource.renderer = renderer;
 		
 		return resource;
+	}
+	
+	public static void destroy(Resource resource) {
+		GameLab.instance.removeChild(resource.getParent());
 	}
 }

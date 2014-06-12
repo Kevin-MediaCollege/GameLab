@@ -1,4 +1,4 @@
-package gamelab.utils.rendering;
+package gamelab.rendering;
 
 import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.rendering.Texture;

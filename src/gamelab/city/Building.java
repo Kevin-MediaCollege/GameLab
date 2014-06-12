@@ -1,9 +1,9 @@
-package gamelab.utils.city;
+package gamelab.city;
 
 import gamelab.GameLab;
-import gamelab.utils.city.citizen.Citizen;
-import gamelab.utils.rendering.SpriteRenderer;
-import gamelab.utils.rendering.SpriteSheet;
+import gamelab.citizen.Citizen;
+import gamelab.rendering.SpriteRenderer;
+import gamelab.rendering.SpriteSheet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class Building extends Component {
 		this.rawX = rawX;
 		this.rawY = rawY;
 		
-		size = 10;
+		size = 5;
 	}
 	
 	@Override
@@ -76,7 +76,7 @@ public class Building extends Component {
 
 		GameLab.instance.addChild(citizenGo);
 		
-		citizen.recalculateRadius();
+		citizen.recalculateRadius(getTransform().getPosition().getXY().toVector2i());
 		
 		citizens.add(citizen);
 	}

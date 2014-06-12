@@ -7,6 +7,7 @@ import gamelab.world.chunk.Chunk;
 import com.snakybo.sengine.components.Camera;
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.Input;
+import com.snakybo.sengine.core.Input.KeyCode;
 import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.rendering.RenderingEngine;
 import com.snakybo.sengine.rendering.Shader;
@@ -26,6 +27,13 @@ public class InputHandler extends Component {
 		if(camera == null)
 			return;
 		
+		
+		if(Input.getKeyDown(KeyCode.NUM_1)) {
+			Data.selectedTile = Tile.DIRT;
+		} else if(Input.getKeyDown(KeyCode.NUM_2)) {
+			Data.selectedTile = Tile.GRASS;
+		}
+		
 		if(Input.getMouse(0)) {
 			final Vector2f mouseWorld = camera.mouseToWorld();
 			
@@ -34,8 +42,7 @@ public class InputHandler extends Component {
 			if(chunk != null) {
 				Tile tile = chunk.getTileFromMouseCoords((int)mouseWorld.getX(), (int)mouseWorld.getY());
 				
-				if(tile.getTileId() != Tile.GRASS)
-					game.getWorld().setTile(chunk, tile.getPosition().getX(), tile.getPosition().getY(), Tile.GRASS);
+				game.getWorld().setTile(chunk, tile.getPosition().getX(), tile.getPosition().getY(), Data.selectedTile);
 			}
 		}
 	}

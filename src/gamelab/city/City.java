@@ -1,7 +1,7 @@
-package gamelab.utils.city;
+package gamelab.city;
 
 import gamelab.GameLab;
-import gamelab.utils.rendering.SpriteRenderer;
+import gamelab.rendering.SpriteRenderer;
 import gamelab.world.World;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class City {
 		buildingGo.addComponent(new SpriteRenderer(Building.BUILDING_SPRITESHEET, 0));
 		buildingGo.addComponent(building);
 		
-		buildingGo.getTransform().setPosition(new Vector3f(3 * Building.BUILDING_WIDTH - (Building.BUILDING_WIDTH / 2), 3 * Building.BUILDING_HEIGHT - (Building.BUILDING_HEIGHT / 2), Building.BUILDING_LAYER));
+		buildingGo.getTransform().setPosition(new Vector3f(5 * Building.BUILDING_WIDTH - (Building.BUILDING_WIDTH / 2), 5 * Building.BUILDING_HEIGHT - (Building.BUILDING_HEIGHT / 2), Building.BUILDING_LAYER));
 		buildingGo.getTransform().setRotation(new Quaternion(new Vector3f(1, 0, 0), (float)Math.toRadians(270)));
 		buildingGo.getTransform().setScale(new Vector3f(Building.BUILDING_WIDTH, 0, Building.BUILDING_HEIGHT));
 		

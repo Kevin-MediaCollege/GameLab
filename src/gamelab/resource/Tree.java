@@ -1,7 +1,7 @@
 package gamelab.resource;
 
-import gamelab.utils.city.citizen.Citizen;
-import gamelab.utils.rendering.SpriteSheet;
+import gamelab.citizen.item.Item;
+import gamelab.rendering.SpriteSheet;
 
 import com.snakybo.sengine.rendering.Texture;
 
@@ -48,12 +48,12 @@ public class Tree extends Resource {
 	}
 	
 	@Override
-	public void harvest(Citizen citizen) {
+	public Item harvest() {
 		this.stage = 1;
 		
 		renderer.setActiveSprite(stage);
 		
-		// TODO: Add resource to citizen's inventory
+		return new Item(Item.TREE);
 	}
 	
 	@Override

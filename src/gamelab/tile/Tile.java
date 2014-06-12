@@ -1,11 +1,11 @@
 package gamelab.tile;
 
 import gamelab.GameLab;
+import gamelab.citizen.Citizen;
+import gamelab.rendering.SpriteRenderer;
+import gamelab.rendering.SpriteSheet;
 import gamelab.resource.Resource;
 import gamelab.resource.Tree;
-import gamelab.utils.city.citizen.Citizen;
-import gamelab.utils.rendering.SpriteRenderer;
-import gamelab.utils.rendering.SpriteSheet;
 
 import java.util.Random;
 
@@ -84,6 +84,11 @@ public class Tile {
 	 * @param citizen The citizen that is currently using the tile */
 	public void use(Citizen citizen) {
 		this.user = citizen;
+	}
+	
+	public void removeResource() {
+		if(resource != null)
+			Resource.destroy(resource);
 	}
 	
 	/** Add a resource to this tile

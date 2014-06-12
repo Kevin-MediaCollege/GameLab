@@ -1,9 +1,11 @@
-package gamelab.utils.city.citizen;
+package gamelab.citizen;
 
+import gamelab.citizen.item.Item;
+import gamelab.city.Building;
+import gamelab.player.Data;
+import gamelab.rendering.SpriteSheet;
 import gamelab.resource.Resource;
 import gamelab.tile.Tile;
-import gamelab.utils.city.Building;
-import gamelab.utils.rendering.SpriteSheet;
 import gamelab.world.World;
 
 import java.util.ArrayList;
@@ -33,10 +35,11 @@ public class Citizen extends Component {
 	public static final int CITIZEN_WIDTH = 18;
 	public static final int CITIZEN_HEIGHT = 23;
 	
-	private Building home;
-	
 	private List<Tile> availableTiles;
+	
 	private Tile targetTile;
+	private Building home;
+	private Item item;
 	
 	private float attempts;
 	
@@ -78,32 +81,28 @@ public class Citizen extends Component {
 	}
 	
 	/** Recalculate the radius of this citizen */
-	public void recalculateRadius() {
+	public void recalculateRadius(Vector2i center) {
 		availableTiles.clear();
 		
-		final int startX = -(home.getSize() / 2);
-		final int startY = -(home.getSize() / 2);
-		final int endX = (home.getSize() / 2) + 1;
-		final int endY = (home.getSize() / 2) + 1;
+		final int startX = -home.getSize() + 1;
+		final int startY = -home.getSize() + 1;
+		final int endX = home.getSize() + 2;
+		final int endY = home.getSize() + 2;
 		
-		final Vector2i position = getTransform().getPosition().getXY().toVector2i();
 		final World world = home.getCity().getWorld();
 		
 		for(int x = startX; x < endX; x++) {
 			for(int y = startY; y < endY; y++) {
-				// FIXME: This makes it error
-				Tile tile = world.getTileAt(position.getX() + (x * Tile.TILE_WIDTH), position.getY() + (y * Tile.TILE_HEIGHT));
+				int xPos = center.getX() + (x * Tile.TILE_WIDTH);
+				int yPos = center.getY() + (y * Tile.TILE_HEIGHT);
 				
-				if(tile != null)
-					availableTiles.add(tile);
+				availableTiles.add(world.getTileAt(xPos, yPos));
 			}
 		}
 	}
 	
 	/** Run as long as the citizen is at home */
 	private void isAtHome(float delta) {
-		//System.out.println("Citizen is at home");
-		
 		attempts += delta;
 
 		if(attempts >= 2.5f) {
@@ -114,32 +113,31 @@ public class Citizen extends Component {
 	
 	/** Run as long as the citizen should return to home */
 	private void returnToHome() {
-		//System.out.println("Citizen should return to home");
-		
 		if(targetTile != null)
 			targetTile.stopUsing();
 		
-		final Vector3f position = getTransform().getPosition();
-		final Vector3f homePosition = getTransform().getPosition();
+		final Vector2f position = getTransform().getPosition().getXY();
+		final Vector2f homePosition = home.getTransform().getPosition().getXY();
 		
-		if(position.getX() != homePosition.getX() || position.getY() != homePosition.getY())
-			getTransform().getPosition().set(homePosition.getX(), homePosition.getY(), position.getZ());
-		
-		flag = FLAG_IS_AT_HOME;
-
+		if(position.distance(homePosition) > 1) {
+			final Vector3f target = homePosition.sub(position).normalize().toVector3f();
+			target.setZ(0);
+			
+			getTransform().translate(target);
+		} else {
+			flag = (item == null) ? FLAG_IS_AT_HOME : FLAG_STORE_RESOURCE;
+		}
 	}
 	
 	/** Run as long as the citizen should find a resource */
 	private void findResource() {
-		System.out.println("Citizen should find a resource");
-		
 		List<Tile> selectable = new ArrayList<Tile>();
 		Tile tileToHarvest = null;		
 		
 		targetTile = null;
 		harvest = false;
 		
-		recalculateRadius();
+		recalculateRadius(home.getTransform().getPosition().getXY().toVector2i());
 		
 		for(Tile tile : availableTiles)
 			if(!tile.isBeingUsed())
@@ -186,18 +184,14 @@ public class Citizen extends Component {
 	
 	/** Run as long the citizen should gather a resource */
 	private void gatherResource() {
-		// TODO: Citizen should gather a resource
-		System.out.println("Citizen should gather a resource");
-		
 		if(targetTile != null)
-			targetTile.getResource().harvest(this);
+			item = targetTile.getResource().harvest();
 		
-		flag = FLAG_FIND_RESOURCE;
+		flag = FLAG_RETURN_TO_HOME;
 	}
 	
 	/** Run as long as the citizen should plant a resource */
 	private void plantResource() {
-		// TODO: Properly plant resources
 		System.out.println("Citizen should plant a resource");
 		
 		targetTile.addResource(Resource.TREE);
@@ -209,9 +203,14 @@ public class Citizen extends Component {
 	
 	/** Run as long as the citizen should store a resource */
 	private void storeResource() {
-		// TODO: Citizen should store a resource at the warehouse
-		//System.out.println("Citizen should store a resource at the warehouse");
+		switch(item.getId()) {
+		case Item.TREE:
+			Data.woodAmount++;
+			break;
+		}
 		
-		targetTile.stopUsing();
+		item = null;
+		
+		flag = FLAG_FIND_RESOURCE;
 	}
 }

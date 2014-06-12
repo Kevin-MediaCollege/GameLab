@@ -1,7 +1,7 @@
 package gamelab.world;
 
+import gamelab.city.City;
 import gamelab.tile.Tile;
-import gamelab.utils.city.City;
 import gamelab.world.chunk.Chunk;
 import gamelab.world.chunk.ChunkProvider;
 
