@@ -3,6 +3,7 @@ package gamelab.player;
 import gamelab.GameLab;
 import gamelab.tile.Tile;
 import gamelab.world.chunk.Chunk;
+import gamelab.player.LeapInputHandler;
 
 import com.snakybo.sengine.components.Camera;
 import com.snakybo.sengine.core.Component;
@@ -19,6 +20,7 @@ public class InputHandler extends Component {
 	
 	public InputHandler(GameLab game) {
 		this.game = game;
+		System.out.println(LeapInputHandler.LeapPosZ);
 	}
 	
 	@Override
@@ -26,13 +28,17 @@ public class InputHandler extends Component {
 		if(camera == null)
 			return;
 		
-		if(Input.getMouse(0)) {
+		if(LeapInputHandler.LeapPosZ < 10) {
 			final Vector2f mouseWorld = camera.mouseToWorld();
+			final Vector2f LeapWorld = camera.LeapToWorld();
 			
-			Chunk chunk = game.getWorld().getChunkFromMouseCoords((int)mouseWorld.getX(), (int)mouseWorld.getY());
+			Chunk chunk = game.getWorld().getChunkFromMouseCoords((int)LeapWorld.getX(), (int)LeapWorld.getY());
 			
+			System.out.println(LeapInputHandler.LeapPosY);
+			System.out.println(mouseWorld.getY());
 			if(chunk != null) {
-				Tile tile = chunk.getTileFromMouseCoords((int)mouseWorld.getX(), (int)mouseWorld.getY());
+				Tile tile = chunk.getTileFromMouseCoords((int)LeapWorld.getX(), (int)LeapWorld.getY());
+				
 				
 				if(tile.getTileId() != Tile.GRASS)
 					game.getWorld().setTile(chunk, tile.getPosition().getX(), tile.getPosition().getY(), Tile.GRASS);

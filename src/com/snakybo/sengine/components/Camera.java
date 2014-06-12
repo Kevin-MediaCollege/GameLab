@@ -1,5 +1,7 @@
 package com.snakybo.sengine.components;
 
+import gamelab.player.LeapInputHandler;
+
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.CoreEngine;
 import com.snakybo.sengine.core.Input;
@@ -75,6 +77,17 @@ public class Camera extends Component {
 		
 		return mousePosition;
 	}
+	public Vector2f LeapToWorld() {
+		final Vector2f LeapPosition = LeapInputHandler.getLeapPosition();
+		final Vector2f cameraPosition = getTransform().getLocalPosition().getXY();
+		
+		LeapPosition.set(LeapPosition.add(cameraPosition));
+		LeapPosition.set((int)LeapPosition.getX() >> 4, (int)LeapPosition.getY() >> 4);
+		
+		return LeapPosition;
+	}
+	
+	
 	
 	/** Get the view projcetion of the camera represented as a matrix 4 */
 	public Matrix4f getViewProjection() {
