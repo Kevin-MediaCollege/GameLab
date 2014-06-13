@@ -88,13 +88,22 @@ public class LeapMotionManager implements Runnable {
 					final int y = (int)(1000 - (3f * (int)avgPos.getY()));
 					final int z = (int)avgPos.getZ();
 					
-					position.set(x,- y, z);
+					position.set(x, y, z);
 					
 					
 					Input.setMousePosition(new Vector2i(x, y));
-					
-
-
+					if(Input.getMousePosition().getX()< 0){
+						Input.setMousePosition(new Vector2i(0 , y));
+					}
+					if(Input.getMousePosition().getX()> 0 && Input.getMousePosition().getX()> 1280 ){
+						Input.setMousePosition(new Vector2i(1280 , y));
+					}
+					if(Input.getMousePosition().getY()> 720){
+						Input.setMousePosition(new Vector2i(x , 720));
+					}
+					if(Input.getMousePosition().getY()< 0 ){
+						Input.setMousePosition(new Vector2i(x , 10));
+					}
 				}
 			}
 		}
