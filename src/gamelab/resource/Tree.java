@@ -11,7 +11,7 @@ import com.snakybo.sengine.rendering.Texture;
 public class Tree extends Resource {
 	private static final SpriteSheet TREE_SPRITESHEET = new SpriteSheet(new Texture("trees.png"), 8, 1);
 	
-	private static final float TIME_UNTIL_GROWTH = 45f;
+	private static final float TIME_UNTIL_GROWTH = 3f;
 	
 	private static final int MAX_STAGE = 7;
 	

@@ -119,8 +119,8 @@ public class Citizen extends Component {
 		final Vector2f position = getTransform().getPosition().getXY();
 		final Vector2f homePosition = home.getTransform().getPosition().getXY();
 		
-		if(position.distance(homePosition) > 1) {
-			final Vector3f target = homePosition.sub(position).normalize().toVector3f();
+		if(position.distance(homePosition) > 2) {
+			final Vector3f target = homePosition.sub(position).normalize().mul(5).toVector3f();
 			target.setZ(0);
 			
 			getTransform().translate(target);
@@ -172,8 +172,8 @@ public class Citizen extends Component {
 		final Vector2f position = getTransform().getPosition().getXY();
 		final Vector2f tilePosition = targetTile.getGameObject().getTransform().getPosition().getXY();
 		
-		if(position.distance(tilePosition) > 1) {
-			final Vector3f target = tilePosition.sub(position).normalize().toVector3f();
+		if(position.distance(tilePosition) > 2) {
+			final Vector3f target = tilePosition.sub(position).normalize().mul(4).toVector3f();
 			target.setZ(0);
 			
 			getTransform().translate(target);
@@ -193,18 +193,27 @@ public class Citizen extends Component {
 	/** Run as long as the citizen should plant a resource */
 	private void plantResource() {
 		int type = 0;
+		if(targetTile.getResource() == null)
+		{
+			
+			
 		
-		switch(targetTile.getTileId()) {
-		case Tile.GRASS:
-			type = Resource.TREE;
-			break;
-		case Tile.FARMLAND:
-			type = Resource.FARMLAND;
-			break;
+			switch(targetTile.getTileId()) {
+			case Tile.GRASS:
+				type = Resource.TREE;
+				break;
+			case Tile.FARMLAND:
+				type = Resource.FARMLAND;
+				break;
+				
+				
+			}
+			targetTile.addResource(type);
+			targetTile.stopUsing();
+			
 		}
 		
-		targetTile.addResource(type);
-		targetTile.stopUsing();
+
 		
 		flag = FLAG_FIND_RESOURCE;
 	}
