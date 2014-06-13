@@ -69,7 +69,7 @@ public class Camera extends Component {
 	}
 	
 	public Vector2f mouseToWorld() {
-		final Vector2f mousePosition = Input.getMousePosition();
+		final Vector2f mousePosition = LeapInputHandler.getLeapPosition();
 		final Vector2f cameraPosition = getTransform().getLocalPosition().getXY();
 		
 		mousePosition.set(mousePosition.add(cameraPosition));

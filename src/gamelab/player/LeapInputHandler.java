@@ -2,10 +2,6 @@ package gamelab.player;
 
 import java.io.IOException;
 
-import javax.swing.text.Position;
-
-import org.lwjgl.input.Mouse;
-
 import com.leapmotion.leap.Controller;
 import com.leapmotion.leap.Finger;
 import com.leapmotion.leap.FingerList;
@@ -13,6 +9,7 @@ import com.leapmotion.leap.Frame;
 import com.leapmotion.leap.Hand;
 import com.leapmotion.leap.Listener;
 import com.leapmotion.leap.Vector;
+import com.snakybo.sengine.core.Input;
 import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector3f;
 
@@ -101,8 +98,12 @@ public class LeapInputHandler implements Runnable {
 					position.set(x, y, z);
 					
 					LeapPosX = (int) x ;
-					LeapPosY = (int) y ;
+					LeapPosY = (int)-y ;
 					LeapPosZ = (int) z;
+					
+					Input.setMousePosition(new Vector2f(LeapPosX, LeapPosY));
+					
+					
 					//System.out.print(x);
 					//System.out.print(y);
 					//System.out.print(z);
