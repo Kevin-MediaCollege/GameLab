@@ -3,7 +3,7 @@ package com.snakybo.sengine.core;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import com.snakybo.sengine.core.utils.Vector2f;
+import com.snakybo.sengine.core.utils.Vector2i;
 
 /** Input clas
  * 
@@ -50,8 +50,8 @@ public class Input {
 	
 	/** Set the position of the mouse
 	 * @param position The new position */
-	public static void setMousePosition(Vector2f position) {
-		Mouse.setCursorPosition((int)position.getX(), (int)position.getY());
+	public static void setMousePosition(Vector2i position) {
+		Mouse.setCursorPosition(position.getX(), position.getY());
 	}
 	
 	/** Enable or disable the mouse cursor
@@ -61,8 +61,8 @@ public class Input {
 	}
 	
 	/** @return The position of the mouse */
-	public static Vector2f getMousePosition() {
-		return new Vector2f(Mouse.getX(), Mouse.getY());
+	public static Vector2i getMousePosition() {
+		return new Vector2i(Mouse.getX(), Mouse.getY());
 	}
 	
 	/** @return The state of the specified mouse button

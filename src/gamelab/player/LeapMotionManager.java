@@ -10,22 +10,18 @@ import com.leapmotion.leap.Hand;
 import com.leapmotion.leap.Listener;
 import com.leapmotion.leap.Vector;
 import com.snakybo.sengine.core.Input;
-import com.snakybo.sengine.core.utils.Vector2f;
+import com.snakybo.sengine.core.utils.Vector2i;
 import com.snakybo.sengine.core.utils.Vector3f;
 
-public class LeapInputHandler implements Runnable {
+public class LeapMotionManager implements Runnable {
 	private static final String LEAP_THREAD_NAME = "LeapInputManager";
 	
 	private static Thread leapInputManager;
 	
 	private LeapListener leapListener;
 	private Controller leapController;
-	public static int LeapPosY;
-	public static int LeapPosX;
-	public static int LeapPosZ;
-
 	
-	public LeapInputHandler() {
+	public LeapMotionManager() {
 		if(leapInputManager == null) {
 			leapInputManager = new Thread(this, LEAP_THREAD_NAME);
 			leapInputManager.start();
@@ -47,9 +43,6 @@ public class LeapInputHandler implements Runnable {
 		
 		leapController.removeListener(leapListener);
 	}
-	
-
-
 	
 	public static class LeapListener extends Listener {
 		private static Vector3f position = new Vector3f(0, 0, 0);
@@ -91,37 +84,23 @@ public class LeapInputHandler implements Runnable {
 					
 					avgPos = avgPos.divide(fingers.count());
 					
-					final float x = ((float)avgPos.getX() + 100) * 6;
-					final float y = 1000 - (3f * (float)avgPos.getY());
-					final float z = (float)avgPos.getZ();
+					final int x = ((int)avgPos.getX() + 100) * 6;
+					final int y = (int)(1000 - (3f * (int)avgPos.getY()));
+					final int z = (int)avgPos.getZ();
 					
-					position.set(x, y, z);
-					
-					LeapPosX = (int) x ;
-					LeapPosY = (int)-y ;
-					LeapPosZ = (int) z;
-					
-					Input.setMousePosition(new Vector2f(LeapPosX, LeapPosY));
+					position.set(x,- y, z);
 					
 					
-					//System.out.print(x);
-					//System.out.print(y);
-					//System.out.print(z);
+					Input.setMousePosition(new Vector2i(x, y));
 					
-					//Y = higher on bottom lower on top
-					//X = higher to the right lower to the left
-					//Z = higher to the front lower the the screen
+
+
 				}
 			}
 		}
 		
-		
 		public static Vector3f getPosition() {
 			return position;
-	
-	}
-  }
-	public static Vector2f getLeapPosition() {
-		return new Vector2f(LeapPosX,LeapPosY);
+		}
 	}
 }

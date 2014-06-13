@@ -2,7 +2,7 @@ package gamelab;
 
 import gamelab.leap.LeapMove;
 import gamelab.player.InputHandler;
-import gamelab.player.LeapInputHandler;
+import gamelab.player.LeapMotionManager;
 import gamelab.world.World;
 
 import com.snakybo.sengine.components.Camera;
@@ -31,7 +31,7 @@ public class GameLab extends Game {
 	private void addCore() {
 		Camera camera = Camera.initOrthographicCamera(0, Window.getWidth(), 0, Window.getHeight(), -1000, 1000);
 		
-		new LeapInputHandler();
+		new LeapMotionManager();
 		
 		addChild(new GameObject(
 			camera,

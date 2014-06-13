@@ -196,7 +196,7 @@ public class Citizen extends Component {
 		
 		switch(targetTile.getTileId()) {
 		case Tile.GRASS:
-			type = (int)Math.round(Math.random()) == 0 ? Resource.TREE : Resource.STONE;
+			type = Resource.TREE;
 			break;
 		case Tile.FARMLAND:
 			type = Resource.FARMLAND;

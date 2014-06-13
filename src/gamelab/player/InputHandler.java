@@ -1,15 +1,16 @@
 package gamelab.player;
 
 import gamelab.GameLab;
+import gamelab.player.LeapMotionManager.LeapListener;
 import gamelab.tile.Tile;
 import gamelab.world.chunk.Chunk;
-import gamelab.player.LeapInputHandler;
 
 import com.snakybo.sengine.components.Camera;
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.Input;
 import com.snakybo.sengine.core.Input.KeyCode;
-import com.snakybo.sengine.core.utils.Vector2f;
+import com.snakybo.sengine.core.Input.MouseButton;
+import com.snakybo.sengine.core.utils.Vector2i;
 import com.snakybo.sengine.rendering.RenderingEngine;
 import com.snakybo.sengine.rendering.Shader;
 
@@ -21,7 +22,6 @@ public class InputHandler extends Component {
 	
 	public InputHandler(GameLab game) {
 		this.game = game;
-		System.out.println(LeapInputHandler.LeapPosZ);
 	}
 	
 	@Override
@@ -29,26 +29,30 @@ public class InputHandler extends Component {
 		if(camera == null)
 			return;
 		
-		if(LeapInputHandler.LeapPosZ < 10) {
 		if(Input.getKeyDown(KeyCode.NUM_1)) {
 			Data.selectedTile = Tile.DIRT;
 		} else if(Input.getKeyDown(KeyCode.NUM_2)) {
 			Data.selectedTile = Tile.GRASS;
-		} else if(Input.getKeyDown(KeyCode.NUM_3)){
+		} else if(Input.getKeyDown(KeyCode.NUM_3)) {
 			Data.selectedTile = Tile.FARMLAND;
 		}
-			final Vector2f mouseWorld = camera.mouseToWorld();
-			final Vector2f LeapWorld = camera.LeapToWorld();
+		
+		Vector2i cursorPosition = null;
+		
+		if(Input.getMouse(MouseButton.LEFT)) {
+			cursorPosition = camera.cursorToWorld(Input.getMousePosition());
+		} else if(LeapListener.getPosition().getZ() < 10) {
+			cursorPosition = camera.cursorToWorld(LeapListener.getPosition().getXY().toVector2i());
+		}
+		
+		if(cursorPosition != null) {
+			Chunk chunk = game.getWorld().getChunkFromMouseCoords(cursorPosition.getX(), cursorPosition.getY());
 			
-			Chunk chunk = game.getWorld().getChunkFromMouseCoords((int)LeapWorld.getX(), (int)LeapWorld.getY());
-			
-			System.out.println(LeapInputHandler.LeapPosY);
-			System.out.println(mouseWorld.getY());
-			if(chunk != null) {
-				Tile tile = chunk.getTileFromMouseCoords((int)LeapWorld.getX(), (int)LeapWorld.getY());
+			if(chunk != null) {			
+				final Tile tile = chunk.getTileFromMouseCoords(cursorPosition.getX(), cursorPosition.getY());
+				final Vector2i tilePosition = tile.getPosition();
 				
-				
-				game.getWorld().setTile(chunk, tile.getPosition().getX(), tile.getPosition().getY(), Data.selectedTile);
+				game.getWorld().setTile(chunk, tilePosition.getX(), tilePosition.getY(), Data.selectedTile);
 			}
 		}
 	}
