@@ -9,11 +9,13 @@ import com.snakybo.sengine.rendering.Texture;
 /** @author Kevin Krol
  * @since Jun 12, 2014 */
 public class Farmland extends Resource {
-	private static final SpriteSheet FARM_LAND_SPRITESHEET = new SpriteSheet(new Texture("farmland.png"), 4, 1);
+	private static final SpriteSheet FARM_LAND_SPRITESHEET = new SpriteSheet(new Texture("farmland.png"), 12, 1);
+	
+	private static final int[] sprites = new int[] {2, 4, 7, 10};
 	
 	private static final float TIME_UNTIL_GROWTH = 45f;
 	
-	private static final int MAX_STAGE = 3;
+	private static final int MAX_STAGE = 4;
 	
 	private static final int FARM_LAND_WIDTH = 32;
 	private static final int FARM_LAND_HEIGHT = 32;
@@ -26,7 +28,7 @@ public class Farmland extends Resource {
 		this.spriteSheet = FARM_LAND_SPRITESHEET;
 		this.x = x;
 		this.y = y;
-		this.spriteId = 0;
+		this.spriteId = 1;
 		this.width = FARM_LAND_WIDTH;
 		this.height = FARM_LAND_HEIGHT;
 		this.offset = 0;
@@ -43,7 +45,8 @@ public class Farmland extends Resource {
 			if(timer >= TIME_UNTIL_GROWTH) {
 				timer = 0;
 				
-				renderer.setActiveSprite(stage++);
+				stage++;
+				renderer.setActiveSprite(sprites[stage - 1]);
 			}
 		}
 	}

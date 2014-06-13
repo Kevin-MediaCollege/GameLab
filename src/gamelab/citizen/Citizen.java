@@ -7,7 +7,6 @@ import gamelab.rendering.SpriteSheet;
 import gamelab.resource.Resource;
 import gamelab.tile.Tile;
 import gamelab.world.World;
-import gamelab.world.chunk.Chunk;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -194,30 +193,24 @@ public class Citizen extends Component {
 	
 	/** Run as long as the citizen should plant a resource */
 	private void plantResource() {
-		int type = 0;
-		if(targetTile.getResource() == null)
-		{
-			
-			
-		
-			switch(targetTile.getTileId()) {
-			case Tile.GRASS:
-				type = Resource.TREE;
-				break;
-			case Tile.FARMLAND:
-				type = Resource.FARMLAND;
-				break;
-				
-				
-			}
-			targetTile.addResource(type);
-			targetTile.stopUsing();
-			
+		if(targetTile.getResource() != null) {
+			flag = FLAG_FIND_RESOURCE;
+			return;
 		}
 		
-
+		int type = 0;
 		
-		flag = FLAG_FIND_RESOURCE;
+		switch(targetTile.getTileId()) {
+		case Tile.GRASS:
+			type = Resource.TREE;
+			break;
+		case Tile.FARMLAND:
+			type = Resource.FARMLAND;
+			break;
+		}
+		
+		targetTile.addResource(type);
+		targetTile.stopUsing();
 	}
 	
 	/** Run as long as the citizen should store a resource */
@@ -232,7 +225,6 @@ public class Citizen extends Component {
 		}
 		
 		item = null;
-		
 		flag = FLAG_FIND_RESOURCE;
 	}
 }
