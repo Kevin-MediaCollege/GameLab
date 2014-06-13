@@ -1,6 +1,6 @@
 package gamelab.leap;
 
-import gamelab.player.LeapInputHandler.LeapListener;
+import gamelab.player.LeapMotionManager.LeapListener;
 
 import com.snakybo.sengine.core.Component;
 

@@ -4,7 +4,7 @@ import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.Input;
 import com.snakybo.sengine.core.Input.KeyCode;
 import com.snakybo.sengine.core.Input.MouseButton;
-import com.snakybo.sengine.core.utils.Vector2f;
+import com.snakybo.sengine.core.utils.Vector2i;
 import com.snakybo.sengine.core.utils.Vector3f;
 import com.snakybo.sengine.rendering.Window;
 
@@ -41,7 +41,7 @@ public class FreeLook extends Component {
 	
 	@Override
 	protected void input(float delta) {
-		Vector2f centerPosition = new Vector2f(Window.getWidth() / 2, Window.getHeight() / 2);
+		Vector2i centerPosition = new Vector2i(Window.getWidth() / 2, Window.getHeight() / 2);
 		
 		if(Input.getKey(unlockMouseKey)) {
 			Input.setCursor(true);
@@ -55,7 +55,7 @@ public class FreeLook extends Component {
 		}
 		
 		if(mouseLocked) {
-			Vector2f deltaPos = Input.getMousePosition().sub(centerPosition);
+			Vector2i deltaPos = Input.getMousePosition().sub(centerPosition);
 			
 			boolean rotY = deltaPos.getX() != 0;
 			boolean rotX = deltaPos.getY() != 0;

@@ -2,10 +2,6 @@ package gamelab.player;
 
 import java.io.IOException;
 
-import javax.swing.text.Position;
-
-import org.lwjgl.input.Mouse;
-
 import com.leapmotion.leap.Controller;
 import com.leapmotion.leap.Finger;
 import com.leapmotion.leap.FingerList;
@@ -13,22 +9,17 @@ import com.leapmotion.leap.Frame;
 import com.leapmotion.leap.Hand;
 import com.leapmotion.leap.Listener;
 import com.leapmotion.leap.Vector;
-import com.snakybo.sengine.core.utils.Vector2f;
 import com.snakybo.sengine.core.utils.Vector3f;
 
-public class LeapInputHandler implements Runnable {
+public class LeapMotionManager implements Runnable {
 	private static final String LEAP_THREAD_NAME = "LeapInputManager";
 	
 	private static Thread leapInputManager;
 	
 	private LeapListener leapListener;
 	private Controller leapController;
-	public static int LeapPosY;
-	public static int LeapPosX;
-	public static int LeapPosZ;
-
 	
-	public LeapInputHandler() {
+	public LeapMotionManager() {
 		if(leapInputManager == null) {
 			leapInputManager = new Thread(this, LEAP_THREAD_NAME);
 			leapInputManager.start();
@@ -50,9 +41,6 @@ public class LeapInputHandler implements Runnable {
 		
 		leapController.removeListener(leapListener);
 	}
-	
-
-
 	
 	public static class LeapListener extends Listener {
 		private static Vector3f position = new Vector3f(0, 0, 0);
@@ -100,27 +88,15 @@ public class LeapInputHandler implements Runnable {
 					
 					position.set(x, y, z);
 					
-					LeapPosX = (int) x ;
-					LeapPosY = (int) y ;
-					LeapPosZ = (int) z;
-					//System.out.print(x);
-					//System.out.print(y);
-					//System.out.print(z);
-					
-					//Y = higher on bottom lower on top
-					//X = higher to the right lower to the left
-					//Z = higher to the front lower the the screen
+					// X = higher to the right lower to the left
+					// Y = higher on bottom lower on top
+					// Z = higher to the front lower the the screen
 				}
 			}
 		}
 		
-		
 		public static Vector3f getPosition() {
 			return position;
-	
-	}
-  }
-	public static Vector2f getLeapPosition() {
-		return new Vector2f(LeapPosX,LeapPosY);
+		}
 	}
 }

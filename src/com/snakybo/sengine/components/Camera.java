@@ -1,13 +1,11 @@
 package com.snakybo.sengine.components;
 
-import gamelab.player.LeapInputHandler;
-
 import com.snakybo.sengine.core.Component;
 import com.snakybo.sengine.core.CoreEngine;
-import com.snakybo.sengine.core.Input;
 import com.snakybo.sengine.core.utils.Bounds;
 import com.snakybo.sengine.core.utils.Matrix4f;
 import com.snakybo.sengine.core.utils.Vector2f;
+import com.snakybo.sengine.core.utils.Vector2i;
 import com.snakybo.sengine.core.utils.Vector3f;
 
 /** Camera component extends {@link Component}
@@ -68,34 +66,21 @@ public class Camera extends Component {
 		return result;
 	}
 	
-	public Vector2f mouseToWorld() {
-		final Vector2f mousePosition = Input.getMousePosition();
-		final Vector2f cameraPosition = getTransform().getLocalPosition().getXY();
+	public Vector2i cursorToWorld(Vector2i cursorPosition) {
+		final Vector2i cameraPosition = getTransform().getLocalPosition().getXY().toVector2i();
 		
-		mousePosition.set(mousePosition.add(cameraPosition));
-		mousePosition.set((int)mousePosition.getX() >> 4, (int)mousePosition.getY() >> 4);
+		cursorPosition.set(cursorPosition.add(cameraPosition));
+		cursorPosition.set(cursorPosition.getX() >> 4, cursorPosition.getY() >> 4);
 		
-		return mousePosition;
+		return cursorPosition;
 	}
-	public Vector2f LeapToWorld() {
-		final Vector2f LeapPosition = LeapInputHandler.getLeapPosition();
-		final Vector2f cameraPosition = getTransform().getLocalPosition().getXY();
-		
-		LeapPosition.set(LeapPosition.add(cameraPosition));
-		LeapPosition.set((int)LeapPosition.getX() >> 4, (int)LeapPosition.getY() >> 4);
-		
-		return LeapPosition;
-	}
-	
-	
 	
 	/** Get the view projcetion of the camera represented as a matrix 4 */
 	public Matrix4f getViewProjection() {
 		Matrix4f cameraRotation = getTransform().getRotation().conjugate().toRotationMatrix();
 		Vector3f cameraPos = getTransform().getPosition().mul(-1);
 		
-		Matrix4f cameraTranslation =
-				new Matrix4f().initTranslation(cameraPos.getX(), cameraPos.getY(), cameraPos.getZ());
+		Matrix4f cameraTranslation = new Matrix4f().initTranslation(cameraPos.getX(), cameraPos.getY(), cameraPos.getZ());
 		
 		return projection.mul(cameraRotation.mul(cameraTranslation));
 	}
