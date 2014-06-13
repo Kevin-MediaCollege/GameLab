@@ -41,8 +41,11 @@ public class InputHandler extends Component {
 		
 		if(Input.getMouse(MouseButton.LEFT)) {
 			cursorPosition = camera.cursorToWorld(Input.getMousePosition());
+			
 		} else if(LeapListener.getPosition().getZ() < 10) {
+			
 			cursorPosition = camera.cursorToWorld(LeapListener.getPosition().getXY().toVector2i());
+			
 		}
 		
 		if(cursorPosition != null) {
