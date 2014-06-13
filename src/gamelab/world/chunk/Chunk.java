@@ -60,9 +60,10 @@ public class Chunk {
 		Tile tile = getTileAt(x, y);
 		
 		if(tile != null) {
-			if(tile.getTileId() != tileId)
-				tile.removeResource();
+			if(tile.getTileId() == tileId)
+				return false;
 			
+			tile.removeResource();
 			GameLab.instance.removeChild(tile.getGameObject());
 		}
 		

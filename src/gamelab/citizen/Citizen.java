@@ -7,6 +7,7 @@ import gamelab.rendering.SpriteSheet;
 import gamelab.resource.Resource;
 import gamelab.tile.Tile;
 import gamelab.world.World;
+import gamelab.world.chunk.Chunk;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,8 +94,8 @@ public class Citizen extends Component {
 		
 		for(int x = startX; x < endX; x++) {
 			for(int y = startY; y < endY; y++) {
-				int xPos = center.getX() + (x * Tile.TILE_WIDTH);
-				int yPos = center.getY() + (y * Tile.TILE_HEIGHT);
+				int xPos = center.getX() + (x * Tile.TILE_WIDTH) + home.getPosition().getX();
+				int yPos = center.getY() + (y * Tile.TILE_HEIGHT) + home.getPosition().getY();
 				
 				availableTiles.add(world.getTileAt(xPos, yPos));
 			}
@@ -120,7 +121,7 @@ public class Citizen extends Component {
 		final Vector2f homePosition = home.getTransform().getPosition().getXY();
 		
 		if(position.distance(homePosition) > 2) {
-			final Vector3f target = homePosition.sub(position).normalize().mul(5).toVector3f();
+			final Vector3f target = homePosition.sub(position).normalize().mul(1).toVector3f();
 			target.setZ(0);
 			
 			getTransform().translate(target);
@@ -173,11 +174,12 @@ public class Citizen extends Component {
 		final Vector2f tilePosition = targetTile.getGameObject().getTransform().getPosition().getXY();
 		
 		if(position.distance(tilePosition) > 2) {
-			final Vector3f target = tilePosition.sub(position).normalize().mul(4).toVector3f();
+			final Vector3f target = tilePosition.sub(position).normalize().mul(1).toVector3f();
 			target.setZ(0);
 			
 			getTransform().translate(target);
 		} else {
+			System.out.println(harvest);
 			flag = (harvest) ? FLAG_GATHER_RESOURCE : FLAG_PLANT_RESOURCE;
 		}
 	}

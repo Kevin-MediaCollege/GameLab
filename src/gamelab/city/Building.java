@@ -44,7 +44,7 @@ public class Building extends Component {
 		this.rawX = rawX;
 		this.rawY = rawY;
 		
-		size = 5;
+		size = 10;
 	}
 	
 	@Override
